@@ -2,7 +2,10 @@ import StartReading from "@/components/StartReading";
 import Image from "next/image";
 import { RxAvatar } from "react-icons/rx";
 import { BsGraphUpArrow } from "react-icons/bs";
-export default function Home() {
+import InfiniteScroll from "@/components/InfiniteScroll";
+import getInitialProducs from "@/lib/getInitialProducs";
+
+export default async function Home() {
   const isRegistered = false;
   const trendings: Trending[] = [
     {
@@ -55,6 +58,10 @@ export default function Home() {
       readTime: "8 min read",
     },
   ];
+
+  const produstsData: Promise<Product[]> = getInitialProducs();
+  const products: Product[] = await produstsData;
+
   return (
     <>
       <main className="flex min-h-screen flex-col items-start">
@@ -114,6 +121,7 @@ export default function Home() {
             })}
           </div>
         </div>
+        <InfiniteScroll data={products.slice(0, 10)} />
       </main>
     </>
   );
