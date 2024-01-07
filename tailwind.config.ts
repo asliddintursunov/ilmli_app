@@ -14,6 +14,14 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
     },
+    screens: {
+      xs: "425px",
+      sm: "525px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1440px",
+      "4k": "1920px",
+    },
   },
   plugins: [require("daisyui")],
   daisyui: {
