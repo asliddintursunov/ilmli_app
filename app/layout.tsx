@@ -22,9 +22,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider>
           <ClientThemeWrapper>
-            <div className="mx-auto max-w-5xl">
+            <div className="mx-auto">
               <Navbar />
-              {children}
+              <div className="mx-2 md:mx-5 my-auto">{children}</div>
             </div>
           </ClientThemeWrapper>
         </ThemeProvider>
