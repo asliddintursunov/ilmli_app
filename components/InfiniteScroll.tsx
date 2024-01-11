@@ -32,14 +32,16 @@ export default function InfiniteScrollPage({ data }: Props) {
                   "color:red; font-size:40px;"
                 );
 
+                // Next 10 products is fetched here
                 const productsData: Promise<Product[]> = getNextTenProduct(
                   10,
                   offset
                 );
-                productsData.then((res) => {
-                  setElement((prev) => [...prev, ...res]);
-                  setOffset((prev) => prev + 10);
+                productsData.then((res: Product[]): void => {
+                  setElement((prev: Product[]): Product[] => [...prev, ...res]);
+                  setOffset((prev: number): number => prev + 10);
                 });
+                // Next 10 products is fetched here
               }
             }
           });
@@ -73,7 +75,8 @@ export default function InfiniteScrollPage({ data }: Props) {
             >
               <Image
                 alt={el.title}
-                src={el.images[0]}
+                // src={el.images[0]}
+                src={"/images/white_flower.jpg"}
                 width={160}
                 height={120}
               />
