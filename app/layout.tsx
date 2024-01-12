@@ -23,8 +23,10 @@ export default function RootLayout({
         <ThemeProvider>
           <ClientThemeWrapper>
             <div className="mx-auto">
-              <Navbar />
-              <div className="mx-2 md:mx-5 my-auto">{children}</div>
+              <nav className=" border-b-2 border-gray-600 bg-yellow-500">
+                <Navbar />
+              </nav>
+              {children}
             </div>
           </ClientThemeWrapper>
         </ThemeProvider>

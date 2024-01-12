@@ -1,9 +1,9 @@
 import Link from "next/link";
 import ToggleMode from "./ToggleMode";
 export default function Navbar() {
-  const isRegistered = false;
+  const isRegistered = true;
   return (
-    <nav className="navbar bg-base-100 px-4 border-b-2 border-gray-600  sticky top-0 left-0 z-10">
+    <nav className="navbar max-w-[1440px] mx-auto bg-inherit px-4 sticky top-0 left-0 z-10">
       <div className="flex-1">
         <Link href={"/"} className="btn btn-ghost text-3xl">
           Ilmli

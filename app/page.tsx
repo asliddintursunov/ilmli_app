@@ -12,26 +12,27 @@ export default async function Home() {
     <>
       <main className="flex min-h-screen flex-col">
         {/* Headers */}
-        <div className="w-full flex items-stretch justify-between p-4 border-b-[1px] border-gray-600">
-          <div className="flex flex-col justify-center items-start gap-6">
-            <h2 className="md:text-3xl sm:text-2xl text-xl font-normal">
-              {isRegistered
-                ? "Ilmli platfromasi orqali O'zbek tilidagi amaliy bilimlar bazasi yaratilishiga o'z xissangizni qo'sing"
-                : "Ilmli platformasida yangi amaliy bilimlarni o'rganing va o'z bilimlaringizni boshqalar bilan ulashing"}
-            </h2>
-            <StartReading />
-          </div>
-          <div className="hidden sm:block">
-            <div className="w-[250px] h-[250px] border-1 border-slate-600 bg-gray-600 grid place-items-center">
-              <h1 className="text-white">Qandaydir Gif</h1>
+        <div className="border-b-[1px] border-gray-600 bg-yellow-500">
+          <div className="w-full flex items-stretch justify-between p-4 max-w-[1440px] mx-auto">
+            <div className="flex flex-col justify-center items-start gap-6">
+              <h2 className="md:text-3xl sm:text-2xl text-xl font-normal">
+                {isRegistered
+                  ? "Ilmli platfromasi orqali O'zbek tilidagi amaliy bilimlar bazasi yaratilishiga o'z xissangizni qo'sing"
+                  : "Ilmli platformasida yangi amaliy bilimlarni o'rganing va o'z bilimlaringizni boshqalar bilan ulashing"}
+              </h2>
+              <StartReading />
+            </div>
+            <div className="hidden sm:block">
+              <div className="w-[250px] h-[250px] border-1 border-slate-600 bg-gray-600 grid place-items-center">
+                <h1 className="text-white">Qandaydir Gif</h1>
+              </div>
             </div>
           </div>
         </div>
 
         <br />
         <br />
-
-        <div className="flex flex-col gap-4 md:gap-6 max-w-[1440] mx-auto">
+        <div className="flex flex-col gap-4 md:gap-6 max-w-[1440px] mx-auto">
           <Trendings />
           <div className="flex flex-col-reverse md:flex-row  justify-start items-start gap-6 md:gap-16 relative ">
             <InfiniteScroll data={products} />

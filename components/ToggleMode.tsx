@@ -1,10 +1,14 @@
 "use client";
 import { ThemeContext } from "@/context/ThemeContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { FaArrowCircleUp } from "react-icons/fa";
 
 export default function ToggleMood() {
   const { changeTheme }: any = useContext(ThemeContext);
   const [theme, setTheme] = useState<string>("winter");
+  const [scrollTop, setScrollTop] = useState<boolean>(false);
+  const scrollUpRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     changeTheme(theme);
   }, [theme, changeTheme]);
@@ -12,8 +16,22 @@ export default function ToggleMood() {
     setTheme(theme === "dark" ? "winter" : "dark");
     changeTheme(theme === "dark" ? "winter" : "dark");
   };
+  useEffect(() => {
+    const handleScrollUp = () => {
+      const { scrollTop } = document.documentElement;
+      scrollTop >= 1200 ? setScrollTop(true) : setScrollTop(false);
+    };
+    window.addEventListener("scroll", handleScrollUp);
+
+    return () => {
+      window.removeEventListener("scroll", handleScrollUp);
+    };
+  });
   return (
-    <div className="flex gap-2 items-center w-fit justify-between">
+    <div
+      className="flex gap-2 items-center w-fit justify-between"
+      ref={scrollUpRef}
+    >
       <label className="flex cursor-pointer gap-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -49,6 +67,16 @@ export default function ToggleMood() {
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>
       </label>
+      {scrollTop && (
+        <button
+          className="btn btn-square bg-yellow-500 text-white btn-sm fixed bottom-10 right-10"
+          onClick={() => {
+            scrollUpRef.current?.scrollIntoView({ behavior: "smooth" });
+          }}
+        >
+          <FaArrowCircleUp />
+        </button>
+      )}
     </div>
   );
 }
