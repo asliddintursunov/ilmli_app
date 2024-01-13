@@ -69,12 +69,12 @@ export default function ToggleMood() {
       </label>
       {scrollTop && (
         <button
-          className="btn btn-square bg-yellow-500 text-white btn-sm fixed bottom-10 right-10"
+          className="btn btn-square bg-yellow-500 text-white btn-md md:btn-sm fixed md:bottom-10 md:right-10 bottom-5 right-5"
           onClick={() => {
             scrollUpRef.current?.scrollIntoView({ behavior: "smooth" });
           }}
         >
-          <FaArrowCircleUp />
+          <FaArrowCircleUp className="text-lg md:text-sm" />
         </button>
       )}
     </div>
