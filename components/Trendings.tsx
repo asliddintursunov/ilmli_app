@@ -1,7 +1,8 @@
+import getTrendingOnIlmli from "@/lib/getTrendingOnIlmli";
 import Image from "next/image";
 import { BsGraphUpArrow } from "react-icons/bs";
-import trendings from "@/lib/getTrendingOnIlmli";
-export default function Trendings() {
+export default async function Trendings() {
+  const trendings: Trending[] = await getTrendingOnIlmli();
   return (
     <div className="flex flex-col justify-start gap-1 mx-1">
       <div className="flex gap-3 justify-start items-center">
@@ -9,7 +10,7 @@ export default function Trendings() {
         <h3 className="text-xl">Trending on Ilmli</h3>
       </div>
       <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-x-10 sm:gap-x-6 gap-y-4">
-        {trendings().map((trending: Trending) => {
+        {trendings.map((trending: Trending) => {
           return (
             <div
               key={trending.id}

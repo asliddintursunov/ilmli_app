@@ -1,7 +1,7 @@
 import Link from "next/link";
-import ToggleMode from "./ToggleMode";
+import ScrollUp from "./ScrollUp";
 export default function Navbar() {
-  const isRegistered = false;
+  const isRegistered = true;
   return (
     <nav className="navbar max-w-[1440px] mx-auto bg-inherit px-4 sticky top-0 left-0 z-10">
       <div className="flex-1">
@@ -84,7 +84,7 @@ export default function Navbar() {
           </ul>
         )}
         <div>
-          <ToggleMode />
+          <ScrollUp />
         </div>
       </div>
     </nav>
