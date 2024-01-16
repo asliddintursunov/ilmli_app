@@ -1,9 +1,10 @@
 import Link from "next/link";
-import ToggleMode from "./ToggleMode";
+import ScrollToTop from "@/components/ScrollToTop";
 export default function Navbar() {
   const isRegistered = false;
   return (
     <nav className="navbar max-w-[1440px] mx-auto bg-inherit px-4 sticky top-0 left-0 z-10">
+      <ScrollToTop />
       <div className="flex-1">
         <Link href={"/"} className="btn btn-ghost text-3xl">
           Ilmli
@@ -83,9 +84,7 @@ export default function Navbar() {
             </li>
           </ul>
         )}
-        <div>
-          <ToggleMode />
-        </div>
+        <div></div>
       </div>
     </nav>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import getNextTenProduct from "@/lib/getNextTenProduct";
+import getNextTenArticle from "@/lib/getNextTenArticle";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -33,7 +33,7 @@ export default function InfiniteScrollPage({ data }: Props) {
                 );
 
                 // Next 10 products is fetched here
-                const productsData: Promise<Product[]> = getNextTenProduct(
+                const productsData: Promise<Product[]> = getNextTenArticle(
                   10,
                   offset
                 );

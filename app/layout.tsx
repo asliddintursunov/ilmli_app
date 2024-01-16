@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Sofia_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import { ThemeProvider } from "@/context/ThemeContext";
-import ClientThemeWrapper from "@/context/ClientThemeWrapper";
 
 const inter = Sofia_Sans({ subsets: ["latin"] });
 
@@ -18,18 +16,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="light">
       <body className={inter.className}>
-        <ThemeProvider>
-          <ClientThemeWrapper>
-            <div className="mx-auto">
-              <nav className=" border-b-2 border-gray-600 bg-yellow-500">
-                <Navbar />
-              </nav>
-              {children}
-            </div>
-          </ClientThemeWrapper>
-        </ThemeProvider>
+        <div className="mx-auto">
+          <nav className=" border-b-2 border-gray-600 bg-yellow-500">
+            <Navbar />
+          </nav>
+          {children}
+        </div>
       </body>
     </html>
   );
