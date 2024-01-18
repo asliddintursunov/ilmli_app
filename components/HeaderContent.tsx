@@ -1,7 +1,7 @@
 import StartReading from "./StartReading";
 
 export default function HeaderContent() {
-  const isRegistered = false;
+  const isRegistered = true;
   return (
     <div className="border-b-[1px] border-gray-600 bg-yellow-500">
       <div className="w-full flex items-stretch justify-between p-4 max-w-[1440px] mx-auto">

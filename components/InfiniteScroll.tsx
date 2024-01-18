@@ -4,16 +4,26 @@ import getNextTenArticle from "@/lib/getNextTenArticle";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 
-type Props = {
-  data: Product[];
-};
-
-export default function InfiniteScrollPage({ data }: Props) {
-  const [element, setElement] = useState<Product[]>(data);
+export default function InfiniteScrollPage() {
+  const [element, setElement] = useState<Article[]>([]);
   const [offset, setOffset] = useState<number>(10);
   const [pending, setPending] = useState<boolean>(false);
   const elementsContainer = useRef<HTMLUListElement>(null);
 
+  // Fetch first 10 articles
+  useEffect(() => {
+    const getInitialArticles = async function () {
+      const articles: Article[] = await getNextTenArticle(0);
+      setElement(articles);
+      console.log("Initial articles ->", articles);
+
+      console.log("First 10 articles are fetched");
+    };
+    getInitialArticles();
+    console.log("Use effect");
+  }, []);
+
+  // Fetch next 10 articles
   useEffect(() => {
     if (typeof IntersectionObserver !== "undefined") {
       const observer = new IntersectionObserver(
@@ -27,21 +37,24 @@ export default function InfiniteScrollPage({ data }: Props) {
               ) {
                 offset < 70 - 10 ? setPending(true) : setPending(false);
 
+                // This should be reviewed
+                // setOffset((prev: number): number => prev + 10);
+
                 console.log(
                   "%c Fetch more list items!",
-                  "color:red; font-size:40px;"
-                );
-
-                // Next 10 products is fetched here
-                const productsData: Promise<Product[]> = getNextTenArticle(
-                  10,
+                  "color:red; font-size:40px;",
                   offset
                 );
-                productsData.then((res: Product[]): void => {
-                  setElement((prev: Product[]): Product[] => [...prev, ...res]);
+
+                // Next 10 articles is fetched here
+                const articlesData: Promise<Article[]> =
+                  getNextTenArticle(offset);
+                articlesData.then((res: Article[]): void => {
+                  setElement((prev: Article[]): Article[] => [...prev, ...res]);
                   setOffset((prev: number): number => prev + 10);
+                  console.log("Next 10 articles ->", res);
                 });
-                // Next 10 products is fetched here
+                // Next 10 articles is fetched here
               }
             }
           });
@@ -65,7 +78,7 @@ export default function InfiniteScrollPage({ data }: Props) {
     <div className="flex-1 mx-1">
       <div className="pb-10">
         <ul className="mt-4 flex flex-col gap-2" ref={elementsContainer}>
-          {element.map((el, index) => (
+          {element.map((el: Article) => (
             <li
               id={el.id.toString()}
               key={el.id}
@@ -74,6 +87,9 @@ export default function InfiniteScrollPage({ data }: Props) {
             >
               <div className="flex-1 flex flex-col items-start justify-start gap-1">
                 <div className="flex gap-2 items-start justify-start">
+                  <span className="bg-slate-800 text-white px-1 rounded-md">
+                    <strong>#{el.id}</strong>
+                  </span>
                   <Image
                     src={"/images/avatar.png"}
                     alt="avatar"
@@ -81,20 +97,16 @@ export default function InfiniteScrollPage({ data }: Props) {
                     height={24}
                     className="rounded-full border border-gray-600"
                   />
-                  <span className="font-bold text-sm">
-                    {el?.category?.name}
-                  </span>
+                  <span className="font-bold text-sm">{el.name}</span>
                 </div>
                 <div className="flex flex-col items-start justify-start gap-1">
                   <h2 className="font-bold text-xl">{el.title}</h2>
                   <p className="text-sm text-gray-600">{el.description}</p>
                 </div>
                 <div className="flex items-center justify-start gap-2">
-                  <span className="text-sm text-gray-500">
-                    {el?.category?.creationAt}
-                  </span>
+                  <span className="text-sm text-gray-500">{el.posted}</span>
                   &#x2022;
-                  <span className="text-sm text-gray-500">{el.price}</span>
+                  <span className="text-sm text-gray-500">{el.readTime}</span>
                 </div>
               </div>
               <Image

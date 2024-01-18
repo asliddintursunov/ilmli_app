@@ -12,7 +12,7 @@ export default function Sidebar() {
   ];
 
   return (
-    <div className="flex flex-col items-start justify-start gap-4 md:sticky md:left-0 md:top-20 p-5">
+    <div className="flex flex-col items-start justify-start gap-4 md:sticky md:left-0 md:top-10 p-5">
       <h1 className="text-xl font-bold">
         Discover more of what matters to you
       </h1>

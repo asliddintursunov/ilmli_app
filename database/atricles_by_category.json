@@ -1,0 +1,409 @@
+{
+  "article_by_category": [
+    {
+      "id": 1,
+      "category": "Programming",
+      "image": "/public/images/white_flower.jpg",
+      "name": "CodeCraftMaster 🚀",
+      "title": "Mastering the Art of Algorithms",
+      "posted": "Jan 10",
+      "readTime": "12 min read"
+    },
+    {
+      "id": 2,
+      "category": "Programming",
+      "image": "/public/images/white_flower.jpg",
+      "name": "WebDevWhiz 👩‍💻",
+      "title": "The Future of Web Development",
+      "posted": "Feb 15",
+      "readTime": "10 min read"
+    },
+    {
+      "id": 3,
+      "category": "Programming",
+      "image": "/public/images/white_flower.jpg",
+      "name": "PythonProdigy 🐍",
+      "title": "Exploring the Power of Python",
+      "posted": "Mar 20",
+      "readTime": "14 min read"
+    },
+    {
+      "id": 4,
+      "category": "Programming",
+      "image": "/public/images/white_flower.jpg",
+      "name": "JavaScriptJuggler 🎪",
+      "title": "Juggling Asynchronous JavaScript",
+      "posted": "Apr 5",
+      "readTime": "11 min read"
+    },
+    {
+      "id": 5,
+      "category": "Programming",
+      "image": "/public/images/white_flower.jpg",
+      "name": "CSharpSorcerer 🧙‍♂️",
+      "title": "Magic in C#: Unlocking Advanced Features",
+      "posted": "May 1",
+      "readTime": "13 min read"
+    },
+    {
+      "id": 6,
+      "category": "data science",
+      "image": "/public/images/white_flower.jpg",
+      "name": "DataAlchemyWizard 🧙‍♂️",
+      "title": "The Magic of Data Transformation",
+      "posted": "Jun 10",
+      "readTime": "12 min read"
+    },
+    {
+      "id": 7,
+      "category": "data science",
+      "image": "/public/images/white_flower.jpg",
+      "name": "MachineLearningMaestro 🤖",
+      "title": "Mastering Machine Learning Algorithms",
+      "posted": "Jul 15",
+      "readTime": "10 min read"
+    },
+    {
+      "id": 8,
+      "category": "data science",
+      "image": "/public/images/white_flower.jpg",
+      "name": "VisualizingDataVirtuoso 📊",
+      "title": "Creating Stunning Data Visualizations",
+      "posted": "Aug 20",
+      "readTime": "14 min read"
+    },
+    {
+      "id": 9,
+      "category": "data science",
+      "image": "/public/images/white_flower.jpg",
+      "name": "BigDataExplorer 🌐",
+      "title": "Navigating the Seas of Big Data",
+      "posted": "Sep 5",
+      "readTime": "11 min read"
+    },
+    {
+      "id": 10,
+      "category": "data science",
+      "image": "/public/images/white_flower.jpg",
+      "name": "DeepLearningDynamo 🧠",
+      "title": "Diving Deep into Neural Networks",
+      "posted": "Oct 1",
+      "readTime": "13 min read"
+    },
+    {
+      "id": 11,
+      "category": "technology",
+      "image": "/public/images/white_flower.jpg",
+      "name": "TechInnovator 🚀",
+      "title": "Emerging Technologies Shaping the Future",
+      "posted": "Nov 10",
+      "readTime": "12 min read"
+    },
+    {
+      "id": 12,
+      "category": "technology",
+      "image": "/public/images/white_flower.jpg",
+      "name": "AIRevolutionary 🤖",
+      "title": "Revolutionizing Industries with AI",
+      "posted": "Dec 15",
+      "readTime": "10 min read"
+    },
+    {
+      "id": 13,
+      "category": "technology",
+      "image": "/public/images/white_flower.jpg",
+      "name": "CybersecurityGuardian 🔒",
+      "title": "Securing the Digital Frontier",
+      "posted": "Jan 20",
+      "readTime": "14 min read"
+    },
+    {
+      "id": 14,
+      "category": "technology",
+      "image": "/public/images/white_flower.jpg",
+      "name": "BlockchainInnovator ⛓️",
+      "title": "Unlocking the Potential of Blockchain",
+      "posted": "Feb 5",
+      "readTime": "11 min read"
+    },
+    {
+      "id": 15,
+      "category": "technology",
+      "image": "/public/images/white_flower.jpg",
+      "name": "FutureTechExplorer 🔮",
+      "title": "Exploring the Frontiers of Future Tech",
+      "posted": "Mar 15",
+      "readTime": "13 min read"
+    },
+    {
+      "id": 16,
+      "category": "self improvement",
+      "image": "/public/images/white_flower.jpg",
+      "name": "MindfulnessMaster 🧘",
+      "title": "Mastering Mindfulness for a Balanced Life",
+      "posted": "Apr 10",
+      "readTime": "12 min read"
+    },
+    {
+      "id": 17,
+      "category": "self improvement",
+      "image": "/public/images/white_flower.jpg",
+      "name": "PersonalDevelopmentPioneer 🌱",
+      "title": "Pioneering the Path of Personal Growth",
+      "posted": "May 15",
+      "readTime": "10 min read"
+    },
+    {
+      "id": 18,
+      "category": "self improvement",
+      "image": "/public/images/white_flower.jpg",
+      "name": "GoalSettingGuru 🎯",
+      "title": "Strategies for Effective Goal Setting",
+      "posted": "Jun 20",
+      "readTime": "14 min read"
+    },
+    {
+      "id": 19,
+      "category": "self improvement",
+      "image": "/public/images/white_flower.jpg",
+      "name": "HappinessHarbinger 😊",
+      "title": "Unlocking the Secrets to Lasting Happiness",
+      "posted": "Jul 5",
+      "readTime": "11 min read"
+    },
+    {
+      "id": 20,
+      "category": "self improvement",
+      "image": "/public/images/white_flower.jpg",
+      "name": "ProductivityProdigy ⏰",
+      "title": "Boosting Productivity through Effective Habits",
+      "posted": "Aug 15",
+      "readTime": "13 min read"
+    },
+    {
+      "id": 21,
+      "category": "writing",
+      "image": "/public/images/white_flower.jpg",
+      "name": "WordWeaver 📝",
+      "title": "Crafting Compelling Stories with Words",
+      "posted": "Sep 10",
+      "readTime": "12 min read"
+    },
+    {
+      "id": 22,
+      "category": "writing",
+      "image": "/public/images/white_flower.jpg",
+      "name": "PoetryProdigy 🌸",
+      "title": "Expressing Emotions through Poetry",
+      "posted": "Oct 15",
+      "readTime": "10 min read"
+    },
+    {
+      "id": 23,
+      "category": "writing",
+      "image": "/public/images/white_flower.jpg",
+      "name": "CreativeWritingMaestro ✍️",
+      "title": "Mastering the Art of Creative Writing",
+      "posted": "Nov 20",
+      "readTime": "14 min read"
+    },
+    {
+      "id": 24,
+      "category": "writing",
+      "image": "/public/images/white_flower.jpg",
+      "name": "JournalingJourney 📓",
+      "title": "Embarking on a Transformative Journaling Journey",
+      "posted": "Dec 5",
+      "readTime": "11 min read"
+    },
+    {
+      "id": 25,
+      "category": "writing",
+      "image": "/public/images/white_flower.jpg",
+      "name": "ScreenplaySorcerer 🎬",
+      "title": "Crafting Magical Screenplays for the Big Screen",
+      "posted": "Jan 15",
+      "readTime": "13 min read"
+    },
+    {
+      "id": 26,
+      "category": "relationship",
+      "image": "/public/images/white_flower.jpg",
+      "name": "LoveLanguageLuminary ❤️",
+      "title": "Understanding and Communicating Love Languages",
+      "posted": "Feb 10",
+      "readTime": "12 min read"
+    },
+    {
+      "id": 27,
+      "category": "relationship",
+      "image": "/public/images/white_flower.jpg",
+      "name": "RelationshipResilience 🌱",
+      "title": "Building Resilient Relationships in Challenging Times",
+      "posted": "Mar 15",
+      "readTime": "10 min read"
+    },
+    {
+      "id": 28,
+      "category": "relationship",
+      "image": "/public/images/white_flower.jpg",
+      "name": "CoupleConnectionCraftsman 👫",
+      "title": "Crafting a Deeper Connection in Couples",
+      "posted": "Apr 20",
+      "readTime": "14 min read"
+    },
+    {
+      "id": 29,
+      "category": "relationship",
+      "image": "/public/images/white_flower.jpg",
+      "name": "DatingDynamo 💑",
+      "title": "Navigating the Exciting World of Dating",
+      "posted": "May 5",
+      "readTime": "11 min read"
+    },
+    {
+      "id": 30,
+      "category": "relationship",
+      "image": "/public/images/white_flower.jpg",
+      "name": "MarriageMentor 💍",
+      "title": "Mentoring Couples for a Successful Marriage",
+      "posted": "Jun 15",
+      "readTime": "13 min read"
+    },
+    {
+      "id": 31,
+      "category": "machine learning",
+      "image": "/public/images/white_flower.jpg",
+      "name": "MLAlgorithmArchitect 🤖",
+      "title": "Architecting Machine Learning Algorithms for Success",
+      "posted": "Jul 10",
+      "readTime": "12 min read"
+    },
+    {
+      "id": 32,
+      "category": "machine learning",
+      "image": "/public/images/white_flower.jpg",
+      "name": "NeuralNetworkNavigator 🧠",
+      "title": "Navigating the World of Neural Networks",
+      "posted": "Aug 15",
+      "readTime": "10 min read"
+    },
+    {
+      "id": 33,
+      "category": "machine learning",
+      "image": "/public/images/white_flower.jpg",
+      "name": "AIInnovationInsider 🚀",
+      "title": "Insider Insights into AI Innovation",
+      "posted": "Sep 20",
+      "readTime": "14 min read"
+    },
+    {
+      "id": 34,
+      "category": "machine learning",
+      "image": "/public/images/white_flower.jpg",
+      "name": "MLEthicsExplorer 🤖",
+      "title": "Exploring Ethics in Machine Learning",
+      "posted": "Oct 5",
+      "readTime": "11 min read"
+    },
+    {
+      "id": 35,
+      "category": "machine learning",
+      "image": "/public/images/white_flower.jpg",
+      "name": "ReinforcementLearningRover 🤖",
+      "title": "Roaming the Terrain of Reinforcement Learning",
+      "posted": "Nov 15",
+      "readTime": "13 min read"
+    },
+    {
+      "id": 36,
+      "category": "productivity",
+      "image": "/public/images/white_flower.jpg",
+      "name": "EfficiencyEnthusiast ⏰",
+      "title": "Mastering Efficiency for Greater Productivity",
+      "posted": "Dec 10",
+      "readTime": "12 min read"
+    },
+    {
+      "id": 37,
+      "category": "productivity",
+      "image": "/public/images/white_flower.jpg",
+      "name": "TaskManagementTitan ✅",
+      "title": "Becoming a Titan in Task Management",
+      "posted": "Jan 15",
+      "readTime": "10 min read"
+    },
+    {
+      "id": 38,
+      "category": "productivity",
+      "image": "/public/images/white_flower.jpg",
+      "name": "GoalAchievementGuru 🏆",
+      "title": "Strategies for Goal Achievement and Success",
+      "posted": "Feb 20",
+      "readTime": "14 min read"
+    },
+    {
+      "id": 39,
+      "category": "productivity",
+      "image": "/public/images/white_flower.jpg",
+      "name": "MindMappingMaestro 🗺️",
+      "title": "Unleashing Creativity and Productivity with Mind Mapping",
+      "posted": "Mar 5",
+      "readTime": "11 min read"
+    },
+    {
+      "id": 40,
+      "category": "productivity",
+      "image": "/public/images/white_flower.jpg",
+      "name": "ProcrastinationProphet ⏳",
+      "title": "Overcoming Procrastination and Boosting Productivity",
+      "posted": "Apr 15",
+      "readTime": "13 min read"
+    },
+    {
+      "id": 41,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "PoliticalAnalysisPro 📊",
+      "title": "Analyzing Political Landscapes: Insights and Trends",
+      "posted": "May 10",
+      "readTime": "12 min read"
+    },
+    {
+      "id": 42,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "PolicyPioneer 📜",
+      "title": "Pioneering Policies for a Better Tomorrow",
+      "posted": "Jun 15",
+      "readTime": "10 min read"
+    },
+    {
+      "id": 43,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "GlobalGovernanceGuru 🌍",
+      "title": "Navigating the Landscape of Global Governance",
+      "posted": "Jul 20",
+      "readTime": "14 min read"
+    },
+    {
+      "id": 44,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "SocialJusticeScholar ✊",
+      "title": "Advocating for Social Justice: Challenges and Solutions",
+      "posted": "Aug 5",
+      "readTime": "11 min read"
+    },
+    {
+      "id": 45,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "DemocracyDefender 🗳️",
+      "title": "Defending and Strengthening Democratic Values",
+      "posted": "Sep 15",
+      "readTime": "13 min read"
+    }
+  ]
+}

@@ -1,7 +1,9 @@
-type Trending = {
+type Article = {
   id: number;
-  pic: string;
+  category?: string;
+  image: string;
   name: string;
+  description?: string;
   title: string;
   posted: string;
   readTime: string;

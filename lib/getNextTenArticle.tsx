@@ -1,6 +1,7 @@
-export default async function getNextTenArticle(limit: number, offset: number) {
-  const BASE_URL = `https://api.escuelajs.co/api/v1/products?limit=${limit}&offset=${offset}`;
-  const response = await fetch(BASE_URL, {
+export default async function getNextTenArticle(offset: number) {
+  const API = `http://localhost:3000/api/getArticles?offset=${offset}`;
+
+  const response = await fetch(API, {
     cache: "no-store",
   });
   return response.json();

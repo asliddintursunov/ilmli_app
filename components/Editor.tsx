@@ -31,6 +31,11 @@ export default function PrimeReactEditor() {
       <button className="btn btn-sm btn-error" onClick={handleClear}>
         Clear All
       </button>
+      <div className="flex flex-col items-center justify-center">
+        <span>________</span>
+        {value}
+        <span>________</span>
+      </div>
     </main>
   );
 }

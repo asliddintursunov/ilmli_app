@@ -1,0 +1,490 @@
+{
+  "trending_by_category": [
+    {
+      "id": 1,
+      "category": "programming",
+      "image": "/public/images/avatar.png",
+      "name": "Scott Galloway 📚",
+      "title": "2024 Predictions",
+      "posted": "Jan 6",
+      "readTime": "11 min read"
+    },
+    {
+      "id": 2,
+      "category": "programming",
+      "image": "/public/images/avatar.png",
+      "name": "Alice Developer 👩‍💻",
+      "title": "The Evolution of Coding Languages",
+      "posted": "Jan 8",
+      "readTime": "8 min read"
+    },
+    {
+      "id": 3,
+      "category": "programming",
+      "image": "/public/images/avatar.png",
+      "name": "CodeMaster 🚀",
+      "title": "Tips for Efficient Debugging",
+      "posted": "Jan 10",
+      "readTime": "7 min read"
+    },
+    {
+      "id": 4,
+      "category": "programming",
+      "image": "/public/images/avatar.png",
+      "name": "Tech Guru 🔧",
+      "title": "The Rise of AI in Programming",
+      "posted": "Jan 12",
+      "readTime": "9 min read"
+    },
+    {
+      "id": 5,
+      "category": "programming",
+      "image": "/public/images/avatar.png",
+      "name": "Python Enthusiast 🐍",
+      "title": "Exploring the Power of Python",
+      "posted": "Jan 14",
+      "readTime": "10 min read"
+    },
+    {
+      "id": 6,
+      "category": "programming",
+      "image": "/public/images/avatar.png",
+      "name": "JavaScript Wizard 🧙‍♂️",
+      "title": "Mastering Modern JavaScript",
+      "posted": "Jan 16",
+      "readTime": "12 min read"
+    },
+    {
+      "id": 7,
+      "category": "data science",
+      "image": "/public/images/avatar.png",
+      "name": "Data Explorer 📊",
+      "title": "The Impact of Big Data on Society",
+      "posted": "Jan 18",
+      "readTime": "10 min read"
+    },
+    {
+      "id": 8,
+      "category": "data science",
+      "image": "/public/images/avatar.png",
+      "name": "Stats Enthusiast 📈",
+      "title": "Introduction to Statistical Analysis",
+      "posted": "Jan 20",
+      "readTime": "8 min read"
+    },
+    {
+      "id": 9,
+      "category": "data science",
+      "image": "/public/images/avatar.png",
+      "name": "AI Researcher 🤖",
+      "title": "Machine Learning Applications in Healthcare",
+      "posted": "Jan 22",
+      "readTime": "12 min read"
+    },
+    {
+      "id": 10,
+      "category": "data science",
+      "image": "/public/images/avatar.png",
+      "name": "Data Ninja 💻",
+      "title": "Exploring Data Cleaning Techniques",
+      "posted": "Jan 24",
+      "readTime": "9 min read"
+    },
+    {
+      "id": 11,
+      "category": "data science",
+      "image": "/public/images/avatar.png",
+      "name": "Visualization Wizard 📉",
+      "title": "Creating Impactful Data Visualizations",
+      "posted": "Jan 26",
+      "readTime": "11 min read"
+    },
+    {
+      "id": 12,
+      "category": "data science",
+      "image": "/public/images/avatar.png",
+      "name": "Python Data Scientist 🐍",
+      "title": "Building Predictive Models with Python",
+      "posted": "Jan 28",
+      "readTime": "14 min read"
+    },
+    {
+      "id": 13,
+      "category": "technology",
+      "image": "/public/images/avatar.png",
+      "name": "Tech Explorer 🌐",
+      "title": "The Future of Virtual Reality",
+      "posted": "Jan 30",
+      "readTime": "10 min read"
+    },
+    {
+      "id": 14,
+      "category": "technology",
+      "image": "/public/images/avatar.png",
+      "name": "Innovation Guru 🚀",
+      "title": "Emerging Technologies Shaping 2024",
+      "posted": "Feb 1",
+      "readTime": "8 min read"
+    },
+    {
+      "id": 15,
+      "category": "technology",
+      "image": "/public/images/avatar.png",
+      "name": "Cybersecurity Expert 🔒",
+      "title": "Securing the Digital Frontier",
+      "posted": "Feb 3",
+      "readTime": "12 min read"
+    },
+    {
+      "id": 16,
+      "category": "technology",
+      "image": "/public/images/avatar.png",
+      "name": "IoT Enthusiast 🌐",
+      "title": "The Internet of Things Revolution",
+      "posted": "Feb 5",
+      "readTime": "9 min read"
+    },
+    {
+      "id": 17,
+      "category": "technology",
+      "image": "/public/images/avatar.png",
+      "name": "Tech Innovator 🛠️",
+      "title": "Advancements in Wearable Technology",
+      "posted": "Feb 7",
+      "readTime": "11 min read"
+    },
+    {
+      "id": 18,
+      "category": "technology",
+      "image": "/public/images/avatar.png",
+      "name": "Blockchain Visionary ⛓️",
+      "title": "Demystifying Blockchain Technology",
+      "posted": "Feb 9",
+      "readTime": "14 min read"
+    },
+    {
+      "id": 19,
+      "category": "self improvement",
+      "image": "/public/images/avatar.png",
+      "name": "Mindfulness Maven 🧘",
+      "title": "Practicing Mindfulness for a Balanced Life",
+      "posted": "Feb 11",
+      "readTime": "10 min read"
+    },
+    {
+      "id": 20,
+      "category": "self improvement",
+      "image": "/public/images/avatar.png",
+      "name": "Goal Setter 🎯",
+      "title": "Setting Effective Goals for Personal Growth",
+      "posted": "Feb 13",
+      "readTime": "8 min read"
+    },
+    {
+      "id": 21,
+      "category": "self improvement",
+      "image": "/public/images/avatar.png",
+      "name": "Positive Vibes Only 🌟",
+      "title": "Cultivating a Positive Mindset",
+      "posted": "Feb 15",
+      "readTime": "12 min read"
+    },
+    {
+      "id": 22,
+      "category": "self improvement",
+      "image": "/public/images/avatar.png",
+      "name": "Habits Master 🔄",
+      "title": "Building Healthy Habits for Success",
+      "posted": "Feb 17",
+      "readTime": "9 min read"
+    },
+    {
+      "id": 23,
+      "category": "self improvement",
+      "image": "/public/images/avatar.png",
+      "name": "Confidence Builder 🚀",
+      "title": "Boosting Self-Confidence in Everyday Life",
+      "posted": "Feb 19",
+      "readTime": "11 min read"
+    },
+    {
+      "id": 24,
+      "category": "self improvement",
+      "image": "/public/images/avatar.png",
+      "name": "Life Balance Seeker ⚖️",
+      "title": "Strategies for Achieving Work-Life Balance",
+      "posted": "Feb 21",
+      "readTime": "14 min read"
+    },
+    {
+      "id": 25,
+      "category": "writing",
+      "image": "/public/images/avatar.png",
+      "name": "Word Weaver ✍️",
+      "title": "Crafting Compelling Characters in Fiction",
+      "posted": "Feb 23",
+      "readTime": "10 min read"
+    },
+    {
+      "id": 26,
+      "category": "writing",
+      "image": "/public/images/avatar.png",
+      "name": "Grammar Geek 📚",
+      "title": "Mastering Punctuation for Effective Writing",
+      "posted": "Feb 25",
+      "readTime": "8 min read"
+    },
+    {
+      "id": 27,
+      "category": "writing",
+      "image": "/public/images/avatar.png",
+      "name": "Poetry Enthusiast 📜",
+      "title": "Exploring the Art of Poetic Expression",
+      "posted": "Feb 27",
+      "readTime": "12 min read"
+    },
+    {
+      "id": 28,
+      "category": "writing",
+      "image": "/public/images/avatar.png",
+      "name": "Screenwriting Pro 🎬",
+      "title": "Tips for Writing Engaging Screenplays",
+      "posted": "Feb 29",
+      "readTime": "9 min read"
+    },
+    {
+      "id": 29,
+      "category": "writing",
+      "image": "/public/images/avatar.png",
+      "name": "Editing Wizard ✂️",
+      "title": "Effective Strategies for Editing Your Writing",
+      "posted": "Mar 2",
+      "readTime": "11 min read"
+    },
+    {
+      "id": 30,
+      "category": "writing",
+      "image": "/public/images/avatar.png",
+      "name": "Story Architect 🏰",
+      "title": "Building Engaging Story Structures",
+      "posted": "Mar 4",
+      "readTime": "14 min read"
+    },
+    {
+      "id": 31,
+      "category": "relationship",
+      "image": "/public/images/avatar.png",
+      "name": "Love Explorer 💖",
+      "title": "Nurturing a Healthy Romantic Relationship",
+      "posted": "Mar 6",
+      "readTime": "10 min read"
+    },
+    {
+      "id": 32,
+      "category": "relationship",
+      "image": "/public/images/avatar.png",
+      "name": "Communication Guru 🗣️",
+      "title": "Effective Communication in Relationships",
+      "posted": "Mar 8",
+      "readTime": "8 min read"
+    },
+    {
+      "id": 33,
+      "category": "relationship",
+      "image": "/public/images/avatar.png",
+      "name": "Family Harmony Expert 🏡",
+      "title": "Building Strong Family Bonds",
+      "posted": "Mar 10",
+      "readTime": "12 min read"
+    },
+    {
+      "id": 34,
+      "category": "relationship",
+      "image": "/public/images/avatar.png",
+      "name": "Friendship Advocate 🤝",
+      "title": "Navigating Friendships in Adulthood",
+      "posted": "Mar 12",
+      "readTime": "9 min read"
+    },
+    {
+      "id": 35,
+      "category": "relationship",
+      "image": "/public/images/avatar.png",
+      "name": "Couples Therapist 💑",
+      "title": "Overcoming Challenges in Long-Term Relationships",
+      "posted": "Mar 14",
+      "readTime": "11 min read"
+    },
+    {
+      "id": 36,
+      "category": "relationship",
+      "image": "/public/images/avatar.png",
+      "name": "Relationship Resilience Coach 🌱",
+      "title": "Building Resilience in Relationships",
+      "posted": "Mar 16",
+      "readTime": "14 min read"
+    },
+    {
+      "id": 37,
+      "category": "machine learning",
+      "image": "/public/images/avatar.png",
+      "name": "ML Explorer 🤖",
+      "title": "Introduction to Machine Learning Algorithms",
+      "posted": "Mar 18",
+      "readTime": "10 min read"
+    },
+    {
+      "id": 38,
+      "category": "machine learning",
+      "image": "/public/images/avatar.png",
+      "name": "Data Scientist Pro 📊",
+      "title": "Practical Tips for Feature Engineering",
+      "posted": "Mar 20",
+      "readTime": "8 min read"
+    },
+    {
+      "id": 39,
+      "category": "machine learning",
+      "image": "/public/images/avatar.png",
+      "name": "Neural Network Ninja 🧠",
+      "title": "Understanding Deep Learning Architectures",
+      "posted": "Mar 22",
+      "readTime": "12 min read"
+    },
+    {
+      "id": 40,
+      "category": "machine learning",
+      "image": "/public/images/avatar.png",
+      "name": "AI Researcher 🤖",
+      "title": "Recent Advances in Natural Language Processing",
+      "posted": "Mar 24",
+      "readTime": "9 min read"
+    },
+    {
+      "id": 41,
+      "category": "machine learning",
+      "image": "/public/images/avatar.png",
+      "name": "Ensemble Learning Expert 🤝",
+      "title": "Boosting Model Performance with Ensembles",
+      "posted": "Mar 26",
+      "readTime": "11 min read"
+    },
+    {
+      "id": 42,
+      "category": "machine learning",
+      "image": "/public/images/avatar.png",
+      "name": "AI Ethics Advocate 🤖",
+      "title": "Navigating Ethical Considerations in AI",
+      "posted": "Mar 28",
+      "readTime": "14 min read"
+    },
+    {
+      "id": 43,
+      "category": "productivity",
+      "image": "/public/images/avatar.png",
+      "name": "Productivity Pro ⏰",
+      "title": "Mastering the Art of Time Management",
+      "posted": "Mar 30",
+      "readTime": "10 min read"
+    },
+    {
+      "id": 44,
+      "category": "productivity",
+      "image": "/public/images/avatar.png",
+      "name": "Efficiency Enthusiast 🚀",
+      "title": "Streamlining Workflows for Maximum Efficiency",
+      "posted": "Apr 1",
+      "readTime": "8 min read"
+    },
+    {
+      "id": 45,
+      "category": "productivity",
+      "image": "/public/images/avatar.png",
+      "name": "Goal Achievement Guru 🎯",
+      "title": "Strategies for Setting and Achieving Goals",
+      "posted": "Apr 3",
+      "readTime": "12 min read"
+    },
+    {
+      "id": 46,
+      "category": "productivity",
+      "image": "/public/images/avatar.png",
+      "name": "Mindful Multitasker 🧘‍♂️",
+      "title": "Balancing Multiple Tasks Mindfully",
+      "posted": "Apr 5",
+      "readTime": "9 min read"
+    },
+    {
+      "id": 47,
+      "category": "productivity",
+      "image": "/public/images/avatar.png",
+      "name": "Creative Organizer 🗂️",
+      "title": "Organizational Hacks for a Clutter-Free Life",
+      "posted": "Apr 7",
+      "readTime": "11 min read"
+    },
+    {
+      "id": 48,
+      "category": "productivity",
+      "image": "/public/images/avatar.png",
+      "name": "Remote Work Maestro 🏡",
+      "title": "Thriving in a Remote Work Environment",
+      "posted": "Apr 9",
+      "readTime": "14 min read"
+    },
+    {
+      "id": 49,
+      "category": "politics",
+      "image": "/public/images/avatar.png",
+      "name": "Political Analyst 🎙️",
+      "title": "The Impact of Global Political Shifts",
+      "posted": "Apr 11",
+      "readTime": "10 min read"
+    },
+    {
+      "id": 50,
+      "category": "politics",
+      "image": "/public/images/avatar.png",
+      "name": "Policy Expert 📜",
+      "title": "Analyzing Key Policy Changes in 2024",
+      "posted": "Apr 13",
+      "readTime": "8 min read"
+    },
+    {
+      "id": 51,
+      "category": "politics",
+      "image": "/public/images/avatar.png",
+      "name": "Global Diplomat 🌐",
+      "title": "Diplomatic Challenges in the Modern World",
+      "posted": "Apr 15",
+      "readTime": "12 min read"
+    },
+    {
+      "id": 52,
+      "category": "politics",
+      "image": "/public/images/avatar.png",
+      "name": "Election Insights 🗳️",
+      "title": "Understanding Trends in Political Campaigns",
+      "posted": "Apr 17",
+      "readTime": "9 min read"
+    },
+    {
+      "id": 53,
+      "category": "politics",
+      "image": "/public/images/avatar.png",
+      "name": "Political Science Maven 📚",
+      "title": "Examining Political Theory in Practice",
+      "posted": "Apr 19",
+      "readTime": "11 min read"
+    },
+    {
+      "id": 54,
+      "category": "politics",
+      "image": "/public/images/avatar.png",
+      "name": "Government Affairs Strategist 🏛️",
+      "title": "Navigating Government Relations in 2024",
+      "posted": "Apr 21",
+      "readTime": "14 min read"
+    }
+  ]
+}
