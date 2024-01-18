@@ -2,7 +2,7 @@
   "article_by_category": [
     {
       "id": 1,
-      "category": "Programming",
+      "category": "programming",
       "image": "/public/images/white_flower.jpg",
       "name": "CodeCraftMaster 🚀",
       "title": "Mastering the Art of Algorithms",
@@ -11,7 +11,7 @@
     },
     {
       "id": 2,
-      "category": "Programming",
+      "category": "programming",
       "image": "/public/images/white_flower.jpg",
       "name": "WebDevWhiz 👩‍💻",
       "title": "The Future of Web Development",
@@ -20,7 +20,7 @@
     },
     {
       "id": 3,
-      "category": "Programming",
+      "category": "programming",
       "image": "/public/images/white_flower.jpg",
       "name": "PythonProdigy 🐍",
       "title": "Exploring the Power of Python",
@@ -29,7 +29,7 @@
     },
     {
       "id": 4,
-      "category": "Programming",
+      "category": "programming",
       "image": "/public/images/white_flower.jpg",
       "name": "JavaScriptJuggler 🎪",
       "title": "Juggling Asynchronous JavaScript",
@@ -38,7 +38,7 @@
     },
     {
       "id": 5,
-      "category": "Programming",
+      "category": "programming",
       "image": "/public/images/white_flower.jpg",
       "name": "CSharpSorcerer 🧙‍♂️",
       "title": "Magic in C#: Unlocking Advanced Features",
@@ -47,7 +47,7 @@
     },
     {
       "id": 6,
-      "category": "data science",
+      "category": "datascience",
       "image": "/public/images/white_flower.jpg",
       "name": "DataAlchemyWizard 🧙‍♂️",
       "title": "The Magic of Data Transformation",
@@ -56,7 +56,7 @@
     },
     {
       "id": 7,
-      "category": "data science",
+      "category": "datascience",
       "image": "/public/images/white_flower.jpg",
       "name": "MachineLearningMaestro 🤖",
       "title": "Mastering Machine Learning Algorithms",
@@ -65,7 +65,7 @@
     },
     {
       "id": 8,
-      "category": "data science",
+      "category": "datascience",
       "image": "/public/images/white_flower.jpg",
       "name": "VisualizingDataVirtuoso 📊",
       "title": "Creating Stunning Data Visualizations",
@@ -74,7 +74,7 @@
     },
     {
       "id": 9,
-      "category": "data science",
+      "category": "datascience",
       "image": "/public/images/white_flower.jpg",
       "name": "BigDataExplorer 🌐",
       "title": "Navigating the Seas of Big Data",
@@ -83,7 +83,7 @@
     },
     {
       "id": 10,
-      "category": "data science",
+      "category": "datascience",
       "image": "/public/images/white_flower.jpg",
       "name": "DeepLearningDynamo 🧠",
       "title": "Diving Deep into Neural Networks",
@@ -137,7 +137,7 @@
     },
     {
       "id": 16,
-      "category": "self improvement",
+      "category": "selfimprovement",
       "image": "/public/images/white_flower.jpg",
       "name": "MindfulnessMaster 🧘",
       "title": "Mastering Mindfulness for a Balanced Life",
@@ -146,7 +146,7 @@
     },
     {
       "id": 17,
-      "category": "self improvement",
+      "category": "selfimprovement",
       "image": "/public/images/white_flower.jpg",
       "name": "PersonalDevelopmentPioneer 🌱",
       "title": "Pioneering the Path of Personal Growth",
@@ -155,7 +155,7 @@
     },
     {
       "id": 18,
-      "category": "self improvement",
+      "category": "selfimprovement",
       "image": "/public/images/white_flower.jpg",
       "name": "GoalSettingGuru 🎯",
       "title": "Strategies for Effective Goal Setting",
@@ -164,7 +164,7 @@
     },
     {
       "id": 19,
-      "category": "self improvement",
+      "category": "selfimprovement",
       "image": "/public/images/white_flower.jpg",
       "name": "HappinessHarbinger 😊",
       "title": "Unlocking the Secrets to Lasting Happiness",
@@ -173,7 +173,7 @@
     },
     {
       "id": 20,
-      "category": "self improvement",
+      "category": "selfimprovement",
       "image": "/public/images/white_flower.jpg",
       "name": "ProductivityProdigy ⏰",
       "title": "Boosting Productivity through Effective Habits",
@@ -272,7 +272,7 @@
     },
     {
       "id": 31,
-      "category": "machine learning",
+      "category": "machinelearning",
       "image": "/public/images/white_flower.jpg",
       "name": "MLAlgorithmArchitect 🤖",
       "title": "Architecting Machine Learning Algorithms for Success",
@@ -281,7 +281,7 @@
     },
     {
       "id": 32,
-      "category": "machine learning",
+      "category": "machinelearning",
       "image": "/public/images/white_flower.jpg",
       "name": "NeuralNetworkNavigator 🧠",
       "title": "Navigating the World of Neural Networks",
@@ -290,7 +290,7 @@
     },
     {
       "id": 33,
-      "category": "machine learning",
+      "category": "machinelearning",
       "image": "/public/images/white_flower.jpg",
       "name": "AIInnovationInsider 🚀",
       "title": "Insider Insights into AI Innovation",
@@ -299,7 +299,7 @@
     },
     {
       "id": 34,
-      "category": "machine learning",
+      "category": "machinelearning",
       "image": "/public/images/white_flower.jpg",
       "name": "MLEthicsExplorer 🤖",
       "title": "Exploring Ethics in Machine Learning",
@@ -308,7 +308,7 @@
     },
     {
       "id": 35,
-      "category": "machine learning",
+      "category": "machinelearning",
       "image": "/public/images/white_flower.jpg",
       "name": "ReinforcementLearningRover 🤖",
       "title": "Roaming the Terrain of Reinforcement Learning",

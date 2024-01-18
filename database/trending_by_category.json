@@ -56,7 +56,7 @@
     },
     {
       "id": 7,
-      "category": "data science",
+      "category": "datascience",
       "image": "/public/images/avatar.png",
       "name": "Data Explorer 📊",
       "title": "The Impact of Big Data on Society",
@@ -65,7 +65,7 @@
     },
     {
       "id": 8,
-      "category": "data science",
+      "category": "datascience",
       "image": "/public/images/avatar.png",
       "name": "Stats Enthusiast 📈",
       "title": "Introduction to Statistical Analysis",
@@ -74,7 +74,7 @@
     },
     {
       "id": 9,
-      "category": "data science",
+      "category": "datascience",
       "image": "/public/images/avatar.png",
       "name": "AI Researcher 🤖",
       "title": "Machine Learning Applications in Healthcare",
@@ -83,7 +83,7 @@
     },
     {
       "id": 10,
-      "category": "data science",
+      "category": "datascience",
       "image": "/public/images/avatar.png",
       "name": "Data Ninja 💻",
       "title": "Exploring Data Cleaning Techniques",
@@ -92,7 +92,7 @@
     },
     {
       "id": 11,
-      "category": "data science",
+      "category": "datascience",
       "image": "/public/images/avatar.png",
       "name": "Visualization Wizard 📉",
       "title": "Creating Impactful Data Visualizations",
@@ -101,7 +101,7 @@
     },
     {
       "id": 12,
-      "category": "data science",
+      "category": "datascience",
       "image": "/public/images/avatar.png",
       "name": "Python Data Scientist 🐍",
       "title": "Building Predictive Models with Python",
@@ -164,7 +164,7 @@
     },
     {
       "id": 19,
-      "category": "self improvement",
+      "category": "selfimprovement",
       "image": "/public/images/avatar.png",
       "name": "Mindfulness Maven 🧘",
       "title": "Practicing Mindfulness for a Balanced Life",
@@ -173,7 +173,7 @@
     },
     {
       "id": 20,
-      "category": "self improvement",
+      "category": "selfimprovement",
       "image": "/public/images/avatar.png",
       "name": "Goal Setter 🎯",
       "title": "Setting Effective Goals for Personal Growth",
@@ -182,7 +182,7 @@
     },
     {
       "id": 21,
-      "category": "self improvement",
+      "category": "selfimprovement",
       "image": "/public/images/avatar.png",
       "name": "Positive Vibes Only 🌟",
       "title": "Cultivating a Positive Mindset",
@@ -191,7 +191,7 @@
     },
     {
       "id": 22,
-      "category": "self improvement",
+      "category": "selfimprovement",
       "image": "/public/images/avatar.png",
       "name": "Habits Master 🔄",
       "title": "Building Healthy Habits for Success",
@@ -200,7 +200,7 @@
     },
     {
       "id": 23,
-      "category": "self improvement",
+      "category": "selfimprovement",
       "image": "/public/images/avatar.png",
       "name": "Confidence Builder 🚀",
       "title": "Boosting Self-Confidence in Everyday Life",
@@ -209,7 +209,7 @@
     },
     {
       "id": 24,
-      "category": "self improvement",
+      "category": "selfimprovement",
       "image": "/public/images/avatar.png",
       "name": "Life Balance Seeker ⚖️",
       "title": "Strategies for Achieving Work-Life Balance",
@@ -326,7 +326,7 @@
     },
     {
       "id": 37,
-      "category": "machine learning",
+      "category": "machinelearning",
       "image": "/public/images/avatar.png",
       "name": "ML Explorer 🤖",
       "title": "Introduction to Machine Learning Algorithms",
@@ -335,7 +335,7 @@
     },
     {
       "id": 38,
-      "category": "machine learning",
+      "category": "machinelearning",
       "image": "/public/images/avatar.png",
       "name": "Data Scientist Pro 📊",
       "title": "Practical Tips for Feature Engineering",
@@ -344,7 +344,7 @@
     },
     {
       "id": 39,
-      "category": "machine learning",
+      "category": "machinelearning",
       "image": "/public/images/avatar.png",
       "name": "Neural Network Ninja 🧠",
       "title": "Understanding Deep Learning Architectures",
@@ -353,7 +353,7 @@
     },
     {
       "id": 40,
-      "category": "machine learning",
+      "category": "machinelearning",
       "image": "/public/images/avatar.png",
       "name": "AI Researcher 🤖",
       "title": "Recent Advances in Natural Language Processing",
@@ -362,7 +362,7 @@
     },
     {
       "id": 41,
-      "category": "machine learning",
+      "category": "machinelearning",
       "image": "/public/images/avatar.png",
       "name": "Ensemble Learning Expert 🤝",
       "title": "Boosting Model Performance with Ensembles",
@@ -371,7 +371,7 @@
     },
     {
       "id": 42,
-      "category": "machine learning",
+      "category": "machinelearning",
       "image": "/public/images/avatar.png",
       "name": "AI Ethics Advocate 🤖",
       "title": "Navigating Ethical Considerations in AI",

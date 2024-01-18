@@ -1,17 +1,11 @@
 "use client";
 import React from "react";
-const data = require("@/database/article.json");
-const trending = require("@/database/trending.json");
-// import data from "@/database/article.json";
-// import trending from "@/database/trending.json";
 
 type Props = {};
 
 function StartReading({}: Props) {
-  const articles = data["article"];
   const handleClick = () => {
-    console.log(articles);
-    console.log(trending);
+    console.log("Start reading");
   };
   return (
     <div>
