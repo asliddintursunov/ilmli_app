@@ -7,7 +7,10 @@ export async function GET(req: NextRequest, res: NextResponse) {
   console.log("Articles is working", "offset ->", offset, "limit ->", 10);
   console.log("====================================");
 
-  const article = articlesData["article"].splice(offset, 10);
-
-  return NextResponse.json(article);
+  if (offset !== null && offset !== undefined) {
+    const article = articlesData["article"].slice(~~offset, ~~offset + 10);
+    return NextResponse.json(article);
+  } else {
+    return NextResponse.json({ error: "Offset is not defined" });
+  }
 }

@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 export default function InfiniteScrollPage() {
   const [element, setElement] = useState<Article[]>([]);
-  const [offset, setOffset] = useState<number>(10);
+  const [offset, setOffset] = useState<number>(0);
   const [pending, setPending] = useState<boolean>(false);
   const elementsContainer = useRef<HTMLUListElement>(null);
 
@@ -16,7 +16,7 @@ export default function InfiniteScrollPage() {
       const articles: Article[] = await getNextTenArticle(0);
       setElement(articles);
       console.log("Initial articles ->", articles);
-
+      setOffset(10);
       console.log("First 10 articles are fetched");
     };
     getInitialArticles();
@@ -36,9 +36,6 @@ export default function InfiniteScrollPage() {
                 offset < 70
               ) {
                 offset < 70 - 10 ? setPending(true) : setPending(false);
-
-                // This should be reviewed
-                // setOffset((prev: number): number => prev + 10);
 
                 console.log(
                   "%c Fetch more list items!",
