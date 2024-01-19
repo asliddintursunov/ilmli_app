@@ -7,7 +7,7 @@ export default function Sidebar() {
     "Technology",
     "Self Improvement",
     "Writing",
-    "Relatioships",
+    "Relationship",
     "Machine Learning",
     "Productivity",
     "Politics",

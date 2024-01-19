@@ -1,13 +1,22 @@
-import getTrendingOnIlmli from "@/lib/getTrendingOnIlmli";
+"use client";
+import getTrendingOnIlmli from "@/lib/fetchTrendingOnIlmli";
 import Image from "next/image";
 import { BsGraphUpArrow } from "react-icons/bs";
+import { getRelatedTrendings } from "@/redux/slices/trendingsSlice";
+import { AppDispatch, useAppSelector } from "@/redux/store";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
-export default async function Trendings() {
-  const data = await getTrendingOnIlmli();
-  const trendings: Article[] = data["trending"];
-  console.log("====================================");
-  console.log("Trending is working");
-  console.log("====================================");
+export default function Trendings() {
+  const dispatch = useDispatch<AppDispatch>();
+  const trendings: Article[] = useAppSelector((state) => state.trendings.value);
+  useEffect(() => {
+    const fetchTrending = async () => {
+      const res = await getTrendingOnIlmli();
+      dispatch(getRelatedTrendings(res["trending"]));
+    };
+    fetchTrending();
+  }, []);
 
   return (
     <div className="flex flex-col justify-start gap-1 mx-1">

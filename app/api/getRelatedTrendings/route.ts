@@ -1,11 +1,13 @@
 import { NextResponse, NextRequest } from "next/server";
-const trendings_by_category = require("@/database/trending_by_category.json");
-const articles_by_category = require("@/database/atricles_by_category.json");
+const related_trendings = require("@/database/trending_by_category.json");
 export async function GET(req: NextRequest, res: NextResponse) {
   const category = req.nextUrl.searchParams.get("category");
-  if (category) {
-    console.log("category ->", category);
-    return NextResponse.json({ category: category });
+  const data: Article[] = related_trendings.trending_by_category.filter(
+    (el: Article) => el.category === category
+  );
+  if (data.length > 0) {
+    console.log(data);
+    return NextResponse.json(data);
   }
   return NextResponse.json({
     error: "category is required",

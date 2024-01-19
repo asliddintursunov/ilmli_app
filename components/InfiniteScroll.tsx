@@ -1,6 +1,6 @@
 "use client";
 
-import getNextTenArticle from "@/lib/getNextTenArticle";
+import fetchArticles from "@/lib/fetchArticles";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -13,14 +13,12 @@ export default function InfiniteScrollPage() {
   // Fetch first 10 articles
   useEffect(() => {
     const getInitialArticles = async function () {
-      const articles: Article[] = await getNextTenArticle(0);
+      const articles: Article[] = await fetchArticles(0);
       setElement(articles);
-      console.log("Initial articles ->", articles);
+      // console.log("Initial articles ->", articles);
       setOffset(10);
-      console.log("First 10 articles are fetched");
     };
     getInitialArticles();
-    console.log("Use effect");
   }, []);
 
   // Fetch next 10 articles
@@ -44,8 +42,7 @@ export default function InfiniteScrollPage() {
                 );
 
                 // Next 10 articles is fetched here
-                const articlesData: Promise<Article[]> =
-                  getNextTenArticle(offset);
+                const articlesData: Promise<Article[]> = fetchArticles(offset);
                 articlesData.then((res: Article[]): void => {
                   setElement((prev: Article[]): Article[] => [...prev, ...res]);
                   setOffset((prev: number): number => prev + 10);
