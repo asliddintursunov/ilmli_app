@@ -4,6 +4,7 @@ const nextConfig = {
     domains: [],
     remotePatterns: [],
   },
+  reactStrictMode: false,
 };
 
 module.exports = nextConfig;
