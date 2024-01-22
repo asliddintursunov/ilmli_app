@@ -1,8 +1,10 @@
 "use client";
 
+import fetchRelatedArticles from "@/lib/fetchRelatedArticles";
 import fetchRelatedTrendings from "@/lib/fetchRelatedTrendings";
+import { getRelatedArticles } from "@/redux/slices/articlesSlice";
 import { getRelatedTrendings } from "@/redux/slices/trendingsSlice";
-import { AppDispatch } from "@/redux/store";
+import { AppDispatch, useAppSelector } from "@/redux/store";
 import { useDispatch } from "react-redux";
 
 type Props = {
@@ -11,12 +13,22 @@ type Props = {
 
 function RelatedArticlesButton({ category }: Props) {
   const dispatch = useDispatch<AppDispatch>();
+  const dataCategory = useAppSelector((state) => state.articles.category);
 
   const handleClick = async function (category: string) {
     const data = category.split(" ").join("").toLowerCase();
-    const res = await fetchRelatedTrendings(data);
+    if (dataCategory === data) return;
+    const res = fetchRelatedTrendings(data);
+    const res2 = fetchRelatedArticles(data, 0);
+    const [trendings, articles] = await Promise.all([res, res2]);
 
-    dispatch(getRelatedTrendings(res));
+    dispatch(getRelatedTrendings(trendings));
+    dispatch(
+      getRelatedArticles({
+        articles,
+        category: data,
+      })
+    );
   };
   return (
     <>

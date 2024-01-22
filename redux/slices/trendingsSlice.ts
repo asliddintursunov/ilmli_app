@@ -11,7 +11,6 @@ export const trendingsSlice = createSlice({
   reducers: {
     // state, action: PayloadAction<Article[]>
     getRelatedTrendings: function (state, action: PayloadAction<Article[]>) {
-      console.log("Get Related Trendings ->", action.payload);
       state.value = action.payload;
     },
   },
