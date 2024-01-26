@@ -1,7 +1,7 @@
 import Link from "next/link";
 import ScrollToTop from "@/components/ScrollToTop";
 export default function Navbar() {
-  const isRegistered = true;
+  const isRegistered = false;
   return (
     <nav className="navbar max-w-[1440px] mx-auto bg-inherit px-4 sticky top-0 left-0 z-10">
       <ScrollToTop />
