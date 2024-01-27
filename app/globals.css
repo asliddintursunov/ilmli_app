@@ -26,3 +26,15 @@
 ::-webkit-scrollbar-thumb:hover {
   background: gray;
 }
+@layer components {
+  .auth_input {
+    @apply outline-none border-2 border-gray-300 hover:border-gray-400 hover:bg-inherit focus:border-blue-500 bg-gray-100/20 focus:bg-inherit rounded-md px-3 py-2 w-full transition-all font-semibold;
+  }
+  .auth_form {
+    @apply h-fit px-4 py-8 rounded-md border bg-transparent/5 border-gray-200 shadow-sm 
+    shadow-gray-600/20 md:w-96 w-80;
+  }
+  .auth_fa_eye{
+    @apply absolute z-50 right-2 top-3 text-xl text-gray-400 hover:text-gray-500 cursor-pointer;
+  }
+}

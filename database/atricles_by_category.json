@@ -404,6 +404,276 @@
       "title": "Defending and Strengthening Democratic Values",
       "posted": "Sep 15",
       "readTime": "13 min read"
+    },
+    {
+      "id": 46,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "PoliticalInsight 📊",
+      "title": "Navigating the Political Landscape",
+      "posted": "Sep 18",
+      "readTime": "10 min read"
+    },
+    {
+      "id": 47,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "PolicyPerspectives 📜",
+      "title": "Analyzing Key Policy Issues",
+      "posted": "Sep 21",
+      "readTime": "15 min read"
+    },
+    {
+      "id": 48,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "CitizenChronicle 📰",
+      "title": "Chronicles of Civic Engagement",
+      "posted": "Sep 24",
+      "readTime": "12 min read"
+    },
+    {
+      "id": 49,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "VoteVoice 🗣️",
+      "title": "Amplifying Voter Voices",
+      "posted": "Sep 27",
+      "readTime": "8 min read"
+    },
+    {
+      "id": 50,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "PolicyPulse 🌐",
+      "title": "Pulsating Through Political Policies",
+      "posted": "Sep 30",
+      "readTime": "14 min read"
+    },
+    {
+      "id": 51,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "ElectionEcho 📢",
+      "title": "Echoes of Electoral Processes",
+      "posted": "Oct 3",
+      "readTime": "11 min read"
+    },
+    {
+      "id": 52,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "DemocracyDialogues 💬",
+      "title": "Engaging in Democratic Dialogues",
+      "posted": "Oct 6",
+      "readTime": "9 min read"
+    },
+    {
+      "id": 53,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "LegislativeInsider 🏛️",
+      "title": "Insights from the Legislative Arena",
+      "posted": "Oct 9",
+      "readTime": "13 min read"
+    },
+    {
+      "id": 54,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "CampaignChronicle 🗳️",
+      "title": "Chronicles of Political Campaigns",
+      "posted": "Oct 12",
+      "readTime": "10 min read"
+    },
+    {
+      "id": 55,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "PolicyPioneer 🚀",
+      "title": "Pioneering Progressive Policies",
+      "posted": "Oct 15",
+      "readTime": "15 min read"
+    },
+    {
+      "id": 56,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "VoterVantage 📊",
+      "title": "Gaining Electoral Advantage",
+      "posted": "Oct 18",
+      "readTime": "12 min read"
+    },
+    {
+      "id": 57,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "DemocracyDigest 📬",
+      "title": "Digesting Democratic Developments",
+      "posted": "Oct 21",
+      "readTime": "8 min read"
+    },
+    {
+      "id": 58,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "VoteVigilant 🛡️",
+      "title": "Remaining Vigilant on Voting Rights",
+      "posted": "Oct 24",
+      "readTime": "14 min read"
+    },
+    {
+      "id": 59,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "PolicyPundit 🎙️",
+      "title": "Punditry on Political Policies",
+      "posted": "Oct 27",
+      "readTime": "11 min read"
+    },
+    {
+      "id": 60,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "ElectionExplorer 🔍",
+      "title": "Exploring the Electoral Landscape",
+      "posted": "Oct 30",
+      "readTime": "9 min read"
+    },
+    {
+      "id": 61,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "PoliticalProbe 🔍",
+      "title": "Probing Political Perspectives",
+      "posted": "Nov 2",
+      "readTime": "13 min read"
+    },
+    {
+      "id": 62,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "CitizenChronicle 📰",
+      "title": "Chronicles of Civic Engagement",
+      "posted": "Nov 5",
+      "readTime": "10 min read"
+    },
+    {
+      "id": 63,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "PolicyPerspectives 📜",
+      "title": "Analyzing Key Policy Issues",
+      "posted": "Nov 8",
+      "readTime": "15 min read"
+    },
+    {
+      "id": 64,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "ElectionEcho 📢",
+      "title": "Echoes of Electoral Processes",
+      "posted": "Nov 11",
+      "readTime": "8 min read"
+    },
+    {
+      "id": 65,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "VoteVoice 🗣️",
+      "title": "Amplifying Voter Voices",
+      "posted": "Nov 14",
+      "readTime": "14 min read"
+    },
+    {
+      "id": 66,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "PolicyPulse 🌐",
+      "title": "Pulsating Through Political Policies",
+      "posted": "Nov 17",
+      "readTime": "11 min read"
+    },
+    {
+      "id": 67,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "DemocracyDialogues 💬",
+      "title": "Engaging in Democratic Dialogues",
+      "posted": "Nov 20",
+      "readTime": "9 min read"
+    },
+    {
+      "id": 68,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "LegislativeInsider 🏛️",
+      "title": "Insights from the Legislative Arena",
+      "posted": "Nov 23",
+      "readTime": "13 min read"
+    },
+    {
+      "id": 69,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "CampaignChronicle 🗳️",
+      "title": "Chronicles of Political Campaigns",
+      "posted": "Nov 26",
+      "readTime": "10 min read"
+    },
+    {
+      "id": 70,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "PolicyPioneer 🚀",
+      "title": "Pioneering Progressive Policies",
+      "posted": "Nov 29",
+      "readTime": "15 min read"
+    },
+    {
+      "id": 71,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "VoterVantage 📊",
+      "title": "Gaining Electoral Advantage",
+      "posted": "Dec 2",
+      "readTime": "12 min read"
+    },
+    {
+      "id": 72,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "DemocracyDigest 📬",
+      "title": "Digesting Democratic Developments",
+      "posted": "Dec 5",
+      "readTime": "8 min read"
+    },
+    {
+      "id": 73,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "VoteVigilant 🛡️",
+      "title": "Remaining Vigilant on Voting Rights",
+      "posted": "Dec 8",
+      "readTime": "14 min read"
+    },
+    {
+      "id": 74,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "PolicyPundit 🎙️",
+      "title": "Punditry on Political Policies",
+      "posted": "Dec 11",
+      "readTime": "11 min read"
+    },
+    {
+      "id": 75,
+      "category": "politics",
+      "image": "/public/images/white_flower.jpg",
+      "name": "ElectionExplorer 🔍",
+      "title": "Exploring the Electoral Landscape",
+      "posted": "Dec 14",
+      "readTime": "9 min read"
     }
   ]
 }

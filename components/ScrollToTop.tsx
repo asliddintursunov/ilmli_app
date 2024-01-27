@@ -8,8 +8,11 @@ export default function ScrollToTop() {
 
   useEffect(() => {
     const handleScrollUp = () => {
-      const { scrollTop } = document.documentElement;
-      scrollTop >= 1200 ? setScrollTop(true) : setScrollTop(false);
+      const { scrollTop, clientHeight } = document.documentElement;
+
+      scrollTop >= clientHeight * 2.5
+        ? setScrollTop(true)
+        : setScrollTop(false);
     };
     window.addEventListener("scroll", handleScrollUp);
 
