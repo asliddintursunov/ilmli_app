@@ -3,10 +3,13 @@ export default async function fetchRelatedArticles(
   offset: number
 ) {
   const API = `http://localhost:3000/api/getRelatedArticles?offset=${offset}&category=${category}`;
-  // const API = `http://localhost:3000/api/getRelatedArticles?category=${category}`
-  const res = await fetch(API, {
-    cache: "no-store",
-  });
+  try {
+    const res = await fetch(API, {
+      cache: "no-store",
+    });
 
-  return res.json();
+    return res.json();
+  } catch (error) {
+    console.error("Error fetching related articles:", error);
+  }
 }

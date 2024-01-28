@@ -40,8 +40,14 @@ export default function Login() {
       <form action="" className="auth_form" onSubmit={handleSubmit}>
         <h1 className="text-3xl text-center">Have an account?</h1>
         <div className="flex flex-col gap-2 mt-4">
-          <Username setUserData={setUserData} RegExp={regExpResult.username} />
-          <Password setUserData={setUserData} RegExp={regExpResult.password} />
+          <Username
+            setUserData={setUserData}
+            isUserNameValid={regExpResult.username}
+          />
+          <Password
+            setUserData={setUserData}
+            isPasswordValid={regExpResult.password}
+          />
           <Button authType="signin" />
           <div className="flex items-center justify-between mt-1">
             <div className="flex items-center gap-0.5 ">

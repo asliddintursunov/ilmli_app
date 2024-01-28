@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ReduxProvider>
           <div className="mx-auto">
-            <nav className=" border-b-2 border-gray-600 bg-yellow-500">
+            <nav className=" border-b-2 border-gray-600 bg-gray-300">
               <Navbar />
             </nav>
             {children}

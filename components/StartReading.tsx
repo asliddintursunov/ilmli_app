@@ -11,7 +11,9 @@ function StartReading({}: Props) {
     <div>
       <button
         onClick={handleClick}
-        className="btn btn-neutral rounded-full px-4 md:px-8 text-sm md:text-xl"
+        className="btn rounded-full px-4 md:px-8 text-sm md:text-xl text-white border-none" style={{
+          backgroundColor: "#4794ff"
+        }}
       >
         O&apos;qishni boshlash
       </button>

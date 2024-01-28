@@ -1,13 +1,20 @@
 import Link from "next/link";
 import ScrollToTop from "@/components/ScrollToTop";
+import Image from "next/image";
+
 export default function Navbar() {
   const isRegistered = false;
   return (
-    <nav className="navbar max-w-[1440px] mx-auto bg-inherit px-4 sticky top-0 left-0 z-10">
+    <nav className="navbar max-w-[1440px] mx-auto bg-inherit px-4 sticky top-0 left-0 z-10 ">
       <ScrollToTop />
       <div className="flex-1">
-        <Link href={"/"} className="btn btn-ghost text-3xl">
-          Ilmli
+        <Link href={"/"} className="">
+          <Image
+            src={"/images/Ilmli_logo.png"}
+            alt="Ilmli logo"
+            width={120}
+            height={36}
+          />
         </Link>
       </div>
       <div className="flex-none">
@@ -22,7 +29,7 @@ export default function Navbar() {
                     <Link href={"/auth/login"}>Login</Link>
                   </li>
                   <li className="mr-2">
-                    <Link href={"/auth/register"}>Register</Link>
+                    <Link href={"/auth/register/form"}>Register</Link>
                   </li>
                 </ul>
               </details>
@@ -37,7 +44,7 @@ export default function Navbar() {
               <Link href={"/auth/login"}>Login</Link>
             </li>
             <li className="mr-2">
-              <Link href={"/auth/register"}>Register</Link>
+              <Link href={"/auth/register/form"}>Register</Link>
             </li>
           </ul>
         )}

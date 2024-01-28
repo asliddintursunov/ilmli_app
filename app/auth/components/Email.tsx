@@ -1,9 +1,9 @@
 type Props = {
   setUserData: React.Dispatch<React.SetStateAction<UserData>>;
-  RegExp: boolean | null;
+  isEmailValid: boolean | null;
 };
 
-function Email({ setUserData, RegExp }: Props) {
+function Email({ setUserData, isEmailValid }: Props) {
   return (
     <div className="py-1 flex flex-col">
       <label htmlFor="email">Email</label>
@@ -12,7 +12,7 @@ function Email({ setUserData, RegExp }: Props) {
         id="email"
         className="auth_input"
         style={{
-          borderColor: RegExp === false ? "red" : "",
+          borderColor: isEmailValid === false ? "red" : "",
         }}
         placeholder="example@gmail.com"
         onChange={(e) =>
@@ -20,9 +20,9 @@ function Email({ setUserData, RegExp }: Props) {
         }
         required
       />
-      {RegExp === false && (
+      {isEmailValid === false && (
         <span className="text-xs text-red-500">
-          Double check your email, somethiong&#39;s missing!
+          Emailingizni tekshiring, nimadir xato ketti!
         </span>
       )}
     </div>

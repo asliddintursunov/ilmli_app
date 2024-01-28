@@ -20,7 +20,10 @@ export const articlesSlice = createSlice({
       }>
     ) {
       if (action.payload.category === state.category) {
-        const data = [...state.value, ...action.payload.articles];
+        const data = [];
+        // if (action.payload.articles) {
+        data.push(...state.value, ...action.payload.articles);
+        // }
         state.value = data;
       } else {
         state.value = action.payload.articles;

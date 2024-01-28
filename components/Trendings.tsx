@@ -14,8 +14,18 @@ export default function Trendings() {
   const trendings: Article[] = useAppSelector((state) => state.trendings.value);
   useEffect(() => {
     const fetchTrending = async () => {
-      const res = await getTrendingOnIlmli();
-      dispatch(getRelatedTrendings(res["trending"]));
+      try {
+        const res = await getTrendingOnIlmli();
+        console.log("Trendings res ->", res);
+
+        // if (res && res.trending) {
+        //   dispatch(getRelatedTrendings(res["trending"]));
+        // }
+        dispatch(getRelatedTrendings(res["trending"]));
+      } catch (error: any) {
+        alert("Trendings" + error.message);
+        console.log(error.message);
+      }
     };
     fetchTrending();
   }, []);

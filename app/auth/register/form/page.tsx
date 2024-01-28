@@ -1,13 +1,15 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import Button from "../components/Button";
-import Password from "../components/Password";
-import Username from "../components/Username";
-import Email from "../components/Email";
-import SocialAuth from "../components/SocialAuth";
+import Button from "../../components/Button";
+import Password from "../../components/Password";
+import Username from "../../components/Username";
+import Email from "../../components/Email";
+import SocialAuth from "../../components/SocialAuth";
 import useAuthValidation from "@/hooks/useAuthValidation";
+import { useRouter } from "next/navigation";
 export default function Register() {
+  const router = useRouter();
   const { regExpResult, validateInput } = useAuthValidation();
   const [isChecked, setIsChecked] = useState<boolean | undefined>(undefined);
   const [userData, setUserData] = useState<UserData>({
@@ -18,6 +20,7 @@ export default function Register() {
   const SendData = useCallback(() => {
     if (regExpResult.username && regExpResult.email && regExpResult.password) {
       console.log("Send to server", userData);
+      router.push("/auth/register/interests");
     } else {
       console.log("Not valid, do not send to server");
     }
@@ -38,17 +41,26 @@ export default function Register() {
   };
   return (
     <main
-      className="max-w-[1440px] mx-auto px-2 grid place-content-center"
+      className="grid place-content-center"
       style={{
         height: "calc(100vh - 4rem)",
       }}
     >
+      <Link href={"/auth/register/interests"} className="btn btn-secondary mb-2">
+        Interests
+      </Link>
       <form action="" className="auth_form" onSubmit={handleSubmit}>
         <h1 className="text-3xl text-center">No account yet?</h1>
         <div className="flex flex-col gap-2 mt-4">
-          <Username setUserData={setUserData} RegExp={regExpResult.username} />
-          <Email setUserData={setUserData} RegExp={regExpResult.email} />
-          <Password setUserData={setUserData} RegExp={regExpResult.password} />
+          <Username
+            setUserData={setUserData}
+            isUserNameValid={regExpResult.username}
+          />
+          <Email setUserData={setUserData} isEmailValid={regExpResult.email} />
+          <Password
+            setUserData={setUserData}
+            isPasswordValid={regExpResult.password}
+          />
           <Button authType="signup" />
           <div className="flex items-center justify-between mt-1">
             <div className="flex items-center gap-0.5 ">
