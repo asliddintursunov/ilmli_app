@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function Navbar() {
   const isRegistered = false;
   return (
-    <nav className="navbar max-w-[1440px] mx-auto bg-inherit px-4 sticky top-0 left-0 z-10 ">
+    <nav className="navbar max-w-[1440px] mx-auto bg-inherit px-4 sticky top-0 left-0 z-20 ">
       <ScrollToTop />
       <div className="flex-1">
         <Link href={"/"} className="">

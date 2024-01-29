@@ -1,26 +1,26 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { TiTick } from "react-icons/ti";
 export default function StepBar() {
   const pathname = usePathname();
-  const steps: string[] = [
-    "registeration",
-    "interests",
-    "profile",
-    "portfolio",
-    "resume",
-  ];
+  const steps: string[] = ["registeration", "interests", "profile"];
   const [currentStep, setCurrentStep] = useState<number>(1);
   useEffect(() => {
     if (pathname === "/auth/register/form") {
       console.log(1);
 
       setCurrentStep(1);
-    } else if (pathname === "/auth/register/interests") {
+    }
+    if (pathname === "/auth/register/interests") {
       setCurrentStep(2);
       console.log(2);
+    }
+    if (pathname === "/auth/register/customization") {
+      setCurrentStep(3);
+      console.log(3);
     }
   }, [pathname]);
   return (
@@ -52,6 +52,34 @@ export default function StepBar() {
       >
         Next
       </button>
+      <Link
+        href="./form"
+        className={`link ${
+          pathname === "/auth/register/form" ? "link-accent" : "link-primary"
+        }`}
+      >
+        Form
+      </Link>
+      <Link
+        href="./interests"
+        className={`link ${
+          pathname === "/auth/register/interests"
+            ? "link-accent"
+            : "link-primary"
+        }`}
+      >
+        Interests
+      </Link>
+      <Link
+        href="./customization"
+        className={`link ${
+          pathname === "/auth/register/customization"
+            ? "link-accent"
+            : "link-primary"
+        }`}
+      >
+        Customization
+      </Link>
     </nav>
   );
 }

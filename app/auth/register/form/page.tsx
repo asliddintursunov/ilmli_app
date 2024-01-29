@@ -40,15 +40,7 @@ export default function Register() {
     validateInput(userData.username, userData.email, userData.password);
   };
   return (
-    <main
-      className="grid place-content-center"
-      style={{
-        height: "calc(100vh - 4rem)",
-      }}
-    >
-      <Link href={"/auth/register/interests"} className="btn btn-secondary mb-2">
-        Interests
-      </Link>
+    <main className="grid place-content-center">
       <form action="" className="auth_form" onSubmit={handleSubmit}>
         <h1 className="text-3xl text-center">No account yet?</h1>
         <div className="flex flex-col gap-2 mt-4">
@@ -86,7 +78,7 @@ export default function Register() {
         </div>
       </form>
       {isChecked === false && (
-        <div className="toast toast-top toast-end mt-16">
+        <div className="toast toast-top toast-end mt-16 z-10">
           <div className="alert alert-error">
             <span>Please agree to the terms and conditions.</span>
           </div>
