@@ -1,10 +1,10 @@
 type Props = {
   setUserData: React.Dispatch<React.SetStateAction<UserData>>;
-  RegExp: boolean | null;
+  isPasswordValid: boolean | null;
 };
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-function Password({ setUserData, RegExp }: Props) {
+function Password({ setUserData, isPasswordValid }: Props) {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   return (
     <div className="py-1 flex flex-col">
@@ -15,7 +15,7 @@ function Password({ setUserData, RegExp }: Props) {
           id="password"
           className="auth_input pr-8"
           style={{
-            borderColor: RegExp === false ? "red" : "",
+            borderColor: isPasswordValid === false ? "red" : "",
           }}
           placeholder="Password01"
           onChange={(e) =>
@@ -36,10 +36,10 @@ function Password({ setUserData, RegExp }: Props) {
           />
         )}
       </div>
-      {RegExp === false && (
+      {isPasswordValid === false && (
         <span className="text-xs text-red-500">
-          Password must contain at least one capitalcase and lowercase letter,
-          number and character and be 8 to 20 characters long
+          Password kamida bitta katta va kichik harf, raqam va belgi hamda 8-20
+          ta belgidan iborat bo&#39;lishi kerak
         </span>
       )}
     </div>

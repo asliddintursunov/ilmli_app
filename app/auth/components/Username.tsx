@@ -1,9 +1,9 @@
 type Props = {
   setUserData: React.Dispatch<React.SetStateAction<UserData>>;
-  RegExp: boolean | null;
+  isUserNameValid: boolean | null;
 };
 
-function Username({ setUserData, RegExp }: Props) {
+function Username({ setUserData, isUserNameValid }: Props) {
   return (
     <div className="py-1 flex flex-col">
       <label htmlFor="username">Username</label>
@@ -12,7 +12,7 @@ function Username({ setUserData, RegExp }: Props) {
         id="username"
         className="auth_input"
         style={{
-          borderColor: RegExp === false ? "red" : "",
+          borderColor: isUserNameValid === false ? "red" : "",
         }}
         placeholder="User0046"
         onChange={(e) =>
@@ -20,9 +20,9 @@ function Username({ setUserData, RegExp }: Props) {
         }
         required
       />
-      {RegExp === false && (
+      {isUserNameValid === false && (
         <span className="text-xs text-red-500">
-          Username can only contain letters and numbers
+          Username faqat harflar va raqamlar qabul qila oladi
         </span>
       )}
     </div>
