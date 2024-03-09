@@ -14,3 +14,11 @@ type UserData = {
   email?: string;
   password: string;
 };
+
+type UserDataType = {
+  username: string;
+  fullname?: string;
+  address?: string;
+  bio?: string;
+  profilePicture?: string;
+};

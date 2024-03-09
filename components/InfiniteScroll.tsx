@@ -1,51 +1,37 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import fetchArticles from "@/lib/fetchArticles";
-import fetchRelatedArticles from "@/lib/fetchRelatedArticles";
-import { getRelatedArticles } from "@/redux/slices/articlesSlice";
-import { useAppSelector, AppDispatch } from "@/redux/store";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
 import Skeleton from "./Skeleton";
 
 export default function InfiniteScrollPage() {
-  const dispatch = useDispatch<AppDispatch>();
-  const articles: Article[] = useAppSelector((state) => state.articles.value);
-  const category: string | null = useAppSelector(
-    (state) => state.articles.category
-  );
-
-  useEffect(() => {
-    console.log(articles);
-    if (category === null || category === undefined) {
-      console.log("Category undefined ->", category);
-    } else {
-      console.log("Category ->", category);
-    }
-    setOffset(10);
-  }, [category]);
-
   const [offset, setOffset] = useState<number>(0);
   const [pending, setPending] = useState<boolean>(false);
   const elementsContainer = useRef<HTMLUListElement>(null);
+  const [articles, setArticles] = useState<Article[]>([]);
 
   // Fetch first 10 articles
   useEffect(() => {
     const getInitialArticles = async function () {
-      const articles: Article[] = await fetchArticles(0);
-      console.log("Initial articles ->", articles);
-
-      dispatch(
-        getRelatedArticles({
-          articles,
-          category: null,
-        })
-      );
+      const data: Article[] = await fetchArticles(0);
+      setArticles(data);
       setOffset(10);
     };
     getInitialArticles();
   }, []);
+
+  const fetchNextTenArticles = function (offset: number) {
+    fetchArticles(offset)
+      .then((newArticles) => {
+        setArticles((prev) => [...prev, ...newArticles]);
+        setOffset((prev) => prev + 10);
+        setPending(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching articles:", error);
+        setPending(false);
+      });
+  };
 
   // Fetch next 10 articles
   useEffect(() => {
@@ -68,39 +54,8 @@ export default function InfiniteScrollPage() {
                   offset
                 );
 
-                if (category === null || category === undefined) {
-                  const articlesData: Promise<Article[]> =
-                    fetchArticles(offset);
-                  articlesData.then((res: Article[]): void => {
-                    dispatch(
-                      getRelatedArticles({
-                        articles: res,
-                        category: null,
-                      })
-                    );
-                    setOffset((prev: number): number => prev + 10);
-                    console.log("Next 10 articles ->", res);
-                  });
-                  console.log("Category undefined ->", category);
-                } else {
-                  console.log("Category ->", category);
-
-                  const articlesData: Promise<Article[]> = fetchRelatedArticles(
-                    category,
-                    offset
-                  );
-                  articlesData.then((res: Article[]): void => {
-                    dispatch(
-                      getRelatedArticles({
-                        articles: res,
-                        category,
-                      })
-                    );
-                    setOffset((prev: number): number => prev + 10);
-                    console.log("Next 10 articles ->", res);
-                  });
-                }
                 // Next 10 articles is fetched here
+                fetchNextTenArticles(offset);
                 // Next 10 articles is fetched here
               }
             }

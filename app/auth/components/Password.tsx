@@ -17,7 +17,7 @@ function Password({ setUserData, isPasswordValid }: Props) {
           style={{
             borderColor: isPasswordValid === false ? "red" : "",
           }}
-          placeholder="Password01"
+          placeholder="Password0!"
           onChange={(e) =>
             setUserData((prev) => ({ ...prev, password: e.target.value }))
           }

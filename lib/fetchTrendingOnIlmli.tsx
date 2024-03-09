@@ -5,6 +5,6 @@ export default async function fetchTrendingOnIlmli() {
     return response.json();
   } catch (error: any) {
     // console.error("Error fetching trendings on Ilmli:", error);
-    alert("Function" + error.message);
+    alert(error.message);
   }
 }

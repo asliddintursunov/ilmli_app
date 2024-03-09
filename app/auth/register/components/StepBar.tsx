@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { TiTick } from "react-icons/ti";
 export default function StepBar() {
   const pathname = usePathname();
-  const steps: string[] = ["registeration", "interests", "profile"];
+  const steps: string[] = ["registeration", "interests"];
   const [currentStep, setCurrentStep] = useState<number>(1);
   useEffect(() => {
     if (pathname === "/auth/register/form") {
@@ -18,14 +18,9 @@ export default function StepBar() {
       setCurrentStep(2);
       console.log(2);
     }
-    if (pathname === "/auth/register/customization") {
-      setCurrentStep(3);
-      console.log(3);
-    }
   }, [pathname]);
   return (
     <nav className="flex flex-col items-center justify-center">
-      <p>{pathname}</p>
       <div className="flex flex-row items-center justify-center">
         {steps.map((step: string, index: number) => {
           return (
@@ -46,13 +41,7 @@ export default function StepBar() {
           );
         })}
       </div>
-      <button
-        onClick={() => setCurrentStep((prev) => prev + 1)}
-        className="btn btn-warning"
-      >
-        Next
-      </button>
-      <Link
+      {/* <Link
         href="./form"
         className={`link ${
           pathname === "/auth/register/form" ? "link-accent" : "link-primary"
@@ -69,17 +58,7 @@ export default function StepBar() {
         }`}
       >
         Interests
-      </Link>
-      <Link
-        href="./customization"
-        className={`link ${
-          pathname === "/auth/register/customization"
-            ? "link-accent"
-            : "link-primary"
-        }`}
-      >
-        Customization
-      </Link>
+      </Link> */}
     </nav>
   );
 }

@@ -1,18 +1,6 @@
+import { categories } from "./Categories";
 import RelatedArticlesButton from "./RelatedArticlesButton";
-
 export default function Sidebar() {
-  const categories: string[] = [
-    "Programming",
-    "Data Science",
-    "Technology",
-    "Self Improvement",
-    "Writing",
-    "Relationship",
-    "Machine Learning",
-    "Productivity",
-    "Politics",
-  ];
-
   return (
     <div className="flex flex-col items-start justify-start gap-4 md:sticky md:left-0 md:top-10 p-5">
       <h1 className="text-xl font-bold">
