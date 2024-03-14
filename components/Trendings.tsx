@@ -3,7 +3,7 @@ import Image from "next/image";
 import { BsGraphUpArrow } from "react-icons/bs";
 import Skeleton from "./Skeleton";
 import { Suspense } from "react";
-
+import Link from "next/link";
 export default async function Trendings() {
   const trendings: Article[] = await getTrendingOnIlmli();
 
@@ -21,7 +21,8 @@ export default async function Trendings() {
         >
           {trendings.map((trending: Article) => {
             return (
-              <div
+              <Link
+                href={`/tag/${trending.category}/post/${trending.title.replaceAll(" ", "-").toLowerCase()}`}
                 key={trending.id}
                 className="py-3 px-5 shadow-md hover:shadow-xl flex flex-col justify-between items-start rounded-md cursor-pointer dark:hover:bg-slate-700/20 transition-all min-h-[120px] w-full md:w-[255px] lg:w-[320px] xl:w-[425px]"
               >
@@ -47,7 +48,7 @@ export default async function Trendings() {
                     {trending.readTime}
                   </span>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </Suspense>

@@ -1,8 +1,10 @@
-export default async function fetchRelatedArticles(
+import { baseURL } from "@/utils";
+
+export default async function fetchNewestArticles(
   category: string,
   offset: number
 ) {
-  const API = `http://localhost:3000/api/getRelatedArticles?offset=${offset}&category=${category}`;
+  const API = `${baseURL}/newest/${category}`;
   try {
     const res = await fetch(API, {
       cache: "no-store",

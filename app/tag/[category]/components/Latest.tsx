@@ -17,7 +17,13 @@ function Latest({ latest }: Props) {
             <div
               key={el.id}
               className="pb-4 shadow-sm hover:shadow-xl flex flex-col justify-between items-start rounded-sm cursor-pointer dark:hover:bg-slate-500/20 transition-all min-h-[120px] w-full md:w-[255px] lg:w-[320px] gap-4"
-              onClick={() => router.push(`${pathname}/post/${el.title}`)}
+              onClick={() =>
+                router.push(
+                  `${pathname}/post/${el.title
+                    .replaceAll(" ", "-")
+                    .toLowerCase()}`
+                )
+              }
             >
               <Image
                 width={400}

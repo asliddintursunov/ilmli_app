@@ -1,5 +1,7 @@
-export default async function fetchRelatedTrendings(category: string) {
-  const API = `http://localhost:3000/api/getRelatedTrendings?category=${category}`;
+import { baseURL } from "@/utils";
+
+export default async function fetchNewestArticles(category: string) {
+  const API = `${baseURL}/recommended/${category}`;
   try {
     const res = await fetch(API, {
       cache: "no-store",

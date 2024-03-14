@@ -1,10 +1,11 @@
+import { baseURL } from "@/utils";
+
 export default async function fetchTrendingOnIlmli() {
-  const API = "http://localhost:3000/api/getTrendings";
+  const API = `${baseURL}/gettrendings`;
   try {
     const response = await fetch(API, { cache: "no-store" });
     return response.json();
   } catch (error: any) {
-    // console.error("Error fetching trendings on Ilmli:", error);
-    alert(error.message);
+    console.error("Error fetching trendings on Ilmli:", error.message);
   }
 }

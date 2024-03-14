@@ -22,7 +22,13 @@ function Recommended({ recommended }: Props) {
           recommended.map((el: Article) => {
             return (
               <div
-                onClick={() => router.push(`${pathname}/post/${el.title}`)}
+                onClick={() =>
+                  router.push(
+                    `${pathname}/post/${el.title
+                      .replaceAll(" ", "-")
+                      .toLowerCase()}`
+                  )
+                }
                 key={el.id}
                 className="flex flex-col justify-between items-start gap-6 cursor-pointer"
               >
