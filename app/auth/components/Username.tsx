@@ -1,9 +1,12 @@
+import { Dispatch, SetStateAction } from "react";
+
 type Props = {
-  setUserData: React.Dispatch<React.SetStateAction<UserData>>;
+  username: string;
+  setUsername: Dispatch<SetStateAction<string>>;
   isUserNameValid: boolean | null;
 };
 
-function Username({ setUserData, isUserNameValid }: Props) {
+function Username({ setUsername, isUserNameValid, username }: Props) {
   return (
     <div className="py-1 flex flex-col">
       <label htmlFor="username">Username</label>
@@ -15,8 +18,9 @@ function Username({ setUserData, isUserNameValid }: Props) {
           borderColor: isUserNameValid === false ? "red" : "",
         }}
         placeholder="User0046"
+        value={username}
         onChange={(e) =>
-          setUserData((prev) => ({ ...prev, username: e.target.value }))
+          setUsername(e.target.value)
         }
         required
       />

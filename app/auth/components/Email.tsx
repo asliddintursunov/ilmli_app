@@ -1,9 +1,11 @@
+import { Dispatch, SetStateAction } from "react";
 type Props = {
-  setUserData: React.Dispatch<React.SetStateAction<UserData>>;
+  email?: string;
+  setEmail: Dispatch<SetStateAction<string>>;
   isEmailValid: boolean | null;
 };
 
-function Email({ setUserData, isEmailValid }: Props) {
+function Email({ setEmail, isEmailValid, email }: Props) {
   return (
     <div className="py-1 flex flex-col">
       <label htmlFor="email">Email</label>
@@ -15,9 +17,8 @@ function Email({ setUserData, isEmailValid }: Props) {
           borderColor: isEmailValid === false ? "red" : "",
         }}
         placeholder="example@gmail.com"
-        onChange={(e) =>
-          setUserData((prev) => ({ ...prev, email: e.target.value }))
-        }
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
         required
       />
       {isEmailValid === false && (

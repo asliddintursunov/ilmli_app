@@ -1,13 +1,13 @@
 import { useState } from "react";
 
-type RegExpResult = {
+type RegExpResultType = {
   username: boolean | null;
   email: boolean | null;
   password: boolean | null;
 };
 
 const useRegExpValidation = () => {
-  const [regExpResult, setRegExpResult] = useState<RegExpResult>({
+  const [regExpResult, setRegExpResult] = useState<RegExpResultType>({
     username: null,
     email: null,
     password: null,
@@ -25,14 +25,25 @@ const useRegExpValidation = () => {
     email: string | undefined,
     password: string
   ): void => {
-    setRegExpResult((prev) => {
-      return {
-        ...prev,
-        username: regExp.username.test(username),
-        email: regExp.email.test(email!),
-        password: regExp.password.test(password),
-      };
-    });
+    if(email){
+      setRegExpResult((prev) => {
+        return {
+          ...prev,
+          username: regExp.username.test(username),
+          email: regExp.email.test(email!),
+          password: regExp.password.test(password),
+        };
+      });
+    }else{
+      setRegExpResult((prev) => {
+        return {
+          ...prev,
+          username: regExp.username.test(username),
+          email: true,
+          password: regExp.password.test(password),
+        };
+      });
+    }
   };
 
   return {
