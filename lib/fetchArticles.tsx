@@ -1,6 +1,8 @@
-export default async function fetchArticles(offset: number) {
-  const API = `http://localhost:3000/api/getArticles?offset=${offset}`;
+import { baseURL } from "@/utils";
 
+export default async function fetchArticles(offset: number) {
+  const API = `${baseURL}/getarticles?offset=${offset}`;
+  
   try {
     const response = await fetch(API, {
       cache: "no-store",

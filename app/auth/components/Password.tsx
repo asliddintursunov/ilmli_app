@@ -1,10 +1,12 @@
+import { Dispatch, SetStateAction } from "react";
 type Props = {
-  setUserData: React.Dispatch<React.SetStateAction<UserData>>;
+  password: string;
+  setPassword: Dispatch<SetStateAction<string>>;
   isPasswordValid: boolean | null;
 };
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-function Password({ setUserData, isPasswordValid }: Props) {
+function Password({ setPassword, isPasswordValid, password }: Props) {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   return (
     <div className="py-1 flex flex-col">
@@ -17,10 +19,9 @@ function Password({ setUserData, isPasswordValid }: Props) {
           style={{
             borderColor: isPasswordValid === false ? "red" : "",
           }}
-          placeholder="Password01"
-          onChange={(e) =>
-            setUserData((prev) => ({ ...prev, password: e.target.value }))
-          }
+          placeholder="Password0!"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           required
         />
         {!showPassword && (

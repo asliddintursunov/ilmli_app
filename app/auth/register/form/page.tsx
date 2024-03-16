@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Button from "../../components/Button";
 import Password from "../../components/Password";
@@ -8,27 +8,34 @@ import Email from "../../components/Email";
 import SocialAuth from "../../components/SocialAuth";
 import useAuthValidation from "@/hooks/useAuthValidation";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import { baseURL } from "@/utils";
+
 export default function Register() {
   const router = useRouter();
   const { regExpResult, validateInput } = useAuthValidation();
   const [isChecked, setIsChecked] = useState<boolean | undefined>(undefined);
-  const [userData, setUserData] = useState<UserData>({
-    username: "",
-    email: "",
-    password: "",
-  });
-  const SendData = useCallback(() => {
-    if (regExpResult.username && regExpResult.email && regExpResult.password) {
-      console.log("Send to server", userData);
-      router.push("/auth/register/interests");
-    } else {
-      console.log("Not valid, do not send to server");
-    }
-  }, [regExpResult]);
+  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   useEffect(() => {
-    SendData();
-  }, [SendData]);
+    const validationResult = new Set(Object.values(regExpResult));
+    if (username && email && password) {
+      if (validationResult.has(false)) return;
+      axios
+        .post(`${baseURL}/auth/register`, {
+          username,
+          email,
+          password,
+        })
+        .then((res) => {
+          alert(res.data);
+          if (res.status === 201) router.push("/auth/register/interests");
+        })
+        .catch((err) => alert(err.response.data));
+    }
+  }, [regExpResult]);
 
   const handleSubmit = function (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -37,20 +44,26 @@ export default function Register() {
       return;
     }
 
-    validateInput(userData.username, userData.email, userData.password);
+    validateInput(username, email, password);
   };
   return (
     <main className="grid place-content-center">
-      <form action="" className="auth_form" onSubmit={handleSubmit}>
+      <form action="POST" className="auth_form" onSubmit={handleSubmit}>
         <h1 className="text-3xl text-center">No account yet?</h1>
         <div className="flex flex-col gap-2 mt-4">
           <Username
-            setUserData={setUserData}
+            username={username}
+            setUsername={setUsername}
             isUserNameValid={regExpResult.username}
           />
-          <Email setUserData={setUserData} isEmailValid={regExpResult.email} />
+          <Email
+            email={email}
+            setEmail={setEmail}
+            isEmailValid={regExpResult.email}
+          />
           <Password
-            setUserData={setUserData}
+            password={password}
+            setPassword={setPassword}
             isPasswordValid={regExpResult.password}
           />
           <Button authType="signup" />
