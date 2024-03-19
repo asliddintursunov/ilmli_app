@@ -21,26 +21,26 @@ const useRegExpValidation = () => {
   };
 
   const validateInput = (
-    username: string,
+    username: string | undefined,
     email: string | undefined,
-    password: string
+    password: string | undefined
   ): void => {
-    if(email){
+    if (email) {
       setRegExpResult((prev) => {
         return {
           ...prev,
-          username: regExp.username.test(username),
+          username: regExp.username.test(username!),
           email: regExp.email.test(email!),
-          password: regExp.password.test(password),
+          password: regExp.password.test(password!),
         };
       });
-    }else{
+    } else {
       setRegExpResult((prev) => {
         return {
           ...prev,
-          username: regExp.username.test(username),
+          username: regExp.username.test(username!),
           email: true,
-          password: regExp.password.test(password),
+          password: regExp.password.test(password!),
         };
       });
     }

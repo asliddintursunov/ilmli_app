@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 type Props = {
   email?: string;
-  setEmail: Dispatch<SetStateAction<string>>;
+  setEmail: Dispatch<SetStateAction<string | undefined>>;
   isEmailValid: boolean | null;
 };
 

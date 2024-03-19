@@ -20,7 +20,7 @@ export default function StepBar() {
     }
   }, [pathname]);
   return (
-    <nav className="flex flex-col items-center justify-center">
+    <nav className="flex flex-col items-center justify-center mt-2">
       <div className="flex flex-row items-center justify-center">
         {steps.map((step: string, index: number) => {
           return (

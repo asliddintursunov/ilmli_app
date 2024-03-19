@@ -11,13 +11,12 @@ import axios from "axios";
 
 export default function Login() {
   const { regExpResult, validateInput } = useAuthValidation();
-  const [username, setUsername] = useState<string>("")
-  const [password, setPassword] = useState<string>("")
+  const [username, setUsername] = useState<string | undefined>(undefined)
+  const [password, setPassword] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     const validationResult = new Set(Object.values(regExpResult));
     if (username && password) {
-      console.log(validationResult);
       if (validationResult.has(false)) return;
       axios
         .post(`${baseURL}/auth/login`, {

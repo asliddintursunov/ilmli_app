@@ -21,19 +21,24 @@ export default function PrimeReactEditor() {
       <Editor
         value={value}
         onTextChange={(e: any) => setValue(e.htmlValue)}
-        style={{ minHeight: "320px" }}
+        style={{
+          minHeight: "320px",
+          display: "flex",
+          justifyContent: "center",
+          cursor: "text",
+        }}
         placeholder="Enter text here..."
       />
       <br />
-      <button className="btn btn-sm btn-primary mx-2" onClick={handleSend}>
+      <button className="btn btn-primary mx-2" onClick={handleSend}>
         Send
       </button>
-      <button className="btn btn-sm btn-error" onClick={handleClear}>
+      <button className="btn btn-error" onClick={handleClear}>
         Clear All
       </button>
       <div className="flex flex-col items-center justify-center">
         <span>________</span>
-        {value}
+        {/* {value} */}
         <span>________</span>
         {/* <div dangerouslySetInnerHTML={{ __html: value }} /> */}
         <span>________</span>

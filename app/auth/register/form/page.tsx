@@ -15,9 +15,9 @@ export default function Register() {
   const router = useRouter();
   const { regExpResult, validateInput } = useAuthValidation();
   const [isChecked, setIsChecked] = useState<boolean | undefined>(undefined);
-  const [username, setUsername] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [username, setUsername] = useState<string | undefined>(undefined);
+  const [email, setEmail] = useState<string | undefined>(undefined);
+  const [password, setPassword] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     const validationResult = new Set(Object.values(regExpResult));
