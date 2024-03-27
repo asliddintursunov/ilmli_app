@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import Skeleton from "./Skeleton";
 import { useRouter } from "next/navigation";
+import { fetchServerActionArticles } from "@/lib/actions";
 
 export default function InfiniteScrollPage() {
   const router = useRouter();
@@ -15,7 +16,8 @@ export default function InfiniteScrollPage() {
   // Fetch first 10 articles
   useEffect(() => {
     const getInitialArticles = async function () {
-      const data: Article[] = await fetchArticles(0);
+      // const data: Article[] = await fetchArticles(0);
+      const data: Article[] = await fetchServerActionArticles(0);
       setArticles(data);
       setOffset(10);
     };
@@ -23,7 +25,7 @@ export default function InfiniteScrollPage() {
   }, []);
 
   const fetchNextTenArticles = function (offset: number) {
-    fetchArticles(offset)
+    fetchServerActionArticles(offset)
       .then((newArticles) => {
         setArticles((prev) => [...prev, ...newArticles]);
         setOffset((prev) => prev + 10);
@@ -95,7 +97,7 @@ export default function InfiniteScrollPage() {
                 id={el.id.toString()}
                 key={el.id}
                 className="flex items-center justify-between p-2 
-            shadow-lg"
+            cursor-pointer hover:bg-gray-700/20 transition-all shadow-md hover:shadow-xl"
               >
                 <div className="flex-1 flex flex-col items-start justify-start gap-1">
                   <div className="flex gap-2 items-start justify-start">
