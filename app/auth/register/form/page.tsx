@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import Button from "../../components/Button";
 import Password from "../../components/Password";
 import Username from "../../components/Username";
@@ -14,10 +13,9 @@ import { baseURL } from "@/utils";
 export default function Register() {
   const router = useRouter();
   const { regExpResult, validateInput } = useAuthValidation();
-  const [isChecked, setIsChecked] = useState<boolean | undefined>(undefined);
-  const [username, setUsername] = useState<string | undefined>(undefined);
-  const [email, setEmail] = useState<string | undefined>(undefined);
-  const [password, setPassword] = useState<string | undefined>(undefined);
+  const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   useEffect(() => {
     const validationResult = new Set(Object.values(regExpResult));
@@ -39,11 +37,6 @@ export default function Register() {
 
   const handleSubmit = function (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!isChecked) {
-      setIsChecked(false);
-      return;
-    }
-
     validateInput(username, email, password);
   };
   return (
@@ -67,36 +60,10 @@ export default function Register() {
             isPasswordValid={regExpResult.password}
           />
           <Button authType="signup" />
-          <div className="flex items-center justify-between mt-1">
-            <div className="flex items-center gap-0.5 ">
-              <input
-                type="checkbox"
-                checked={isChecked}
-                onChange={(e) =>
-                  e.target.checked ? setIsChecked(true) : setIsChecked(false)
-                }
-                id="remember"
-                className="cursor-pointer checkbox checkbox-warning h-5 w-5 rounded-sm"
-              />
-              <label htmlFor="remember" className="cursor-pointer">
-                I agree to the{" "}
-                <Link href="#" className="link link-primary">
-                  terms and conditions
-                </Link>
-              </label>
-            </div>
-          </div>
           <span className="text-center mt-1">-Or Sign Up With-</span>
           <SocialAuth />
         </div>
       </form>
-      {isChecked === false && (
-        <div className="toast toast-top toast-end mt-16 z-10">
-          <div className="alert alert-error">
-            <span>Please agree to the terms and conditions.</span>
-          </div>
-        </div>
-      )}
     </main>
   );
 }

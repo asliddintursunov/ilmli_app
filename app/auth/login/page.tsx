@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React, {useEffect, useState } from "react";
 import Link from "next/link";
 import Button from "../components/Button";
 import Password from "../components/Password";
@@ -11,8 +11,8 @@ import axios from "axios";
 
 export default function Login() {
   const { regExpResult, validateInput } = useAuthValidation();
-  const [username, setUsername] = useState<string | undefined>(undefined)
-  const [password, setPassword] = useState<string | undefined>(undefined);
+  const [username, setUsername] = useState<string>("")
+  const [password, setPassword] = useState<string>("");
 
   useEffect(() => {
     const validationResult = new Set(Object.values(regExpResult));
@@ -56,17 +56,7 @@ export default function Login() {
             isPasswordValid={regExpResult.password}
           />
           <Button authType="signin" />
-          <div className="flex items-center justify-between mt-1">
-            <div className="flex items-center gap-0.5 ">
-              <input
-                type="checkbox"
-                id="remember"
-                className="cursor-pointer checkbox checkbox-warning h-5 w-5 rounded-sm"
-              />
-              <label htmlFor="remember" className="cursor-pointer">
-                Remember me
-              </label>
-            </div>
+          <div className="flex items-center justify-end mt-1">
             <Link href="#" className="link link-primary">
               Forgot password?
             </Link>

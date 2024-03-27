@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 type Props = {
-  password: string | undefined;
-  setPassword: Dispatch<SetStateAction<string | undefined>>;
+  password: string;
+  setPassword: Dispatch<SetStateAction<string>>;
   isPasswordValid: boolean | null;
 };
 import { useState } from "react";

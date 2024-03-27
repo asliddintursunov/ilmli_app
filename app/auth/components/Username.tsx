@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
 
 type Props = {
-  username: string | undefined;
-  setUsername: Dispatch<SetStateAction<string | undefined>>;
+  username: string;
+  setUsername: Dispatch<SetStateAction<string>>;
   isUserNameValid: boolean | null;
 };
 

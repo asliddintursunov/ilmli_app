@@ -4,7 +4,9 @@ export default async function fetchNewestArticles(
   category: string,
   offset: number
 ) {
-  const API = `${baseURL}/newest/${category}`;
+  const params = new URLSearchParams();
+  params.append("category", category);
+  const API = `${baseURL}/recommended?${params.toString()}`;
   try {
     const res = await fetch(API, {
       cache: "no-store",
