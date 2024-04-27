@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 
@@ -19,7 +18,7 @@ function CustomInterestsModal({ setInterests }: Props) {
   };
   return (
     <>
-      <div className="flex flex-row items-center justify-start gap-1 w-full mb-10 mt-2">
+      <div className="flex flex-row items-center justify-start gap-1 w-full mt-2">
         <button
           className="btn btn-primary rounded-full"
           onClick={() => {
@@ -28,9 +27,6 @@ function CustomInterestsModal({ setInterests }: Props) {
         >
           Add Custom Interests
         </button>
-        <Link  href={"/"} className="btn btn-accent rounded-full">
-          Skip
-        </Link>
       </div>
       {openModal && (
         <div className="flex justify-center items-center fixed top-0 left-0 w-full h-screen bg-black/30">

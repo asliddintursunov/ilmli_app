@@ -1,5 +1,5 @@
 "use client";
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Button from "../components/Button";
 import Password from "../components/Password";
@@ -8,11 +8,27 @@ import SocialAuth from "../components/SocialAuth";
 import useAuthValidation from "@/hooks/useAuthValidation";
 import { baseURL } from "@/utils";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import fetchProtected from "@/lib/fetchProtected";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 export default function Login() {
+  const isAuthed = useSelector(
+    (state: RootState) => state.isLoggedInSlice.isLoggedIn
+  );
+  const router = useRouter();
   const { regExpResult, validateInput } = useAuthValidation();
-  const [username, setUsername] = useState<string>("")
+  const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  // useEffect(() => {
+    // fetchProtected().then((isAuthorized) => {
+    //   if (isAuthorized) router.push("/");
+    // });
+    
+    // if (isAuthed) router.push("/")
+  // }, []);
 
   useEffect(() => {
     const validationResult = new Set(Object.values(regExpResult));
@@ -24,7 +40,10 @@ export default function Login() {
           password,
         })
         .then((res) => {
-          alert(res.data);
+          alert(res.data.message);
+          localStorage.setItem("access_token", res.data.tokens.access_token);
+          // router.push("/");
+          window.location.assign("/")
         })
         .catch((err) => alert(err.response.data));
     }
@@ -33,7 +52,7 @@ export default function Login() {
   const handleSubmit = function (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    validateInput(username, undefined ,password);
+    validateInput(username, undefined, password);
   };
   return (
     <main

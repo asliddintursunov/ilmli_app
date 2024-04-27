@@ -9,6 +9,7 @@ import useAuthValidation from "@/hooks/useAuthValidation";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { baseURL } from "@/utils";
+import fetchProtected from "@/lib/fetchProtected";
 
 export default function Register() {
   const router = useRouter();
@@ -16,6 +17,12 @@ export default function Register() {
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  useEffect(() => {
+    fetchProtected().then((isAuthorized) => {
+      if (isAuthorized) router.push("/");
+    });
+  }, []);
 
   useEffect(() => {
     const validationResult = new Set(Object.values(regExpResult));
@@ -29,6 +36,8 @@ export default function Register() {
         })
         .then((res) => {
           alert(res.data);
+          
+          localStorage.setItem("username", username)
           if (res.status === 201) router.push("/auth/register/interests");
         })
         .catch((err) => alert(err.response.data));

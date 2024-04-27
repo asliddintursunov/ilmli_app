@@ -1,9 +1,14 @@
 "use client";
 type Props = {};
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CustomInterestsModal from "./CustomInterestsModal";
+import Link from "next/link";
+import axios from "axios";
+import { baseURL } from "@/utils";
+import { useRouter } from "next/navigation";
 
 function Interests({}: Props) {
+  const router = useRouter()
   const [interests, setInterests] = useState<string[]>([
     "Knitting",
     "Urban Gardening",
@@ -67,9 +72,19 @@ function Interests({}: Props) {
       setSelectedInterests((prev) => [...prev, data]);
     }
   };
-  useEffect(() => {
-    console.log(selectedInterests);
-  }, [selectedInterests]);
+
+  const handleSubmit = function () {
+    axios
+      .post(`${baseURL}/auth/set_interests`, {
+        username: localStorage.getItem("username"),
+        interests: selectedInterests,
+      })
+      .then((res) => {
+        alert(res.data)
+        router.push("/");
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <>
       <div className="flex flex-row w-full flex-wrap gap-2 mt-2">
@@ -92,6 +107,12 @@ function Interests({}: Props) {
         })}
       </div>
       <CustomInterestsModal setInterests={setInterests} />
+      <Link href={"/"} className="btn btn-accent rounded-full">
+        Skip
+      </Link>
+      <button className="btn btn-success" onClick={() => handleSubmit()}>
+        Submit
+      </button>
     </>
   );
 }
