@@ -1,7 +1,6 @@
 import { baseURL } from "@/utils";
 
-export default async function fetchProtected() {
-  const access_token = localStorage.getItem("access_token");
+export default async function fetchProtected(access_token: string | null) {
   try {
     const res = await fetch(`${baseURL}/protected`, {
       headers: {
@@ -10,7 +9,7 @@ export default async function fetchProtected() {
     });
     if (res.status == 200) return true;
     localStorage.removeItem("access_token");
-    return false
+    return false;
   } catch (error) {
     localStorage.removeItem("access_token");
     return false;

@@ -24,7 +24,7 @@ function PostPicture({ postImage, setPostImage }: Props) {
   };
 
   return (
-    <label className="min-h-44 flex flex-col justify-start relative">
+    <label className="min-h-44 flex flex-col justify-start relative cursor-pointer">
       {postImage ? (
         <Image
           src={postImage}
@@ -43,7 +43,8 @@ function PostPicture({ postImage, setPostImage }: Props) {
       <input
         onChange={(file) => handleImageConvertToBase64(file)}
         type="file"
-        className="lg:w-96 md:w-80 w-64 min-w-full min-h-44 sm:min-h-36 flex flex-col justify-start opacity-0 cursor-pointer"
+        // className="lg:w-96 md:w-80 w-64 min-w-full min-h-44 sm:min-h-36 flex flex-col justify-start opacity-0 cursor-pointer"
+        className="w-full h-full flex flex-col justify-start opacity-0"
       />
     </label>
   );

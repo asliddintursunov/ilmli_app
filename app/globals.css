@@ -47,10 +47,10 @@
     @apply w-10 h-10 flex items-center justify-center z-10 relative bg-slate-500 rounded-full text-white font-semibold;
   }
   .active .step {
-    @apply bg-blue-700;
+    @apply bg-sky-600;
   }
   .complete .step {
-    @apply bg-green-600;
+    @apply bg-green-500;
   }
   .complete:not(:first-child)::before,
   .active:not(:first-child)::before {

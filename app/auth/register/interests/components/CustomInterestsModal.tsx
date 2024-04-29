@@ -5,66 +5,48 @@ type Props = {
   setInterests: (interests: any) => void;
 };
 function CustomInterestsModal({ setInterests }: Props) {
-  const [openModal, setOpenModal] = useState<boolean>(false);
   const [customInterest, setCustomInterest] = useState<string>("");
-
-  const closeModal = function () {
-    setOpenModal(false);
-  };
   const addCustomInterest = function (interest: string) {
     if (interest !== "") {
       setInterests((prev: string[]) => [...prev, interest.trim()]);
     }
+    setCustomInterest("")
   };
   return (
-    <>
-      <div className="flex flex-row items-center justify-start gap-1 w-full mt-2">
-        <button
-          className="btn btn-primary rounded-full"
-          onClick={() => {
-            setOpenModal(true);
-          }}
-        >
-          Add Custom Interests
-        </button>
-      </div>
-      {openModal && (
-        <div className="flex justify-center items-center fixed top-0 left-0 w-full h-screen bg-black/30">
-          <div className="relative rounded-sm bg-white px-5 py-3">
-            <h3 className="text-lg font-bold">
-              Add your custom interest here.
-            </h3>
-            <input
-              type="text"
-              placeholder="ex: Soccer"
-              className="input input-bordered w-full max-w-xs my-3"
-              onChange={(e) => setCustomInterest(e.currentTarget.value)}
-            />
-            <button
-              className="absolute top-0 right-0 p-2 bg-red-600 border-none text-white rounded-sm"
-              onClick={closeModal}
-            >
-              <RxCross2 />
-            </button>
-            <button
-              className="mt-2 px-5 py-2 bg-blue-700 rounded-full border-none text-white font-semibold"
-              onClick={() => {
-                closeModal();
-                addCustomInterest(customInterest);
-              }}
-            >
-              Add
-            </button>
+    <div>
+      <button
+        className="btn"
+        onClick={() => document.getElementById("my_modal_1")?.showModal()}
+      >
+        open modal
+      </button>
+      <dialog id="my_modal_1" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Customize your interests</h3>
+          <p className="py-4">Add your custom interest here.</p>
+          <div className="modal-action">
+            <form method="dialog" className="w-full">
+              <input
+                type="text"
+                placeholder="ex: Math"
+                className="input input-bordered w-full"
+                onChange={(e) => setCustomInterest(e.currentTarget.value)}
+                value={customInterest}
+              />
+              <div className="flex items-center justify-between mt-4">
+                <button
+                  className="btn btn-primary px-6"
+                  onClick={() => addCustomInterest(customInterest)}
+                >
+                  Add
+                </button>
+                <button className="btn px-6">Close</button>
+              </div>
+            </form>
           </div>
-          <button
-            className="fixed top-0 left-0 w-full h-screen opacity-0 -z-10 cursor-default"
-            onClick={closeModal}
-          >
-            Close
-          </button>
         </div>
-      )}
-    </>
+      </dialog>
+    </div>
   );
 }
 

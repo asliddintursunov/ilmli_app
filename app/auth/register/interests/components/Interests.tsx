@@ -6,61 +6,11 @@ import Link from "next/link";
 import axios from "axios";
 import { baseURL } from "@/utils";
 import { useRouter } from "next/navigation";
+import { categories } from "@/components/Categories";
 
 function Interests({}: Props) {
   const router = useRouter()
-  const [interests, setInterests] = useState<string[]>([
-    "Knitting",
-    "Urban Gardening",
-    "Astronomy",
-    "Mixology (Cocktail Making)",
-    "Calligraphy",
-    "Historical Reenactment",
-    "Birdwatching",
-    "Origami",
-    "Astrophotography",
-    "Vintage Cars",
-    "Stand-up Comedy",
-    "DIY Home Improvement",
-    "Archery",
-    "Podcasting",
-    "Marine Biology",
-    "Beekeeping",
-    "Creative Writing",
-    "Mountain Climbing",
-    "Feng Shui",
-    "Paragliding",
-    "Puzzle Solving",
-    "Interior Design",
-    "Urban Exploration (Urbex)",
-    "DIY Electronics",
-    "Model Building (Planes, Trains, etc.)",
-    "Kite Surfing",
-    "Pottery",
-    "Ghost Hunting",
-    "Woodworking",
-    "Magic Tricks",
-    "Rock Climbing",
-    "Genealogy",
-    "Wine Tasting",
-    "Quilting",
-    "Scuba Diving",
-    "Astronomy",
-    "Hiking",
-    "Salsa Dancing",
-    "Geocaching",
-    "Soap Making",
-    "Parkour",
-    "Historical Architecture",
-    "Foraging",
-    "Movie Trivia",
-    "Juggling",
-    "Tai Chi",
-    "Urban Farming",
-    "Cross-stitching",
-    "Ice Skating",
-    "Knifemaking",
-  ]);
+  const [interests, setInterests] = useState<string[]>(categories);
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const handleInterests = function (interest: string) {
     const data: string = interest.replaceAll(" ", "").toLowerCase();

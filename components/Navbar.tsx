@@ -2,42 +2,10 @@
 import Link from "next/link";
 import ScrollToTop from "@/components/ScrollToTop";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import fetchProtected from "@/lib/fetchProtected";
-// import { getIsLoggedIn } from "@/redux/slices/isLoggedInSlice";
-// import { useDispatch, useSelector } from "react-redux";
-// import { AppDispatch, RootState } from "@/redux/store";
-import { usePathname, useRouter } from "next/navigation";
+import useRouteHandler from "@/hooks/useRouteHandler";
 
 export default function Navbar() {
-  // const dispatch: AppDispatch = useDispatch();
-  // const isAuthed = useSelector(
-  //   (state: RootState) => state.isLoggedInSlice.isLoggedIn
-  // );
-  const pathname = usePathname();
-  const router = useRouter();
-  const [isLoggedIn, setIsLoggedIn] = useState<null | boolean>(null);
-
-  useEffect(() => {
-    const checkAuthorization = async () => {
-      const isAuthorized = await fetchProtected();
-      if (isAuthorized) setIsLoggedIn(true);
-      else setIsLoggedIn(false);
-    };
-    checkAuthorization();
-  }, []);
-
-  useEffect(() => {
-    const access_token = localStorage.getItem("access_token");
-    if (!access_token && !pathname.includes("/auth/")) {
-      setIsLoggedIn(false);
-      if (pathname != "/") router.push("/auth/login");
-    } else if (access_token && pathname.includes("/auth/")) {
-      setIsLoggedIn(true);
-      router.push("/");
-    }
-  }, [pathname]);
-
+  const { isLoggedIn } = useRouteHandler();
   return (
     <nav className="navbar max-w-[1440px] mx-auto bg-inherit px-4 sticky top-0 left-0 z-20 ">
       <ScrollToTop />
