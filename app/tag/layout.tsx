@@ -5,10 +5,8 @@ export default function TagsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="grid place-content-center mx-2">
-      <nav className="text-4xl text-center">
-        <TagsNavbar />
-      </nav>
+    <section className="grid place-content-center max-w-[1440px] mx-auto">
+      <TagsNavbar />
       {children}
     </section>
   );

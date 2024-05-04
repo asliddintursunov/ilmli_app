@@ -6,18 +6,27 @@ function useRouteHandler() {
   const pathname = usePathname();
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState<null | boolean>(null);
+  const [prevPath, setPrevPath] = useState<string>(pathname);
   useEffect(() => {
     const access_token = localStorage.getItem("access_token");
     if (access_token === null) {
       setIsLoggedIn(false);
+      setPrevPath(pathname);
+
       if (
-        pathname === "/auth/login" ||
-        pathname === "/auth/register/form" ||
-        pathname == "/"
+        prevPath === "/auth/register/form" &&
+        pathname === "/auth/register/interests"
       ) {
         return;
+      } else if (
+        pathname === "/auth/login" ||
+        pathname === "/auth/register/form" ||
+        pathname === "/"
+      ) {
+        return;
+      } else {
+        router.push("/auth/login");
       }
-      router.push("/auth/login");
     } else {
       const checkAuthorization = async () => {
         try {
@@ -48,8 +57,8 @@ function useRouteHandler() {
   }, [pathname]);
 
   return {
-    isLoggedIn
-  }
+    isLoggedIn,
+  };
 }
 
 export default useRouteHandler;

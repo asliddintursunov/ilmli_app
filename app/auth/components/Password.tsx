@@ -16,6 +16,7 @@ function Password({ setPassword, isPasswordValid, password }: Props) {
           type={showPassword ? "text" : "password"}
           id="password"
           className="auth_input pr-8"
+          autoComplete="current-password"
           style={{
             borderColor: isPasswordValid === false ? "red" : "",
           }}

@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
-import isLoggedInSlice from "./slices/isLoggedInSlice";
+import getNewRegisteredUserUsernameSlice from "./slices/getNewRegisteredUserUsernameSlice";
 
 export const store = configureStore({
   reducer: {
-    isLoggedInSlice: isLoggedInSlice // This slice is not used yet!
+    getNewRegisteredUserUsernameSlice: getNewRegisteredUserUsernameSlice,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;

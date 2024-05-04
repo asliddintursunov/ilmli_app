@@ -9,26 +9,11 @@ import useAuthValidation from "@/hooks/useAuthValidation";
 import { baseURL } from "@/utils";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import fetchProtected from "@/lib/fetchProtected";
-import { useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
-
 export default function Login() {
-  const isAuthed = useSelector(
-    (state: RootState) => state.isLoggedInSlice.isLoggedIn
-  );
   const router = useRouter();
   const { regExpResult, validateInput } = useAuthValidation();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
-  // useEffect(() => {
-    // fetchProtected().then((isAuthorized) => {
-    //   if (isAuthorized) router.push("/");
-    // });
-    
-    // if (isAuthed) router.push("/")
-  // }, []);
 
   useEffect(() => {
     const validationResult = new Set(Object.values(regExpResult));
@@ -42,8 +27,7 @@ export default function Login() {
         .then((res) => {
           alert(res.data.message);
           localStorage.setItem("access_token", res.data.tokens.access_token);
-          // router.push("/");
-          window.location.assign("/")
+          router.push("/");
         })
         .catch((err) => alert(err.response.data));
     }

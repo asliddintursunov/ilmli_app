@@ -1,0 +1,27 @@
+.postContainer {
+    margin: 16px auto;
+    padding: 8px 18px;
+    width: 80%;
+  }
+  .postContainer h1 {
+    font-size: 34px;
+  }
+  .postContainer h2 {
+    font-size: 26px;
+  }
+  .postContainer a {
+    text-decoration: underline;
+    cursor: pointer;
+    color: blue;
+  }
+  .postContainer ul li,
+  .postContainer ol li {
+    margin-left: 20px;
+    font-size: 20px;
+    list-style-type: disc;
+    list-style-position: outside;
+  }
+  .postContainer p {
+    font-size: 20px;
+  }
+  

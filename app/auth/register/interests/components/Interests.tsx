@@ -7,9 +7,14 @@ import axios from "axios";
 import { baseURL } from "@/utils";
 import { useRouter } from "next/navigation";
 import { categories } from "@/components/Categories";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 function Interests({}: Props) {
-  const router = useRouter()
+  const router = useRouter();
+  const newUserUsername = useSelector(
+    (state: RootState) => state.getNewRegisteredUserUsernameSlice.username
+  );
   const [interests, setInterests] = useState<string[]>(categories);
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const handleInterests = function (interest: string) {
@@ -26,11 +31,11 @@ function Interests({}: Props) {
   const handleSubmit = function () {
     axios
       .post(`${baseURL}/auth/set_interests`, {
-        username: localStorage.getItem("username"),
+        username: newUserUsername,
         interests: selectedInterests,
       })
       .then((res) => {
-        alert(res.data)
+        alert(res.data);
         router.push("/");
       })
       .catch((err) => console.log(err));

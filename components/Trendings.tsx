@@ -5,7 +5,8 @@ import Skeleton from "./Skeleton";
 import { Suspense } from "react";
 import Link from "next/link";
 export default async function Trendings() {
-  const trendings: Article[] = await getTrendingOnIlmli();
+  const trendings = await getTrendingOnIlmli();
+  const articles: Article[] = trendings.articles;
 
   return (
     <div className="flex flex-col justify-start gap-1 mx-1">
@@ -19,11 +20,14 @@ export default async function Trendings() {
             return <Skeleton key={i} image={false} />;
           })}
         >
-          {trendings.map((trending: Article) => {
+          {articles.map((trending: Article) => {
             return (
               <Link
-                href={`/tag/${trending.category}/post/${trending.title.replaceAll(" ", "-").toLowerCase()}`}
-                key={trending.id}
+                href={`/tag/${trending.post_primary_category}/${trending.post_title}_${trending.post_uuid}`.replaceAll(
+                  " ",
+                  "-"
+                )}
+                key={trending.post_id}
                 className="py-3 px-5 shadow-md hover:shadow-xl flex flex-col justify-between items-start rounded-md cursor-pointer dark:hover:bg-slate-700/20 transition-all min-h-[120px] w-full md:w-[255px] lg:w-[320px] xl:w-[425px]"
               >
                 <div className="flex gap-1 items-start justify-start">
@@ -32,20 +36,25 @@ export default async function Trendings() {
                     alt="avatar"
                     width={24}
                     height={24}
+                    loading="lazy"
                     className="rounded-full border border-gray-600"
                   />
-                  <span className="font-medium text-sm">{trending.name}</span>
+                  <span className="font-medium text-sm">
+                    {trending.user_name}
+                  </span>
                 </div>
                 <div>
-                  <span className="text-md font-bold">{trending.title}</span>
+                  <span className="text-md font-bold">
+                    {trending.post_title}
+                  </span>
                 </div>
                 <div className="flex items-center justify-start gap-2">
                   <span className="text-sm text-gray-500">
-                    {trending.posted}
+                    {trending.post_created_time}
                   </span>
                   &#x2022;
                   <span className="text-sm text-gray-500">
-                    {trending.readTime}
+                    {"trending.post_read_time"}
                   </span>
                 </div>
               </Link>
@@ -55,4 +64,5 @@ export default async function Trendings() {
       </div>
     </div>
   );
+  return <></>;
 }

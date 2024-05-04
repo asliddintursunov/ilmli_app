@@ -1,11 +1,15 @@
 type Article = {
-  id: number;
-  category?: string;
+  post_id: number;
+  post_uuid: string;
+  post_categories: string[];
+  post_primary_category: string;
   image: string;
-  name: string;
-  description?: string;
-  title: string;
-  posted: string;
+  user_name: string;
+  post_description: string;
+  post_title: string;
+  post_body: string;
+  post_image: string;
+  post_created_time: string;
   readTime: string;
 };
 

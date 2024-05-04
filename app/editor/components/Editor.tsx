@@ -11,30 +11,23 @@ import axios from "axios";
 import Title from "./Title";
 import Description from "./Description";
 import PostPicture from "./PostPicture";
-import PostCategory from "./PostCategory";
+import PostCategories from "./PostCategories";
 
 export default function PrimeReactEditor() {
   const [postBody, setPostBody] = useState<string>("");
   const [postTitle, setPostTitle] = useState<string>("");
   const [postDescription, setPostDescription] = useState<string>("");
   const [postImage, setPostImage] = useState<string>("");
-  const [postCategory, setPostCategory] = useState<string[]>([]);
-
-  // The variable below will be removed, it is just for test
-  const [post, setPost] = useState<
-    | {
-        post_body: string;
-        post_image: string;
-      }
-    | undefined
-  >(undefined);
+  const [postCategories, setPostCategories] = useState<string[]>([]);
+  const [primaryCategory, setPrimaryCategory] = useState<string>("");
 
   const handleSend = function () {
     const access_token = localStorage.getItem("access_token");
     const postData = {
       title: postTitle,
       description: postDescription,
-      category: postCategory,
+      categories: postCategories,
+      primary_category: primaryCategory,
       body: postBody,
       image: postImage,
     };
@@ -44,8 +37,16 @@ export default function PrimeReactEditor() {
           Authorization: `Bearer ${access_token}`,
         },
       })
-      .then((res) => console.log(res))
-      .catch((err) => console.error(err));
+      .then((res) => {
+        console.log(res);
+
+        alert(`SUCCESS: ${res.data}`);
+      })
+      .catch((err) => {
+        console.log(err);
+
+        alert(`ERROR: ${err.response.data}`);
+      });
   };
 
   const handleClear = function () {
@@ -54,20 +55,10 @@ export default function PrimeReactEditor() {
     setPostBody("");
   };
 
-  // The function below will be removed, it is just for test
-  const getPost = function () {
-    axios
-      .get(`${baseURL}/get-post`)
-      .then((res) => {
-        setPost(res.data);
-      })
-      .catch((err) => console.log(err));
-  };
-
   const editorStyle = {
     height: "50vh",
-    display: postBody && "flex",
-    justifyContent: postBody && "center",
+    // display: postBody && "flex",
+    // justifyContent: postBody && "center",
     cursor: "text",
     fontSize: "16px",
   };
@@ -114,9 +105,11 @@ export default function PrimeReactEditor() {
           <div className="w-full min-h-44 sm:max-h-full">
             <PostPicture postImage={postImage} setPostImage={setPostImage} />
           </div>
-          <PostCategory
-            postCategory={postCategory}
-            setPostCategory={setPostCategory}
+          <PostCategories
+            postCategories={postCategories}
+            setPostCategories={setPostCategories}
+            primaryCategory={primaryCategory}
+            setPrimaryCategory={setPrimaryCategory}
           />
         </div>
       </div>
@@ -130,29 +123,6 @@ export default function PrimeReactEditor() {
           CLEAR
         </button>
       </div>
-
-      {/* This div below will be removed, it is just for test */}
-      <div className="mt-[32px] w-full">
-        <button className="btn btn-success" onClick={getPost}>
-          GET
-        </button>
-        {post && (
-          <div className="mb-10">
-            <div
-              className={styles.postContainer}
-              dangerouslySetInnerHTML={{ __html: post.post_body }}
-            />
-            <Image
-              src={post.post_image}
-              alt="Post Image"
-              width={0}
-              height={0}
-              className="w-96 h-auto"
-            />
-          </div>
-        )}
-      </div>
-      {/* {postBody} */}
     </>
   );
 }

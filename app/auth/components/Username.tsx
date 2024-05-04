@@ -14,6 +14,7 @@ function Username({ setUsername, isUserNameValid, username }: Props) {
         type="text"
         id="username"
         className="auth_input"
+        autoComplete="username"
         style={{
           borderColor: isUserNameValid === false ? "red" : "",
         }}

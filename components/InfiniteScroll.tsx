@@ -1,5 +1,4 @@
 "use client";
-import fetchArticles from "@/lib/fetchArticles";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import Skeleton from "./Skeleton";
@@ -16,9 +15,10 @@ export default function InfiniteScrollPage() {
   // Fetch first 10 articles
   useEffect(() => {
     const getInitialArticles = async function () {
-      // const data: Article[] = await fetchArticles(0);
       const data: Article[] = await fetchServerActionArticles(0);
       setArticles(data);
+      console.log(data);
+
       setOffset(10);
     };
     getInitialArticles();
@@ -46,11 +46,11 @@ export default function InfiniteScrollPage() {
             if (entry.isIntersecting) {
               observer!.unobserve(entry.target);
               if (
-                articles[articles.length - 1].id.toString() ===
+                articles[articles.length - 1].post_id.toString() ==
                   entry.target.id &&
-                offset < 70
+                offset < 50
               ) {
-                offset < 70 - 10 ? setPending(true) : setPending(false);
+                offset < 50 - 10 ? setPending(true) : setPending(false);
 
                 console.log(
                   "%c Fetch more list items!",
@@ -89,14 +89,15 @@ export default function InfiniteScrollPage() {
               <li
                 onClick={() =>
                   router.push(
-                    `/tag/${el.category}/post/${el.title
-                      .replaceAll(" ", "-")
-                      .toLowerCase()}`
+                    `/tag/${el.post_primary_category}/${el.post_title}_${el.post_uuid}`.replaceAll(
+                      " ",
+                      "-"
+                    )
                   )
                 }
-                id={el.id.toString()}
-                key={el.id}
-                className="flex items-center justify-between p-2 
+                id={el.post_id.toString()}
+                key={el.post_id}
+                className="flex items-center justify-between p-2
             cursor-pointer hover:bg-gray-700/20 transition-all shadow-md hover:shadow-xl"
               >
                 <div className="flex-1 flex flex-col items-start justify-start gap-1">
@@ -106,26 +107,34 @@ export default function InfiniteScrollPage() {
                       alt="avatar"
                       width={24}
                       height={24}
+                      loading="lazy"
                       className="rounded-full border border-gray-600"
                     />
-                    <span className="font-bold text-sm">{el.name}</span>
+                    <span className="font-bold text-sm">{el.user_name}</span>
                   </div>
                   <div className="flex flex-col items-start justify-start gap-1">
-                    <h2 className="font-bold text-xl">{el.title}</h2>
-                    <p className="text-sm text-gray-600">{el.description}</p>
+                    <h2 className="font-bold text-xl">{el.post_title}</h2>
+                    <p className="text-sm text-gray-600">
+                      {el.post_description}
+                    </p>
                   </div>
                   <div className="flex items-center justify-start gap-2">
-                    <span className="text-sm text-gray-500">{el.posted}</span>
+                    <span className="text-sm text-gray-500">
+                      {el.post_created_time}
+                    </span>
                     &#x2022;
-                    <span className="text-sm text-gray-500">{el.readTime}</span>
+                    <span className="text-sm text-gray-500">
+                      {"el.readTime"}
+                    </span>
                   </div>
                 </div>
                 <Image
                   alt="flower"
-                  src={"/images/white_flower.jpg"}
+                  src={el.post_image}
                   width={160}
                   height={120}
-                ></Image>
+                  loading="lazy"
+                />
               </li>
             ))}
           </ul>
