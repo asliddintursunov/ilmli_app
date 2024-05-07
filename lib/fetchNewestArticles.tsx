@@ -15,5 +15,6 @@ export default async function fetchNewestArticles(
     return res.json();
   } catch (error) {
     console.error("Error fetching related articles:", error);
+    return error
   }
 }

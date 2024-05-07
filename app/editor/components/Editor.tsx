@@ -5,13 +5,12 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import { Editor } from "primereact/editor";
 import { baseURL } from "@/utils";
-import Image from "next/image";
-import styles from "../style.module.css";
 import axios from "axios";
 import Title from "./Title";
 import Description from "./Description";
 import PostPicture from "./PostPicture";
 import PostCategories from "./PostCategories";
+import clsx from "clsx";
 
 export default function PrimeReactEditor() {
   const [postBody, setPostBody] = useState<string>("");
@@ -24,10 +23,10 @@ export default function PrimeReactEditor() {
   const handleSend = function () {
     const access_token = localStorage.getItem("access_token");
     const postData = {
-      title: postTitle,
-      description: postDescription,
+      title: postTitle.trim(),
+      description: postDescription.trim(),
       categories: postCategories,
-      primary_category: primaryCategory,
+      primary_category: primaryCategory.trim(),
       body: postBody,
       image: postImage,
     };
@@ -65,32 +64,21 @@ export default function PrimeReactEditor() {
 
   return (
     <>
-      {/* <div className="flex flex-col sm:flex-row items-stretch gap-2 mb-2 w-full">
-        <div className="flex flex-col gap-2 mb-2 flex-1">
-          <Title postTitle={postTitle} setPostTitle={setPostTitle} />
-          <Description
-            postDescription={postDescription}
-            setPostDescription={setPostDescription}
-          />
+      <div className="flex flex-col gap-2">
+        <div className="flex flex-col sm:flex-row items-stretch justify-end gap-2">
+          <div className="flex-1 flex flex-col justify-end">
+            <Title postTitle={postTitle} setPostTitle={setPostTitle} />
+            <Description
+              postDescription={postDescription}
+              setPostDescription={setPostDescription}
+            />
+          </div>
+          <div className="min-h-max sm:max-h-full">
+            <PostPicture postImage={postImage} setPostImage={setPostImage} />
+          </div>
         </div>
-        <div className="lg:w-96 md:w-80 min-w-64 max-w-full min-h-44 sm:min-h-full">
-          <PostPicture postImage={postImage} setPostImage={setPostImage} />
-        </div>
-      </div>
-      <Editor
-        value={postBody}
-        onTextChange={(e: any) => setPostBody(e.htmlValue)}
-        style={editorStyle}
-        placeholder="Enter text here..."
-      /> */}
-      <div className="flex flex-col md:flex-row justify-between items-start gap-2">
-        <div className="w-full flex flex-col gap-3.5">
-          <Title postTitle={postTitle} setPostTitle={setPostTitle} />
-          <Description
-            postDescription={postDescription}
-            setPostDescription={setPostDescription}
-          />
-          <div>
+        <div className="flex flex-col sm:flex-row items-start justify-between gap-2">
+          <div className="flex-1">
             <span className="text-2xl">Body</span>
             <Editor
               value={postBody}
@@ -99,11 +87,6 @@ export default function PrimeReactEditor() {
               placeholder="Enter text here..."
               className="max-w-[1115px]"
             />
-          </div>
-        </div>
-        <div className="lg:w-96 md:w-80 min-w-64 w-full flex flex-col gap-3.5">
-          <div className="w-full min-h-44 sm:max-h-full">
-            <PostPicture postImage={postImage} setPostImage={setPostImage} />
           </div>
           <PostCategories
             postCategories={postCategories}
@@ -116,7 +99,14 @@ export default function PrimeReactEditor() {
 
       {/* These buttons below will be removed, they are just for test */}
       <div className="flex items-center gap-2 mt-2">
-        <button className="btn btn-primary" onClick={handleSend}>
+        <button
+          className={clsx(
+            "btn btn-primary",
+            (postDescription.length > 120 || postTitle.length > 120) &&
+              "btn-disabled"
+          )}
+          onClick={handleSend}
+        >
           SEND
         </button>
         <button className="btn btn-secondary" onClick={handleClear}>

@@ -18,19 +18,19 @@ export default function Skeleton({ image }: Props) {
       flex-col items-start justify-start w-full"
         >
           <div className="flex gap-2 items-start justify-start">
-            <div className="skeleton h-8 w-8"></div>
-            <div className="skeleton w-2/5 rounded-full h-6"></div>
+            <div className="skeleton h-8 w-8"/>
+            <div className="skeleton w-2/5 rounded-full h-6"/>
           </div>
           <div className="flex flex-col items-start justify-start gap-2 mt-2">
-            <div className="skeleton h-6 w-full rounded-full"></div>
-            {image && <div className="skeleton h-3 w-full rounded-full"></div>}
+            <div className="skeleton h-6 w-full rounded-full"/>
+            {image && <div className="skeleton h-3 w-full rounded-full"/>}
           </div>
           <div className="flex items-center justify-start gap-2 mt-2">
-            <div className="skeleton  w-12 h-4 rounded-full"></div>
-            <div className="skeleton  w-16 h-4 rounded-full"></div>
+            <div className="skeleton  w-12 h-4 rounded-full"/>
+            <div className="skeleton  w-16 h-4 rounded-full"/>
           </div>
         </div>
-        {image && <div className="skeleton h-24 w-48 rounded-md"></div>}
+        {image && <div className="skeleton h-24 w-48 rounded-md"/>}
       </div>
     </li>
   );

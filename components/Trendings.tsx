@@ -26,7 +26,7 @@ export default async function Trendings() {
                 href={`/tag/${trending.post_primary_category}/${trending.post_title}_${trending.post_uuid}`.replaceAll(
                   " ",
                   "-"
-                )}
+                ).toLowerCase()}
                 key={trending.post_id}
                 className="py-3 px-5 shadow-md hover:shadow-xl flex flex-col justify-between items-start rounded-md cursor-pointer dark:hover:bg-slate-700/20 transition-all min-h-[120px] w-full md:w-[255px] lg:w-[320px] xl:w-[425px]"
               >

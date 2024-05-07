@@ -2,8 +2,6 @@ import fetchNewestArticles from "@/lib/fetchNewestArticles";
 import fetchRecommendedArticles from "@/lib/fetchRecommendedArticles";
 import Recommended from "./components/Recommended";
 import Newest from "./components/Newest";
-import { Suspense } from "react";
-import Skeleton from "@/components/Skeleton";
 import { Metadata } from "next";
 
 export async function generateMetadata({
@@ -24,29 +22,41 @@ async function page({ params }: { params: { category: string } }) {
   var heading = category.replace("-", " ");
   heading = heading[0].toUpperCase() + heading.slice(1, heading.length);
 
-  const recommendedData = await fetchRecommendedArticles(category);
-  const newestData = await fetchNewestArticles(category);
-
-  const [recommended, newest]: [
-    { recommended: Article[] },
-    { newest: Article[] }
-  ] = await Promise.all([recommendedData, newestData]);
+  const recommended: { recommended: Article[] } =
+    await fetchRecommendedArticles(category);
+  const newest: { newest: Article[] } = await fetchNewestArticles(category);
 
   return (
     <div className="mx-2">
-      <h1 className="text-4xl md:text-5xl text-center font-semibold">
+      <h1 className="text-4xl md:text-5xl text-center font-semibold capitalize">
         {heading}
       </h1>
-      <Suspense fallback={[1, 2].map(() => Skeleton({ image: true }))}>
-        <Recommended recommended={recommended} />
-      </Suspense>
-      <br />
-      <hr />
-      <br />
-      <Suspense fallback={newest.newest.map(() => Skeleton({ image: true }))}>
-        <h3 className="mb-3 text-2xl font-semibold">Newest</h3>
-        <Newest newest={newest} />
-      </Suspense>
+      {recommended.recommended.length > 0 ? (
+        <>
+          <br />
+          <hr />
+          <br />
+          <h1 className="mb-3 text-2xl font-semibold">Recommended stories</h1>
+          <Recommended recommended={recommended} />
+        </>
+      ) : (
+        <h1 className="mb-3 text-2xl font-semibold">
+          No recommended stories found!
+        </h1>
+      )}
+      {newest.newest.length > 0 ? (
+        <>
+          <br />
+          <hr />
+          <br />
+          <h3 className="mb-3 text-2xl font-semibold">Newest</h3>
+          <Newest newest={newest} />
+        </>
+      ) : (
+        <h1 className="mb-3 text-2xl font-semibold">
+          No newest stories found!
+        </h1>
+      )}
     </div>
   );
 }

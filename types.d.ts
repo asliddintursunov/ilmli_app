@@ -11,6 +11,11 @@ type Article = {
   post_image: string;
   post_created_time: string;
   readTime: string;
+  post_data: [
+    {
+      post_categories: []
+    }
+  ]
 };
 
 type UserData = {

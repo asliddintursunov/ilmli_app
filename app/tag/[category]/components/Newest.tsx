@@ -8,12 +8,12 @@ type Props = {
 function Newest({ newest }: Props) {
   const pathname = usePathname();
   const router = useRouter();
-  
-  const articles = newest.newest
+
+  const articles = newest.newest;
 
   return (
     <main className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-x-10 sm:gap-x-6 gap-y-4">
-      {articles &&
+      {articles.length > 0 ? (
         articles.map((el: Article) => {
           return (
             <div
@@ -23,6 +23,7 @@ function Newest({ newest }: Props) {
                 router.push(
                   `${pathname}/${el.post_title}_${el.post_uuid}`
                     .replaceAll(" ", "-")
+                    .toLowerCase()
                 )
               }
             >
@@ -32,8 +33,7 @@ function Newest({ newest }: Props) {
                 src={el.post_image}
                 alt={el.user_name}
                 loading="lazy"
-                sizes="(max-width: 768px) 100vw, 33vw"
-                className="rounded-sm"
+                className="rounded-sm object-cover object-center flex-1"
               />
               <div className="mx-2">
                 <div className="flex gap-1 items-start justify-start">
@@ -46,8 +46,8 @@ function Newest({ newest }: Props) {
                   />
                   <span className="font-medium text-sm">{el.user_name}</span>
                 </div>
-                <div className="mt-1">
-                  <span className="text-md font-bold">{el.post_title}</span>
+                <div className="mt-1 text-ellipsis">
+                  <span className="text-md font-bold ">{el.post_title}</span>
                 </div>
                 <div className="flex items-center justify-start gap-2">
                   <span className="text-sm text-gray-500">
@@ -59,7 +59,12 @@ function Newest({ newest }: Props) {
               </div>
             </div>
           );
-        })}
+        })
+      ) : (
+        <div className="text-4xl">
+          <h1>No newest stories found!</h1>
+        </div>
+      )}
     </main>
   );
 }

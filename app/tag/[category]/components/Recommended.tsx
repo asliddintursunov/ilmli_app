@@ -14,20 +14,16 @@ function Recommended({ recommended }: Props) {
 
   return (
     <main className="grid place-content-center">
-      <br />
-      <hr />
-      <br />
-      <h1 className="text-2xl">Recommended stories</h1>
-      <br />
+      {/* <h1 className="text-2xl">Recommended stories</h1> */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-10">
-        {articles &&
+        {articles.length > 0 ? (
           articles.map((el: Article) => {
             return (
               <div
                 onClick={() =>
                   router.push(
                     `${pathname}/${el.post_title}_${el.post_uuid}`
-                      .replaceAll(" ", "-")
+                      .replaceAll(" ", "-").toLowerCase()
                   )
                 }
                 key={el.post_id}
@@ -39,8 +35,7 @@ function Recommended({ recommended }: Props) {
                   src={el.post_image}
                   alt={"el.user_name"}
                   loading="lazy"
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className="rounded-sm"
+                  className="rounded-sm object-cover object-center flex-1"
                 />
                 <div className="flex flex-col items-start gap-2">
                   <div className="flex flex-row items-center justify-start gap-2">
@@ -69,7 +64,13 @@ function Recommended({ recommended }: Props) {
                 </div>
               </div>
             );
-          })}
+          })
+        ) : (
+          <div className="text-4xl">
+            <h1>No recommended stories found!</h1>
+          </div>
+        )
+          }
       </div>
     </main>
   );

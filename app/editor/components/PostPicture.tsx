@@ -32,10 +32,10 @@ function PostPicture({ postImage, setPostImage }: Props) {
           width={0}
           height={0}
           sizes="100vw"
-          className="absolute bottom-0 left-0 object-cover object-center w-full max-h-[148px] sm:min-h-36 border rounded-md"
+          className="absolute -bottom-2 left-0 object-cover object-center w-full max-h-36 sm:min-h-[154px] border rounded-md"
         />
       ) : (
-        <div className="absolute bottom-0 left-0 w-full min-h-44 sm:min-h-36 grid place-content-center input input-bordered bg-gray-100">
+        <div className="absolute sm:-bottom-2 bottom-0 left-0 w-full min-h-36 sm:min-h-[154px] grid place-content-center input input-bordered bg-gray-100">
           Update image
         </div>
       )}
@@ -43,7 +43,6 @@ function PostPicture({ postImage, setPostImage }: Props) {
       <input
         onChange={(file) => handleImageConvertToBase64(file)}
         type="file"
-        // className="lg:w-96 md:w-80 w-64 min-w-full min-h-44 sm:min-h-36 flex flex-col justify-start opacity-0 cursor-pointer"
         className="w-full h-full flex flex-col justify-start opacity-0"
       />
     </label>

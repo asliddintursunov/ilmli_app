@@ -15,10 +15,9 @@ function PostCategories({
   primaryCategory,
   setPrimaryCategory,
 }: Props) {
-  const [value, setValue] = useState("");
+  const [inputValue, setInputValue] = useState("");
 
   const handleAddCategory = function (newCategory: string) {
-    
     if (postCategories.length > 4) {
       alert("Max post category is 5");
       return;
@@ -28,7 +27,7 @@ function PostCategories({
       alert(`${newCategory} already in categories`);
     else {
       setPostCategories((prev) => [...prev, newCategory]);
-      setValue("");
+      setInputValue("");
     }
   };
 
@@ -45,21 +44,35 @@ function PostCategories({
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full sm:min-w-[316px] sm:max-w-min">
       <span className="text-2xl">Additional categories</span>
-      <div className="flex items-center gap-1 mb-3">
-        <input
-          type="text"
-          placeholder="ex: math"
-          className="input input-bordered w-full"
-          onChange={(e) => setValue(e.currentTarget.value.toLowerCase())}
-          value={value}
-        />
+      <br />
+      <div className="flex items-start gap-1 mb-3">
+        <div className="flex flex-col w-full">
+          <input
+            type="text"
+            placeholder="ex: math"
+            className="input input-bordered w-full"
+            onChange={(e) => setInputValue(e.currentTarget.value.toLowerCase())}
+            value={inputValue}
+          />
+          <i
+            className={clsx(
+              "text-end",
+              inputValue.length > 30 && "text-red-500"
+            )}
+          >
+            {inputValue.length}/30
+          </i>
+        </div>
         <button
-          className={clsx("btn", value.trim().length === 0 && "btn-disabled")}
-          onClick={() =>
-            handleAddCategory(value.trim())
-          }
+          className={clsx(
+            "btn",
+            (inputValue.trim().length === 0 || inputValue.trim().length > 30) &&
+              "btn-disabled",
+            inputValue
+          )}
+          onClick={() => handleAddCategory(inputValue.trim())}
         >
           Add
         </button>
@@ -69,7 +82,6 @@ function PostCategories({
           Select one of the categories as primary one!
         </strong>
       )}
-      <hr />
       {postCategories && (
         <ul className="flex flex-wrap gap-2 max-h-56 md:max-h-[432px] pt-2 overflow-y-auto">
           {postCategories.map((e, i) => {

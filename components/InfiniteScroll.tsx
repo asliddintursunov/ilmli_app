@@ -5,7 +5,11 @@ import Skeleton from "./Skeleton";
 import { useRouter } from "next/navigation";
 import { fetchServerActionArticles } from "@/lib/actions";
 
-export default function InfiniteScrollPage() {
+type Props = {
+  firstTenArticles: Article[];
+};
+
+export default function InfiniteScrollPage({ firstTenArticles }: Props) {
   const router = useRouter();
   const [offset, setOffset] = useState<number>(0);
   const [pending, setPending] = useState<boolean>(false);
@@ -14,14 +18,8 @@ export default function InfiniteScrollPage() {
 
   // Fetch first 10 articles
   useEffect(() => {
-    const getInitialArticles = async function () {
-      const data: Article[] = await fetchServerActionArticles(0);
-      setArticles(data);
-      console.log(data);
-
-      setOffset(10);
-    };
-    getInitialArticles();
+    setArticles(firstTenArticles);
+    setOffset(10);
   }, []);
 
   const fetchNextTenArticles = function (offset: number) {
@@ -89,15 +87,14 @@ export default function InfiniteScrollPage() {
               <li
                 onClick={() =>
                   router.push(
-                    `/tag/${el.post_primary_category}/${el.post_title}_${el.post_uuid}`.replaceAll(
-                      " ",
-                      "-"
-                    )
+                    `/tag/${el.post_primary_category}/${el.post_title}_${el.post_uuid}`
+                      .replaceAll(" ", "-")
+                      .toLowerCase()
                   )
                 }
                 id={el.post_id.toString()}
                 key={el.post_id}
-                className="flex items-center justify-between p-2
+                className="flex items-stretch justify-between p-2
             cursor-pointer hover:bg-gray-700/20 transition-all shadow-md hover:shadow-xl"
               >
                 <div className="flex-1 flex flex-col items-start justify-start gap-1">
@@ -134,6 +131,7 @@ export default function InfiniteScrollPage() {
                   width={160}
                   height={120}
                   loading="lazy"
+                  className="object-cover object-center"
                 />
               </li>
             ))}

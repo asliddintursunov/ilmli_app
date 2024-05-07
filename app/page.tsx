@@ -2,7 +2,11 @@ import InfiniteScroll from "@/components/InfiniteScroll";
 import Sidebar from "@/components/Sidebar";
 import Trendings from "@/components/Trendings";
 import HeaderContent from "@/components/HeaderContent";
+import { fetchServerActionArticles } from "@/lib/actions";
 export default async function Home() {
+  // Fetch first 10 articles
+  const firstTenArticles: Article[] = await fetchServerActionArticles(0);
+
   return (
     <>
       <main className="flex min-h-screen flex-col">
@@ -13,7 +17,7 @@ export default async function Home() {
         <div className="flex flex-col gap-4 md:gap-6 max-w-[1440px] mx-auto">
           <Trendings />
           <div className="flex flex-col-reverse md:flex-row  justify-start items-start gap-6 md:gap-16 relative ">
-            <InfiniteScroll />
+            <InfiniteScroll firstTenArticles={firstTenArticles} />
             <Sidebar />
           </div>
         </div>

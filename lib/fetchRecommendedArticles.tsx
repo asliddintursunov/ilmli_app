@@ -12,5 +12,6 @@ export default async function fetchNewestArticles(category: string) {
     return res.json();
   } catch (error) {
     console.error("Error fetching related trendings:", error);
+    return error
   }
 }
