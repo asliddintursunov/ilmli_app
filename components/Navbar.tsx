@@ -5,7 +5,7 @@ import Image from "next/image";
 import useRouteHandler from "@/hooks/useRouteHandler";
 
 export default function Navbar() {
-  const { isLoggedIn } = useRouteHandler();
+  const { isLoggedIn, isAuthed } = useRouteHandler();
   return (
     <nav className="navbar max-w-[1440px] mx-auto bg-inherit px-4 sticky top-0 left-0 z-20 ">
       <ScrollToTop />
@@ -66,10 +66,10 @@ export default function Navbar() {
                     <Link href={"/editor"}>Editor</Link>
                   </li>
                   <li>
-                    <Link href={"/profile"}>Profile</Link>
+                    <Link href={`@${isAuthed.logged_in_as}/home`}>Profile</Link>
                   </li>
                   <li>
-                    <Link href={"/"}>Smth</Link>
+                    <Link href={"/smth"}>Smth</Link>
                   </li>
                 </ul>
               </details>
@@ -87,10 +87,10 @@ export default function Navbar() {
               <Link href={"/editor"}>Editor</Link>
             </li>
             <li>
-              <Link href={"/profile"}>Profile</Link>
+              <Link href={`@${isAuthed.logged_in_as}/home`}>Profile</Link>
             </li>
             <li>
-              <Link href={"/"}>Smth</Link>
+              <Link href={"/smth"}>Smth</Link>
             </li>
           </ul>
         )}

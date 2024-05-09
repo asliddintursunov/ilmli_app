@@ -11,10 +11,13 @@ export default async function fetchNewestArticles(
     const res = await fetch(API, {
       cache: "no-store",
     });
-    
+
+    if (!res.ok) {
+      throw new Error("Error fetching related articles");
+    }
+
     return res.json();
-  } catch (error) {
-    console.error("Error fetching related articles:", error);
-    return error
+  } catch (error: any) {
+    throw new Error(error.message);
   }
 }

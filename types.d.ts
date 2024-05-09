@@ -13,21 +13,17 @@ type Article = {
   readTime: string;
   post_data: [
     {
-      post_categories: []
+      post_categories: [];
     }
-  ]
-};
-
-type UserData = {
-  username: string;
-  email?: string;
-  password: string;
+  ];
 };
 
 type UserDataType = {
-  username: string;
-  fullname?: string;
-  address?: string;
-  bio?: string;
-  profilePicture?: string;
+  user_name: string;
+  user_email?: string;
+  user_interests?: string[];
+  user_fullname?: string;
+  user_address?: string;
+  user_bio?: string;
+  user_profilePicture?: string;
 };

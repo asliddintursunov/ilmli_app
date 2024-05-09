@@ -9,9 +9,11 @@ export default async function fetchNewestArticles(category: string) {
     const res = await fetch(API, {
       cache: "no-store",
     });
+    if(!res.ok){
+      throw new Error("Error fetching related trendings:");
+    }
     return res.json();
-  } catch (error) {
-    console.error("Error fetching related trendings:", error);
-    return error
+  } catch (error: any) {
+    throw new Error(error.message)
   }
 }

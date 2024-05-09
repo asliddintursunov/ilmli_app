@@ -2,11 +2,20 @@ import fetchProtected from "@/lib/fetchProtected";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+type checkProtectedType = {
+  isOk: boolean | null;
+  message?: string;
+  error?: string;
+  logged_in_as?: string;
+};
+
 function useRouteHandler() {
   const pathname = usePathname();
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState<null | boolean>(null);
   const [prevPath, setPrevPath] = useState<string>(pathname);
+  const [isAuthed, setIsAuthed] = useState<checkProtectedType>({ isOk: null });
+
   useEffect(() => {
     const access_token = localStorage.getItem("access_token");
     if (access_token === null) {
@@ -30,8 +39,12 @@ function useRouteHandler() {
     } else {
       const checkAuthorization = async () => {
         try {
-          const isAuthorized = await fetchProtected(access_token);
-          if (isAuthorized) {
+          const isAuthorized: checkProtectedType = await fetchProtected(
+            access_token
+          );
+          setIsAuthed(isAuthorized);
+
+          if (isAuthorized.isOk === true) {
             setIsLoggedIn(true);
             if (
               pathname === "/auth/login" ||
@@ -58,6 +71,7 @@ function useRouteHandler() {
 
   return {
     isLoggedIn,
+    isAuthed,
   };
 }
 

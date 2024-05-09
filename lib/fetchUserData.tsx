@@ -1,13 +1,13 @@
 import { baseURL } from "@/utils";
 
-export async function fetchArticleByUUID(post_uuid: string) {
-  const API = `${baseURL}/get-post?post_uuid=${post_uuid}`;
+export default async function fetchUserData(username: string) {
+  const API = `${baseURL}/user/${username}`;
   try {
     const response = await fetch(API, {
       cache: "no-store",
     });
     if (!response.ok) {
-      throw new Error("Error fetching articles");
+      throw new Error(`User with ${username} not exists!`);
     }
     return response.json();
   } catch (error: any) {
