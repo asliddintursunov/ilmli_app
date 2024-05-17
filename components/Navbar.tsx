@@ -66,7 +66,7 @@ export default function Navbar() {
                     <Link href={"/editor"}>Editor</Link>
                   </li>
                   <li>
-                    <Link href={`@${isAuthed.logged_in_as}/home`}>Profile</Link>
+                    <Link href={`/@${isAuthed.logged_in_as}/home`}>Profile</Link>
                   </li>
                   <li>
                     <Link href={"/smth"}>Smth</Link>
@@ -87,7 +87,7 @@ export default function Navbar() {
               <Link href={"/editor"}>Editor</Link>
             </li>
             <li>
-              <Link href={`@${isAuthed.logged_in_as}/home`}>Profile</Link>
+              <Link href={`/@${isAuthed.logged_in_as}/home`}>Profile</Link>
             </li>
             <li>
               <Link href={"/smth"}>Smth</Link>

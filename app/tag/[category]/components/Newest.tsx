@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 type Props = {
   newest: { newest: Article[] };
@@ -18,14 +19,7 @@ function Newest({ newest }: Props) {
           return (
             <div
               key={el.post_id}
-              className="pb-4 shadow-sm hover:shadow-xl flex flex-col justify-between items-start rounded-sm cursor-pointer dark:hover:bg-slate-500/20 transition-all min-h-[120px] w-full md:w-[255px] lg:w-[320px] gap-4"
-              onClick={() =>
-                router.push(
-                  `${pathname}/${el.post_title}_${el.post_uuid}`
-                    .replaceAll(" ", "-")
-                    .toLowerCase()
-                )
-              }
+              className="pb-4 flex flex-col justify-between items-start rounded-sm cursor-pointer hover:bg-gray-200/50 transition-all min-h-[120px] w-full md:w-[255px] lg:w-[320px] gap-4 p-4"
             >
               <Image
                 width={400}
@@ -34,6 +28,13 @@ function Newest({ newest }: Props) {
                 alt={el.user_name}
                 loading="lazy"
                 className="rounded-sm object-cover object-center flex-1"
+                onClick={() =>
+                  router.push(
+                    `${pathname}/${el.post_title}_${el.post_uuid}`
+                      .replaceAll(" ", "-")
+                      .toLowerCase()
+                  )
+                }
               />
               <div className="mx-2">
                 <div className="flex gap-1 items-start justify-start">
@@ -44,17 +45,34 @@ function Newest({ newest }: Props) {
                     height={24}
                     className="rounded-full border border-gray-600"
                   />
-                  <span className="font-medium text-sm">{el.user_name}</span>
+                  <Link
+                    href={`/@${el.user_name}/home`}
+                    className="font-medium text-sm hover:underline"
+                  >
+                    {el.user_name}
+                  </Link>
                 </div>
-                <div className="mt-1 text-ellipsis">
-                  <span className="text-md font-bold ">{el.post_title}</span>
-                </div>
-                <div className="flex items-center justify-start gap-2">
-                  <span className="text-sm text-gray-500">
-                    {el.post_created_time}
-                  </span>
-                  &#x2022;
-                  <span className="text-sm text-gray-500">{"el.readTime"}</span>
+                <div
+                  onClick={() =>
+                    router.push(
+                      `${pathname}/${el.post_title}_${el.post_uuid}`
+                        .replaceAll(" ", "-")
+                        .toLowerCase()
+                    )
+                  }
+                >
+                  <div className="mt-1 text-ellipsis">
+                    <span className="text-md font-bold ">{el.post_title}</span>
+                  </div>
+                  <div className="flex items-center justify-start gap-2">
+                    <span className="text-sm text-gray-500">
+                      {el.post_created_time}
+                    </span>
+                    &#x2022;
+                    <span className="text-sm text-gray-500">
+                      {"el.readTime"}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>

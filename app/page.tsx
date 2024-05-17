@@ -16,7 +16,7 @@ export default async function Home() {
         <br />
         <div className="flex flex-col gap-4 md:gap-6 max-w-[1440px] mx-auto">
           <Trendings />
-          <div className="flex flex-col-reverse md:flex-row  justify-start items-start gap-6 md:gap-16 relative ">
+          <div className="flex flex-col-reverse md:flex-row  justify-start items-start gap-6 md:gap-16 relative border-t border-gray-200">
             <InfiniteScroll firstTenArticles={firstTenArticles} />
             <Sidebar />
           </div>

@@ -1,7 +1,7 @@
 import { baseURL } from "@/utils";
 
-export default async function fetchUserData(username: string) {
-  const API = `${baseURL}/user/${username}`;
+export default async function fetchUserData(username: string, offset: number) {
+  const API = `${baseURL}/user/${username}?offset=${offset}`;
   try {
     const response = await fetch(API, {
       cache: "no-store",

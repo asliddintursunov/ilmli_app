@@ -18,12 +18,17 @@ type Article = {
   ];
 };
 
-type UserDataType = {
-  user_name: string;
-  user_email?: string;
-  user_interests?: string[];
-  user_fullname?: string;
-  user_address?: string;
-  user_bio?: string;
-  user_profilePicture?: string;
+type HomePageUserData = {};
+
+type HomePageFirstTenUserPosts = {
+  post_author: string;
+  post_id: number;
+  post_uuid: string;
+  post_title: string;
+  post_description: string;
+  post_body: string;
+  post_image: string;
+  post_primary_category: string;
+  post_categories: string[];
+  post_created_time: string;
 };

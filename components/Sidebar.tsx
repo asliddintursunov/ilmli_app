@@ -2,7 +2,7 @@ import { categories } from "./Categories";
 import RelatedArticlesButton from "./RelatedArticlesButton";
 export default function Sidebar() {
   return (
-    <div className="flex flex-col items-start justify-start gap-4 md:sticky md:left-0 md:top-10 p-5">
+    <div className="flex flex-col items-start justify-start gap-4 md:sticky md:left-0 md:top-0 p-5 border-l border-gray-200 h-screen pt-10">
       <h1 className="text-xl font-bold">
         Discover more of what matters to you
       </h1>

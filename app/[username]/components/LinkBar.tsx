@@ -10,7 +10,7 @@ type Params = {
 function LinkBar({ username }: Params) {
   const pathname = usePathname();
   return (
-    <div className="relative flex gap-8 my-6 border-gray-300">
+    <div className="relative flex gap-8 my-6 border-gray-200">
       <Link
         href={`/@${username}/home`}
         className={clsx(
@@ -29,7 +29,7 @@ function LinkBar({ username }: Params) {
       >
         About
       </Link>
-      <div className="absolute h-[1px] w-full bg-gray-300 -bottom-3 left-" />
+      <div className="absolute h-[1px] w-full bg-gray-200 -bottom-3" />
     </div>
   );
 }

@@ -23,12 +23,11 @@ export default async function Trendings() {
           {articles.map((trending: Article) => {
             return (
               <Link
-                href={`/tag/${trending.post_primary_category}/${trending.post_title}_${trending.post_uuid}`.replaceAll(
-                  " ",
-                  "-"
-                ).toLowerCase()}
+                href={`/tag/${trending.post_primary_category}/${trending.post_title}_${trending.post_uuid}`
+                  .replaceAll(" ", "-")
+                  .toLowerCase()}
                 key={trending.post_id}
-                className="py-3 px-5 shadow-md hover:shadow-xl flex flex-col justify-between items-start rounded-md cursor-pointer dark:hover:bg-slate-700/20 transition-all min-h-[120px] w-full md:w-[255px] lg:w-[320px] xl:w-[425px]"
+                className="py-3 px-5 flex flex-col justify-between items-start cursor-pointer hover:bg-gray-100/50 transition-all min-h-[120px] w-full md:w-[255px] lg:w-[320px] xl:w-[425px] border-b border-gray-200"
               >
                 <div className="flex gap-1 items-start justify-start">
                   <Image
@@ -39,9 +38,12 @@ export default async function Trendings() {
                     loading="lazy"
                     className="rounded-full border border-gray-600"
                   />
-                  <span className="font-medium text-sm">
+                  <Link
+                    href={`/@${trending.user_name}/home`}
+                    className="font-medium text-sm hover:underline"
+                  >
                     {trending.user_name}
-                  </span>
+                  </Link>
                 </div>
                 <div>
                   <span className="text-md font-bold">

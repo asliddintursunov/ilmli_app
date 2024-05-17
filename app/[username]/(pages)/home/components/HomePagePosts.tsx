@@ -1,90 +1,65 @@
 "use client";
+
+import Skeleton from "@/components/Skeleton";
+import { fetchNextTenArticles } from "@/lib/actions";
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
-import Skeleton from "./Skeleton";
-import { useRouter } from "next/navigation";
-import { fetchServerActionArticles } from "@/lib/actions";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 type Props = {
-  firstTenArticles: Article[];
+  username: string;
+  firstTenUserPosts: HomePageFirstTenUserPosts[];
 };
-
-export default function InfiniteScrollPage({ firstTenArticles }: Props) {
+function HomePagePosts({ username, firstTenUserPosts }: Props) {
   const router = useRouter();
-  const [offset, setOffset] = useState<number>(0);
-  const [pending, setPending] = useState<boolean>(false);
+  const [offset, setOffset] = useState<number>(10);
   const elementsContainer = useRef<HTMLUListElement>(null);
-  const [articles, setArticles] = useState<Article[]>([]);
+  const [articles, setArticles] = useState<HomePageFirstTenUserPosts[]>([]);
+  const [userStillHasArticle, setUserStillHasArticle] = useState<boolean>(true);
 
-  // Fetch first 10 articles
+  // Fetching first ten articles
   useEffect(() => {
-    setArticles(firstTenArticles);
-    setOffset(10);
+    setArticles(firstTenUserPosts);
   }, []);
 
-  const fetchNextTenArticles = function (offset: number) {
-    fetchServerActionArticles(offset)
-      .then((newArticles) => {
-        setArticles((prev) => [...prev, ...newArticles]);
-        setOffset((prev) => prev + 10);
-        setPending(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching articles:", error);
-        setPending(false);
-      });
-  };
-
-  // Fetch next 10 articles
   useEffect(() => {
     if (typeof IntersectionObserver !== "undefined") {
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
-            if (entry.isIntersecting) {
+            if (entry.intersectionRatio) {
               observer!.unobserve(entry.target);
               if (
-                articles[articles.length - 1].post_id.toString() ==
+                String(articles[articles?.length - 1].post_id) ==
                   entry.target.id &&
-                offset < 50
+                userStillHasArticle
               ) {
-                offset < 50 - 10 ? setPending(true) : setPending(false);
-
-                console.log(
-                  "%c Fetch more list items!",
-                  "color:red; font-size:40px;",
-                  offset
-                );
-
-                // Next 10 articles is fetched here
-                fetchNextTenArticles(offset);
-                // Next 10 articles is fetched here
+                fetchNextTenArticles(username, offset).then((data) => {
+                  setArticles((prev) => [...prev, ...data]);
+                  setOffset((prev) => prev + 10);
+                  if (data.length < 10) setUserStillHasArticle(false);
+                });
               }
             }
           });
         },
-        {
-          threshold: 1,
-          rootMargin: "200px",
-        }
+        { threshold: 1, rootMargin: "200px" }
       );
       elementsContainer.current?.childNodes.forEach((el) => {
         const htmlEl = el as HTMLLIElement;
         observer!.observe(htmlEl);
       });
-      return () => {
-        observer.disconnect();
-      };
+      return () => observer.disconnect();
     }
   }, [offset, articles]);
 
   return (
-    <div className="flex-1 mx-1">
+    <main className="w-full">
       {articles.length > 0 ? (
         <div className="pb-10">
           <ul className="mt-4 flex flex-col gap-2" ref={elementsContainer}>
-            {articles.map((el: Article) => (
+            {articles.map((el: HomePageFirstTenUserPosts) => (
               <li
                 onClick={() =>
                   router.push(
@@ -95,8 +70,8 @@ export default function InfiniteScrollPage({ firstTenArticles }: Props) {
                 }
                 id={el.post_id.toString()}
                 key={el.post_id}
-                className="flex items-stretch justify-between p-2 border-b border-gray-200
-            cursor-pointer hover:bg-gray-100/50 transition-all md:h-40"
+                className="flex items-stretch justify-between p-2
+            cursor-pointer md:h-40 border-b border-gray-200 hover:bg-gray-100/50 transition-all"
               >
                 <div className="flex-1 flex flex-col items-start justify-start gap-1">
                   <div className="flex gap-2 items-start justify-start">
@@ -109,10 +84,10 @@ export default function InfiniteScrollPage({ firstTenArticles }: Props) {
                       className="rounded-full border border-gray-600"
                     />
                     <Link
-                      href={`/@${el.user_name}/home`}
+                      href={`/@${el.post_author}/home`}
                       className="font-bold text-sm hover:underline"
                     >
-                      {el.user_name}
+                      {el.post_author}
                     </Link>
                   </div>
                   <div className="flex flex-col items-start justify-start gap-1">
@@ -148,12 +123,10 @@ export default function InfiniteScrollPage({ firstTenArticles }: Props) {
           return <Skeleton key={i} image={true} />;
         })
       )}
-
-      {pending && (
-        <div className="grid place-content-center w-full">
-          <span className="loading loading-dots loading-lg"></span>
-        </div>
-      )}
-    </div>
+      {userStillHasArticle &&
+        [1, 2].map((i) => <Skeleton key={i} image={true} />)}
+    </main>
   );
 }
+
+export default HomePagePosts;
