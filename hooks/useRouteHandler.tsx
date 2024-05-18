@@ -1,3 +1,4 @@
+import { getAccessToken, removeAccessToken } from "@/lib/actions";
 import fetchProtected from "@/lib/fetchProtected";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -13,61 +14,55 @@ function useRouteHandler() {
   const pathname = usePathname();
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState<null | boolean>(null);
-  const [prevPath, setPrevPath] = useState<string>(pathname);
   const [isAuthed, setIsAuthed] = useState<checkProtectedType>({ isOk: null });
 
   useEffect(() => {
-    const access_token = localStorage.getItem("access_token");
-    if (access_token === null) {
-      setIsLoggedIn(false);
-      setPrevPath(pathname);
+    const checkAuthorization = async () => {
+      const access_token = await getAccessToken().then((res) => res?.value);
 
-      if (
-        prevPath === "/auth/register/form" &&
-        pathname === "/auth/register/interests"
-      ) {
-        return;
-      } else if (
-        pathname === "/auth/login" ||
-        pathname === "/auth/register/form" ||
-        pathname === "/"
-      ) {
-        return;
-      } else {
-        router.push("/auth/login");
-      }
-    } else {
-      const checkAuthorization = async () => {
-        try {
-          const isAuthorized: checkProtectedType = await fetchProtected(
-            access_token
-          );
-          setIsAuthed(isAuthorized);
-
-          if (isAuthorized.isOk === true) {
-            setIsLoggedIn(true);
-            if (
-              pathname === "/auth/login" ||
-              pathname === "/auth/register/form" ||
-              pathname === "/auth/register/interests"
-            ) {
-              router.push("/");
-            }
-            return;
-          }
-          localStorage.removeItem("access_token");
-          setIsLoggedIn(false);
+      if (!access_token) {
+        setIsLoggedIn(false);
+        if (
+          pathname !== "/auth/login" &&
+          pathname !== "/auth/register/form" &&
+          pathname !== "/" &&
+          pathname !== "/auth/register/interests"
+        ) {
           router.push("/auth/login");
-        } catch (error) {
-          alert("Error checking authorization:" + error);
-          localStorage.removeItem("access_token");
+        }
+        return;
+      }
+
+      try {
+        const isAuthorized: checkProtectedType = await fetchProtected(
+          access_token
+        );
+        setIsAuthed(isAuthorized);
+
+        if (isAuthorized.isOk === true) {
+          setIsLoggedIn(true);
+          if (
+            pathname === "/auth/login" ||
+            pathname === "/auth/register/form" ||
+            pathname === "/auth/register/interests"
+          ) {
+            router.push("/");
+          }
+        } else {
+          removeAccessToken();
           setIsLoggedIn(false);
           router.push("/auth/login");
         }
-      };
-      checkAuthorization();
-    }
-  }, [pathname]);
+      } catch (error) {
+        alert("Error checking authorization:" + error);
+        removeAccessToken();
+        setIsLoggedIn(false);
+        router.push("/auth/login");
+      }
+    };
+
+    checkAuthorization();
+  }, [pathname, router]);
 
   return {
     isLoggedIn,

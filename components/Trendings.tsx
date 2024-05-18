@@ -38,12 +38,12 @@ export default async function Trendings() {
                     loading="lazy"
                     className="rounded-full border border-gray-600"
                   />
-                  <Link
-                    href={`/@${trending.user_name}/home`}
+                  <span
+                    // href={`/@${trending.user_name}/home`}
                     className="font-medium text-sm hover:underline"
                   >
                     {trending.user_name}
-                  </Link>
+                  </span>
                 </div>
                 <div>
                   <span className="text-md font-bold">

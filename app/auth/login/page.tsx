@@ -9,6 +9,7 @@ import useAuthValidation from "@/hooks/useAuthValidation";
 import { baseURL } from "@/utils";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { setAccessToken, setUsernameCookie } from "@/lib/actions";
 export default function Login() {
   const router = useRouter();
   const { regExpResult, validateInput } = useAuthValidation();
@@ -26,7 +27,7 @@ export default function Login() {
         })
         .then((res) => {
           alert(res.data.message);
-          localStorage.setItem("access_token", res.data.tokens.access_token);
+          setAccessToken(res.data.tokens.access_token);
           router.push("/");
         })
         .catch((err) => alert(err.response.data));

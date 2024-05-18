@@ -1,7 +1,8 @@
 import { baseURL } from "@/utils";
+import { removeAccessToken } from "./actions";
 
 export default async function fetchProtected(
-  access_token: string | null
+  access_token: string | undefined
 ): Promise<{
   isOk: boolean | null;
   message?: string;
@@ -17,7 +18,7 @@ export default async function fetchProtected(
     });
 
     if (res.status !== 200) {
-      localStorage.removeItem("access_token");
+      removeAccessToken();
       const err = await res.json();
       return { isOk: false, error: err.error, message: err.message };
     }
@@ -30,7 +31,7 @@ export default async function fetchProtected(
 
     return { isOk: true, logged_in_as: data.logged_in_as };
   } catch (error: any) {
-    localStorage.removeItem("access_token");
+    removeAccessToken();
     return { isOk: false, message: error.message, error: error.error };
   }
 }

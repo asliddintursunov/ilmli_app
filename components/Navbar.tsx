@@ -22,7 +22,7 @@ export default function Navbar() {
       </div>
       <div className="flex-none">
         {/* Mobile Screen */}
-        {isLoggedIn == false && (
+        {isLoggedIn === false && (
           <ul className="menu menu-horizontal px-1 sm:hidden block">
             <li className="mr-2">
               <details>
@@ -41,7 +41,7 @@ export default function Navbar() {
         )}
 
         {/* Desktop Screen */}
-        {isLoggedIn == false && (
+        {isLoggedIn === false && (
           <ul className="menu menu-horizontal px-1 sm:flex hidden">
             <li className="mr-2">
               <Link href={"/auth/login"}>Login</Link>
@@ -53,7 +53,7 @@ export default function Navbar() {
         )}
 
         {/* Mobile Screen */}
-        {isLoggedIn == true && (
+        {isLoggedIn === true && (
           <ul className="menu menu-horizontal px-1 sm:hidden block">
             <li className="mr-2">
               <details>
@@ -66,7 +66,9 @@ export default function Navbar() {
                     <Link href={"/editor"}>Editor</Link>
                   </li>
                   <li>
-                    <Link href={`/@${isAuthed.logged_in_as}/home`}>Profile</Link>
+                    <Link href={`/@${isAuthed.logged_in_as}/home`}>
+                      Profile
+                    </Link>
                   </li>
                   <li>
                     <Link href={"/smth"}>Smth</Link>
@@ -78,7 +80,7 @@ export default function Navbar() {
         )}
 
         {/* Desktop Screen */}
-        {isLoggedIn == true && (
+        {isLoggedIn === true && (
           <ul className="menu menu-horizontal px-1 hidden sm:flex">
             <li>
               <Link href={"/articles"}>Articles</Link>
@@ -94,7 +96,6 @@ export default function Navbar() {
             </li>
           </ul>
         )}
-        <div></div>
       </div>
     </nav>
   );

@@ -11,6 +11,7 @@ import Description from "./Description";
 import PostPicture from "./PostPicture";
 import PostCategories from "./PostCategories";
 import clsx from "clsx";
+import { getAccessToken } from "@/lib/actions";
 
 export default function PrimeReactEditor() {
   const [postBody, setPostBody] = useState<string>("");
@@ -21,7 +22,7 @@ export default function PrimeReactEditor() {
   const [primaryCategory, setPrimaryCategory] = useState<string>("");
 
   const handleSend = function () {
-    const access_token = localStorage.getItem("access_token");
+    const access_token = getAccessToken().then((res) => res?.value);
     const postData = {
       title: postTitle.trim(),
       description: postDescription.trim(),
