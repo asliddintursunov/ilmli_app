@@ -25,6 +25,7 @@ export async function setAccessToken(access_token: string) {
   cookies().set("access_token", access_token, {
     httpOnly: true,
     secure: false,
+    maxAge: 60 * 60
   });
 }
 
@@ -38,7 +39,9 @@ export async function removeAccessToken() {
 }
 
 export async function setUsernameCookie(username: string) {
-  cookies().set("username", username);
+  cookies().set("username", username, {
+    maxAge: 60 * 60
+  });
 }
 
 export async function getUsernameCookie() {

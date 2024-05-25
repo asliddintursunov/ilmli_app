@@ -15,6 +15,7 @@ function useRouteHandler() {
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState<null | boolean>(null);
   const [isAuthed, setIsAuthed] = useState<checkProtectedType>({ isOk: null });
+  const [prevPath, setPrevPath] = useState<string>(pathname);
 
   useEffect(() => {
     const checkAuthorization = async () => {
@@ -22,12 +23,20 @@ function useRouteHandler() {
 
       if (!access_token) {
         setIsLoggedIn(false);
+        setPrevPath(pathname);
+
         if (
-          pathname !== "/auth/login" &&
-          pathname !== "/auth/register/form" &&
-          pathname !== "/" &&
-          pathname !== "/auth/register/interests"
+          prevPath === "/auth/register/form" &&
+          pathname === "/auth/register/interests"
         ) {
+          return;
+        } else if (
+          pathname === "/auth/login" ||
+          pathname === "/auth/register/form" ||
+          pathname === "/"
+        ) {
+          return;
+        } else {
           router.push("/auth/login");
         }
         return;
@@ -48,11 +57,11 @@ function useRouteHandler() {
           ) {
             router.push("/");
           }
-        } else {
-          removeAccessToken();
-          setIsLoggedIn(false);
-          router.push("/auth/login");
+          return;
         }
+        removeAccessToken();
+        setIsLoggedIn(false);
+        router.push("/auth/login");
       } catch (error) {
         alert("Error checking authorization:" + error);
         removeAccessToken();

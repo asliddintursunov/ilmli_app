@@ -9,9 +9,13 @@ import { useRouter } from "next/navigation";
 import { categories } from "@/components/Categories";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import Toast from "@/components/Toast";
+import useToast from "@/hooks/useToast";
 
 function Interests({}: Props) {
   const router = useRouter();
+  const toast = useToast();
+
   const newUserUsername = useSelector(
     (state: RootState) => state.getNewRegisteredUserUsernameSlice.username
   );
@@ -28,17 +32,19 @@ function Interests({}: Props) {
     }
   };
 
-  const handleSubmit = function () {
-    axios
-      .post(`${baseURL}/auth/set_interests`, {
+  const handleSubmit = async function () {
+    try {
+      const res = await axios.post(`${baseURL}/auth/set_interests`, {
         username: newUserUsername,
         interests: selectedInterests,
-      })
-      .then((res) => {
-        alert(res.data);
+      });
+      toast.handleToast(true, res.data, "alert-success");
+      setTimeout(() => {
         router.push("/");
-      })
-      .catch((err) => console.log(err));
+      }, 1000);
+    } catch (err: any) {
+      toast.handleToast(true, err.response.data, "alert-error");
+    }
   };
   return (
     <>
@@ -68,6 +74,9 @@ function Interests({}: Props) {
       <button className="btn btn-success" onClick={() => handleSubmit()}>
         Submit
       </button>
+      {toast.showToast && (
+        <Toast toastType={toast.toastType} toastInfo={toast.toastInfo} />
+      )}
     </>
   );
 }

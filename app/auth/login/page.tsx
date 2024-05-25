@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import Button from "../components/Button";
 import Password from "../components/Password";
@@ -10,29 +10,38 @@ import { baseURL } from "@/utils";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { setAccessToken, setUsernameCookie } from "@/lib/actions";
+import Toast from "@/components/Toast";
+import useToast from "@/hooks/useToast";
+
 export default function Login() {
   const router = useRouter();
+  const toast = useToast();
   const { regExpResult, validateInput } = useAuthValidation();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   useEffect(() => {
-    const validationResult = new Set(Object.values(regExpResult));
-    if (username && password) {
-      if (validationResult.has(false)) return;
-      axios
-        .post(`${baseURL}/auth/login`, {
-          username,
-          password,
-        })
-        .then((res) => {
-          alert(res.data.message);
-          setAccessToken(res.data.tokens.access_token);
+    const handleLogin = async () => {
+      const validationResult = new Set(Object.values(regExpResult));
+      if (username && password) {
+        if (validationResult.has(false)) return;
+        try {
+          const res = await axios.post(`${baseURL}/auth/login`, {
+            username,
+            password,
+          });
+          await setUsernameCookie(username);
+          await setAccessToken(res.data.tokens.access_token);
           router.push("/");
-        })
-        .catch((err) => alert(err.response.data));
-    }
+        } catch (err: any) {
+          toast.handleToast(true, err.response.data, "alert-error");
+        }
+      }
+    };
+
+    handleLogin();
   }, [regExpResult]);
+
 
   const handleSubmit = function (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -60,15 +69,18 @@ export default function Login() {
             isPasswordValid={regExpResult.password}
           />
           <Button authType="signin" />
-          <div className="flex items-center justify-end mt-1">
+          {/* <div className="flex items-center justify-end mt-1">
             <Link href="#" className="link link-primary">
               Forgot password?
             </Link>
           </div>
           <span className="text-center mt-1">-Or Sign In With-</span>
-          <SocialAuth />
+          <SocialAuth /> */}
         </div>
       </form>
+      {toast.showToast && (
+        <Toast toastType={toast.toastType} toastInfo={toast.toastInfo} />
+      )}
     </main>
   );
 }

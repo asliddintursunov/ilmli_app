@@ -22,13 +22,16 @@ export default async function Trendings() {
         >
           {articles.map((trending: Article) => {
             return (
-              <Link
-                href={`/tag/${trending.post_primary_category}/${trending.post_title}_${trending.post_uuid}`
-                  .replaceAll(" ", "-")
-                  .toLowerCase()}
+              <div
                 key={trending.post_id}
-                className="py-3 px-5 flex flex-col justify-between items-start cursor-pointer hover:bg-gray-100/50 transition-all min-h-[120px] w-full md:w-[255px] lg:w-[320px] xl:w-[425px] border-b border-gray-200"
+                className="relative py-3 px-5 flex flex-col justify-between items-start cursor-pointer hover:bg-gray-100/50 transition-all min-h-[120px] w-full md:w-[255px] lg:w-[320px] xl:w-[425px] border-b border-gray-200"
               >
+                <Link
+                  href={`/tag/${trending.post_primary_category}/${trending.post_title}_${trending.post_uuid}`
+                    .replaceAll(" ", "-")
+                    .toLowerCase()}
+                  className="absolute w-full h-full left-0 top-0"
+                />
                 <div className="flex gap-1 items-start justify-start">
                   <Image
                     src={"/images/avatar.png"}
@@ -38,12 +41,12 @@ export default async function Trendings() {
                     loading="lazy"
                     className="rounded-full border border-gray-600"
                   />
-                  <span
-                    // href={`/@${trending.user_name}/home`}
-                    className="font-medium text-sm hover:underline"
+                  <Link
+                    href={`/@${trending.user_name}/home`}
+                    className="font-medium text-sm hover:underline z-10"
                   >
                     {trending.user_name}
-                  </span>
+                  </Link>
                 </div>
                 <div>
                   <span className="text-md font-bold">
@@ -54,12 +57,12 @@ export default async function Trendings() {
                   <span className="text-sm text-gray-500">
                     {trending.post_created_time}
                   </span>
-                  &#x2022;
+                  {/* &#x2022;
                   <span className="text-sm text-gray-500">
                     {"trending.post_read_time"}
-                  </span>
+                  </span> */}
                 </div>
-              </Link>
+              </div>
             );
           })}
         </Suspense>

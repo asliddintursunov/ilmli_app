@@ -1,27 +1,35 @@
+@import url(https://fonts.googleapis.com/css2?family=Lora:wght@100;200;300;400;500;600;700&display=swap);
+
 .postContainer {
-    margin: 16px auto;
-    padding: 8px 18px;
-    width: 80%;
-  }
-  .postContainer h1 {
-    font-size: 34px;
-  }
-  .postContainer h2 {
-    font-size: 26px;
-  }
-  .postContainer a {
-    text-decoration: underline;
-    cursor: pointer;
-    color: blue;
-  }
-  .postContainer ul li,
-  .postContainer ol li {
-    margin-left: 20px;
-    font-size: 20px;
-    list-style-type: disc;
-    list-style-position: outside;
-  }
-  .postContainer p {
-    font-size: 20px;
-  }
-  
+  margin: 16px auto;
+  padding: 8px 18px;
+  width: 80%;
+  font-family: 'Lora', serif;
+  font-weight: 400;
+}
+.postContainer h1 {
+  font-size: 34px;
+  margin: 5px auto;
+  font-weight: 700;
+}
+.postContainer h2 {
+  font-size: 26px;
+  margin: 5px auto;
+  font-weight: 600;
+}
+.postContainer a {
+  text-decoration: underline;
+  cursor: pointer;
+  color: blue;
+}
+.postContainer ul li,
+.postContainer ol li {
+  margin-left: 20px;
+  font-size: 20px;
+  list-style-type: disc;
+  list-style-position: outside;
+}
+.postContainer p {
+  line-height: 40px;
+  font-size: 20px;
+}

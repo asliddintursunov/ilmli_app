@@ -125,10 +125,10 @@ export default function InfiniteScrollPage({ firstTenArticles }: Props) {
                     <span className="text-sm text-gray-500">
                       {el.post_created_time}
                     </span>
-                    &#x2022;
+                    {/* &#x2022;
                     <span className="text-sm text-gray-500">
                       {"el.readTime"}
-                    </span>
+                    </span> */}
                   </div>
                 </div>
                 <Image

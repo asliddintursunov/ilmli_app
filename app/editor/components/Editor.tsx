@@ -12,8 +12,11 @@ import PostPicture from "./PostPicture";
 import PostCategories from "./PostCategories";
 import clsx from "clsx";
 import { getAccessToken } from "@/lib/actions";
+import Toast from "@/components/Toast";
+import useToast from "@/hooks/useToast";
 
 export default function PrimeReactEditor() {
+  const toast = useToast();
   const [postBody, setPostBody] = useState<string>("");
   const [postTitle, setPostTitle] = useState<string>("");
   const [postDescription, setPostDescription] = useState<string>("");
@@ -21,8 +24,10 @@ export default function PrimeReactEditor() {
   const [postCategories, setPostCategories] = useState<string[]>([]);
   const [primaryCategory, setPrimaryCategory] = useState<string>("");
 
-  const handleSend = function () {
-    const access_token = getAccessToken().then((res) => res?.value);
+  const handleSend = async function () {
+    const access_token = await getAccessToken().then((res) => res?.value);
+    console.log(access_token);
+
     const postData = {
       title: postTitle.trim(),
       description: postDescription.trim(),
@@ -31,22 +36,16 @@ export default function PrimeReactEditor() {
       body: postBody,
       image: postImage,
     };
-    axios
-      .post(`${baseURL}/create-post`, postData, {
+    try {
+      const res = await axios.post(`${baseURL}/create-post`, postData, {
         headers: {
           Authorization: `Bearer ${access_token}`,
         },
-      })
-      .then((res) => {
-        console.log(res);
-
-        alert(`SUCCESS: ${res.data}`);
-      })
-      .catch((err) => {
-        console.log(err);
-
-        alert(`ERROR: ${err.response.data}`);
       });
+      toast.handleToast(true, res.data, "alert-success");
+    } catch (err: any) {
+      toast.handleToast(true, err.response.data, "alert-error");
+    }
   };
 
   const handleClear = function () {
@@ -114,6 +113,9 @@ export default function PrimeReactEditor() {
           CLEAR
         </button>
       </div>
+      {toast.showToast && (
+        <Toast toastInfo={toast.toastInfo} toastType={toast.toastType} />
+      )}
     </>
   );
 }
