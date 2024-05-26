@@ -10,10 +10,13 @@ export default async function fetchNewestArticles(category: string) {
       cache: "no-store",
     });
     if(!res.ok){
-      throw new Error("Error fetching related trendings:");
+      throw new Error(
+        `API request failed with status ${res.status} at fetchRecommendedArticles`
+      );
     }
     return res.json();
   } catch (error: any) {
+    console.error("Error fetching fetch recommended articles:", error);
     throw new Error(error.message)
   }
 }

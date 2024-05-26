@@ -13,11 +13,14 @@ export default async function fetchNewestArticles(
     });
 
     if (!res.ok) {
-      throw new Error("Error fetching related articles");
+      throw new Error(
+        `API request failed with status ${res.status} at fetchNewestArticles`
+      );
     }
 
     return res.json();
   } catch (error: any) {
+    console.error("Error fetching fetch newest articles:", error);
     throw new Error(error.message);
   }
 }

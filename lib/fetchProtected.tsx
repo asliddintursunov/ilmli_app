@@ -24,7 +24,7 @@ export default async function fetchProtected(
     }
 
     if (!res.headers.get("Content-Type")?.includes("application/json")) {
-      throw new Error("Unexpected response format");
+      throw new Error(`Unexpected response format. API request failed with status ${res.status} at fetchProtected`);
     }
 
     const data = await res.json();

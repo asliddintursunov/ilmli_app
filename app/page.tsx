@@ -3,6 +3,9 @@ import Sidebar from "@/components/Sidebar";
 import Trendings from "@/components/Trendings";
 import HeaderContent from "@/components/HeaderContent";
 import { fetchServerActionArticles } from "@/lib/actions";
+
+export const runtime = "edge";
+
 export default async function Home() {
   // Fetch first 10 articles
   const firstTenArticles: Article[] = await fetchServerActionArticles(0);

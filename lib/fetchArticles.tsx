@@ -8,10 +8,13 @@ export default async function fetchArticles(offset: number) {
       cache: "no-store",
     });
     if (!response.ok) {
-      throw new Error("Error fetching articles");
+      throw new Error(
+        `API request failed with status ${response.status} at fetchArticles`
+      );
     }
     return response.json();
   } catch (error: any) {
-    throw new Error(error.message);
+    console.error("Error fetching articles:", error);
+    throw new Error(error.message); // Or display a user-friendly error message
   }
 }

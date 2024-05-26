@@ -39,6 +39,10 @@ export async function middleware(request: NextRequest) {
       const isAuthorized: checkProtectedType = await fetchProtected(
         token.value
       );
+      console.log(
+        "=================== MIDDLEWARE FETCH PROTECTED ==================="
+      );
+
       if (isAuthorized.isOk === true) {
         if (request.nextUrl.pathname.startsWith("/auth")) {
           return NextResponse.redirect(new URL("/", request.url));
@@ -58,7 +62,14 @@ export async function middleware(request: NextRequest) {
   }
 }
 
-// code for css/js works correctly
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
+  matcher: [
+    {
+      source: "/((?!api|_next/static|_next/image|favicon.ico).*)",
+      missing: [
+        { type: "header", key: "next-router-prefetch" },
+        { type: "header", key: "purpose", value: "prefetch" },
+      ],
+    },
+  ],
 };

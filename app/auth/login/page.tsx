@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
@@ -33,7 +34,16 @@ export default function Login() {
           await setUsernameCookie(username);
           await setAccessToken(res.data.tokens.access_token);
           router.push("/");
+          
+          console.log(res);
+          
+          alert(res.data.message) //! =======================
+        
         } catch (err: any) {
+
+          console.log(err);
+          alert(err.response.data); //! =======================
+
           toast.handleToast(true, err.response.data, "alert-error");
         }
       }

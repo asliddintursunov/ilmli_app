@@ -46,6 +46,9 @@ function useRouteHandler() {
         const isAuthorized: checkProtectedType = await fetchProtected(
           access_token
         );
+        console.log(
+          "=================== USE ROUTE HANDLER FETCH PROTECTED ==================="
+        );
         setIsAuthed(isAuthorized);
 
         if (isAuthorized.isOk === true) {
