@@ -74,7 +74,8 @@ function useRouteHandler() {
     };
 
     checkAuthorization();
-  }, [pathname, router]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
 
   return {
     isLoggedIn,

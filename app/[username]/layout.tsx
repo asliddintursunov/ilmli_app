@@ -3,13 +3,14 @@ import React from "react";
 import LinkBar from "./components/LinkBar";
 import Image from "next/image";
 import Link from "next/link";
+import fetchSpecificUserData from "@/lib/fetchSpecificUserData";
 
 export const metadata: Metadata = {
   title: "User Fullname",
   description: "Description for User Fullname",
 };
 
-export default function UserProfileLayout({
+export default async function UserProfileLayout({
   children,
   params,
 }: {
@@ -17,6 +18,8 @@ export default function UserProfileLayout({
   children: React.ReactNode;
 }) {
   const username = params.username.replaceAll("%40", "");
+  const res = await fetchSpecificUserData(username);
+  console.log("res:::", res);
 
   return (
     <section className="flex justify-between items-start max-w-[1240px] mx-auto mt-8 border-t border-gray-200">
@@ -25,6 +28,7 @@ export default function UserProfileLayout({
           <div className="w-full">
             <h1 className="text-4xl font-semibold font-serif">User Fullname</h1>
           </div>
+          <h1>{username}</h1>
           <LinkBar username={username} />
           {children}
         </main>

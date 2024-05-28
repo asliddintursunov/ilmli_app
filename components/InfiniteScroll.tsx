@@ -87,18 +87,17 @@ export default function InfiniteScrollPage({ firstTenArticles }: Props) {
           <ul className="mt-4 flex flex-col gap-2" ref={elementsContainer}>
             {articles.map((el: Article) => (
               <li
-                onClick={() =>
-                  router.push(
-                    `/tag/${el.post_primary_category}/${el.post_title}_${el.post_uuid}`
-                      .replaceAll(" ", "-")
-                      .toLowerCase()
-                  )
-                }
                 id={el.post_id.toString()}
                 key={el.post_id}
-                className="flex items-stretch justify-between p-2 border-b border-gray-200
+                className="relative flex items-stretch justify-between p-2 border-b border-gray-200
             cursor-pointer hover:bg-gray-100/50 transition-all md:h-40"
               >
+                <Link
+                  className="absolute w-full h-full left-0 top-0"
+                  href={`/tag/${el.post_primary_category}/${el.post_title}_${el.post_uuid}`
+                    .replaceAll(" ", "-")
+                    .toLowerCase()}
+                />
                 <div className="flex-1 flex flex-col items-start justify-start gap-1">
                   <div className="flex gap-2 items-start justify-start">
                     <Image
@@ -111,7 +110,7 @@ export default function InfiniteScrollPage({ firstTenArticles }: Props) {
                     />
                     <Link
                       href={`/@${el.user_name}/home`}
-                      className="font-bold text-sm hover:underline"
+                      className="font-bold text-sm hover:underline z-10"
                     >
                       {el.user_name}
                     </Link>
