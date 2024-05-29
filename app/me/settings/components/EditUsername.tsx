@@ -5,7 +5,7 @@ export default function EditUsername() {
         type="text"
         name="edit_username"
         id="edit_username"
-        className="w-full border border-red-500 p-4"
+        className="ilmli_input"
         placeholder="username"
       />
     </div>

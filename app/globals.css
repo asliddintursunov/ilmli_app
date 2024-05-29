@@ -27,7 +27,7 @@
   background: gray;
 }
 @layer components {
-  .auth_input {
+  .auth_input, .ilmli_input {
     @apply outline-none border-2 border-gray-300 hover:border-gray-400 hover:bg-inherit focus:border-blue-500 bg-gray-100/20 focus:bg-inherit rounded-md px-3 py-2 w-full transition-all font-semibold;
   }
   .auth_form {

@@ -5,7 +5,7 @@ export default function EditTelephoneNumber() {
         type="text"
         name="edit_phonenumber"
         id="edit_phonenumber"
-        className="w-full border border-red-500 p-4"
+        className="ilmli_input"
         placeholder="phonenumber"
       />
     </div>

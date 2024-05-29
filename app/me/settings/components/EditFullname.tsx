@@ -5,7 +5,7 @@ export default function EditFullname() {
         type="text"
         name="edit_fullname"
         id="edit_fullname"
-        className="w-full border border-red-500 p-4"
+        className="ilmli_input"
         placeholder="fullname"
       />
     </div>
