@@ -39,7 +39,7 @@ const useRegExpValidation = () => {
         return {
           ...prev,
           username: regExp.username.test(username!),
-          email: true,
+          email: regExp.username.test(email!),
           password: regExp.password.test(password!),
         };
       });

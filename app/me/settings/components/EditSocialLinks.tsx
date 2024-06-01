@@ -1,47 +1,56 @@
+import clsx from "clsx";
 import Link from "next/link";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { GrAdd } from "react-icons/gr";
 
-export default function EditSocialLinks() {
-  const links = [
-    { platform: "linkedin", link: "http://localhost:3000/me/settings" },
-    { platform: "twitter", link: "http://localhost:3000/me/settings" },
-    { platform: "instagram", link: "http://localhost:3000/me/settings" },
-    { platform: "telegram", link: "http://localhost:3000/me/settings" },
-  ];
+type Props = {
+  socialLinks: { platform: string; link: string }[] | undefined;
+  setSocialLinks: Dispatch<
+    SetStateAction<{ platform: string; link: string }[] | undefined>
+  >;
+};
+
+export default function EditSocialLinks({
+  socialLinks,
+  setSocialLinks,
+}: Props) {
   const [openAddSocialLinksModal, setOpenAddSocialLinksModal] =
     useState<boolean>(false);
-  const [socialLinks, setSocialLinks] =
-    useState<{ platform: string; link: string }[]>(links);
   const [newPlatformName, setNewPlatformName] = useState<string>("");
   const [newPlatformLink, setNewPlatformLink] = useState<string>("");
 
   return (
     <>
-      <div className="w-full flex items-center justify-between border p-4 ilmli_input">
-        <div className="w-full flex items-center justify-start gap-4 flex-wrap">
-          {socialLinks &&
-            socialLinks.map((e, i) => {
-              return (
-                <div key={i}>
-                  <Link
-                    href={e.link}
-                    target="_blank"
-                    className="hover:underline cursor-pointer"
-                  >
-                    {e.platform}
-                  </Link>
-                </div>
-              );
-            })}
-        </div>
-        <div>
-          <button
-            className="text-white bg-blue-600 p-1.5 rounded-full hover:pr-8 hover:bg-blue-700 transition-all"
-            onClick={() => setOpenAddSocialLinksModal(true)}
-          >
-            <GrAdd />
-          </button>
+      <div>
+        <span>Ijtimoiy tarmoqlar</span>
+        <div className="w-full flex items-center justify-between border p-4 ilmli_input">
+          <div className="w-full flex items-center justify-start gap-4 flex-wrap">
+            {socialLinks?.length ? (
+              socialLinks.map((e, i) => {
+                return (
+                  <div key={i}>
+                    <Link
+                      href={e.link}
+                      target="_blank"
+                      className="hover:underline cursor-pointer"
+                    >
+                      {e.platform}
+                    </Link>
+                  </div>
+                );
+              })
+            ) : (
+              <span>Ijtimoiy tarmoqlar qo&#39;shilmagan</span>
+            )}
+          </div>
+          <div>
+            <button
+              className="text-white bg-blue-600 p-1.5 rounded-full hover:pr-8 hover:bg-blue-700 transition-all"
+              onClick={() => setOpenAddSocialLinksModal(true)}
+            >
+              <GrAdd />
+            </button>
+          </div>
         </div>
       </div>
       {openAddSocialLinksModal && (
@@ -75,10 +84,15 @@ export default function EditSocialLinks() {
             </div>
             <div className="flex items-center justify-between">
               <button
-                className="btn btn-neutral cursor-pointer"
+                className={clsx(
+                  "btn cursor-pointer",
+                  newPlatformName && newPlatformLink
+                    ? "btn-neutral"
+                    : "btn-disabled"
+                )}
                 onClick={() => {
                   setSocialLinks((prev) => [
-                    ...prev,
+                    ...(prev ?? []),
                     { platform: newPlatformName, link: newPlatformLink },
                   ]);
                   setOpenAddSocialLinksModal(false);
