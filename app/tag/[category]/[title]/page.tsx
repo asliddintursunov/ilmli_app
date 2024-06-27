@@ -48,7 +48,7 @@ async function page({ params }: { params: { title: string } }) {
           </div>
         )}
         <ul className="flex flex-row justify-center items-center gap-4 mb-10">
-          {article.post_data[0].post_categories.map(
+          {article.post_data.post_categories.map(
             (category: string, index: number) => {
               return (
                 <Link

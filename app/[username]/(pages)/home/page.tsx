@@ -7,6 +7,7 @@ export default async function UsernameHomePage({
   params: { username: string };
 }) {
   const username = params.username.replaceAll("%40", "");
+
   const userPosts: HomePageFirstTenUserPosts[] =
     await fetchSpecificUserArticles(username, 0);
 

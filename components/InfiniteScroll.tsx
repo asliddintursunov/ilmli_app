@@ -3,7 +3,6 @@
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import Skeleton from "./Skeleton";
-import { useRouter } from "next/navigation";
 import { fetchServerActionArticles } from "@/lib/actions";
 import Link from "next/link";
 
@@ -12,7 +11,6 @@ type Props = {
 };
 
 export default function InfiniteScrollPage({ firstTenArticles }: Props) {
-  const router = useRouter();
   const [offset, setOffset] = useState<number>(0);
   const [pending, setPending] = useState<boolean>(false);
   const elementsContainer = useRef<HTMLUListElement>(null);

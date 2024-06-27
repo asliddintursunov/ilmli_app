@@ -10,6 +10,22 @@ export const metadata: Metadata = {
   description: "Description for User Fullname",
 };
 
+type ResType = {
+  user_email: string;
+  user_fullname: string | null;
+  user_id: number;
+  user_interests: string[] | null;
+  user_name: string;
+  user_phone_number: string | null;
+  user_profile_photo: string | null;
+  user_social_links:
+    | {
+        platform: string;
+        link: string;
+      }[]
+    | null;
+};
+
 export default async function UserProfileLayout({
   children,
   params,
@@ -18,8 +34,7 @@ export default async function UserProfileLayout({
   children: React.ReactNode;
 }) {
   const username = params.username.replaceAll("%40", "");
-  const res = await fetchSpecificUserData(username);
-  console.log("res:::", res);
+  const res: ResType = await fetchSpecificUserData(username);
 
   return (
     <section className="flex justify-between items-start max-w-[1240px] mx-auto mt-8 border-t border-gray-200">
@@ -52,6 +67,10 @@ export default async function UserProfileLayout({
             Edit profile
           </Link>
         </div>
+        <ul>
+          <li>{res.user_email}</li>
+          <li>{res.user_name}</li>
+        </ul>
       </aside>
     </section>
   );
