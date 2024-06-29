@@ -85,10 +85,10 @@ function HomePagePosts({ username, firstTenUserPosts }: Props) {
                       className="rounded-full border border-gray-600"
                     />
                     <Link
-                      href={`/@${el.post_author}/home`}
+                      href={`/@${username}/home`}
                       className="font-bold text-sm hover:underline"
                     >
-                      {el.post_author}
+                      {username}
                     </Link>
                   </div>
                   <div className="flex flex-col items-start justify-start gap-1">

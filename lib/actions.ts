@@ -11,8 +11,13 @@ export async function fetchServerActionArticles(offset: number) {
 
 export async function fetchNextTenArticles(username: string, offset: number) {
   try {
+    const access_token = await getAccessToken().then((e) => e?.value)
     const response = await fetch(
-      `${baseURL}/user/${username}?offset=${offset}`
+      `${baseURL}/user/${username}/articles?offset=${offset}`, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      }
     );
     const data = await response.json();
     return data;

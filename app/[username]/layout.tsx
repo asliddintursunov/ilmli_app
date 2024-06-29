@@ -24,6 +24,7 @@ type ResType = {
         link: string;
       }[]
     | null;
+  my_profile: Boolean;
 };
 
 export default async function UserProfileLayout({
@@ -37,7 +38,7 @@ export default async function UserProfileLayout({
   const res: ResType = await fetchSpecificUserData(username);
 
   return (
-    <section className="flex justify-between items-start max-w-[1240px] mx-auto mt-8 border-t border-gray-200">
+    <section className="flex flex-col-reverse md:flex-row justify-between items-start max-w-[1240px] mx-auto mt-8 border-t border-gray-200">
       <aside id="left_content" className="w-full px-8 pt-8">
         <main className="w-full h-fit">
           <div className="w-full">
@@ -50,7 +51,7 @@ export default async function UserProfileLayout({
       </aside>
       <aside
         id="right_content"
-        className="flex flex-col w-full md:max-w-96 gap-3 px-8 border-l border-gray-200 sticky  top-0 h-screen pt-8"
+        className="flex flex-col w-full md:max-w-96 gap-3 px-8 border-l border-gray-200 md:sticky md:top-0 h-fit md:h-screen pt-8"
       >
         <div className="w-full">
           <Image
@@ -63,9 +64,11 @@ export default async function UserProfileLayout({
         </div>
         <div className="flex flex-col gap-4">
           <h3>Username Fullname</h3>
-          <Link href={`/me/settings`} className="link link-primary">
-            Edit profile
-          </Link>
+          {res.my_profile && (
+            <Link href={`/me/settings`} className="link link-primary">
+              Edit profile
+            </Link>
+          )}
         </div>
         <ul>
           <li>{res.user_email}</li>

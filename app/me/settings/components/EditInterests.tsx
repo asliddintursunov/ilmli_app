@@ -2,18 +2,13 @@ import Toast from "@/components/Toast";
 import useToast from "@/hooks/useToast";
 import clsx from "clsx";
 import { Dispatch, SetStateAction, useState } from "react";
+import { FaTrash } from "react-icons/fa6";
+
 type Props = {
   interests: string[];
   setInterests: Dispatch<SetStateAction<string[]>>;
-  selectedInterests: string[] | undefined;
-  setSelectedInterests: Dispatch<SetStateAction<string[] | undefined>>;
 };
-export default function EditInterests({
-  interests,
-  setInterests,
-  selectedInterests,
-  setSelectedInterests,
-}: Props) {
+export default function EditInterests({ interests, setInterests }: Props) {
   const toast = useToast();
   const [openAddInterestsModal, setOpenAddInterestsModal] =
     useState<boolean>(false);
@@ -34,17 +29,9 @@ export default function EditInterests({
     setInterests((prev) => [...prev, value]);
   };
 
-  const handleCheckInterest = function (value: string) {
+  const handleRemoveInterest = (value: string) => {
     const data: string = value.replaceAll(" ", "").toLowerCase();
-    if ((selectedInterests || []).includes(data)) {
-      setSelectedInterests((prev) =>
-        (prev || []).filter(
-          (item) => item.replaceAll(" ", "").toLowerCase() !== data
-        )
-      );
-    } else {
-      setSelectedInterests((prev) => [...(prev || []), data]);
-    }
+    setInterests((prev) => prev.filter((e) => e !== data));
   };
 
   return (
@@ -58,20 +45,16 @@ export default function EditInterests({
                 return (
                   <li
                     key={index}
-                    className="flex flex-row items-center justify-start gap-2 py-1 px-2 bg-base-100 rounded-xl border-2 border-gray-500/40"
+                    className="flex flex-row items-center justify-between gap-2 py-1 px-2 bg-base-100 rounded-xl border-2 border-gray-500/40"
                   >
-                    <input
-                      type="checkbox"
+                    <span className="capitalize cursor-pointer">{el}</span>
+                    <button
                       id={el}
-                      className="checkbox checkbox-md"
-                      value={el}
-                      onChange={(e) =>
-                        handleCheckInterest(e.currentTarget.value)
-                      }
-                    />
-                    <label htmlFor={el} className="capitalize cursor-pointer">
-                      {el}
-                    </label>
+                      className="btn btn-sm text-red-400 hover:border-red-400 hover:text-red-600 transition-colors"
+                      onClick={() => handleRemoveInterest(el)}
+                    >
+                      <FaTrash />
+                    </button>
                   </li>
                 );
               })}

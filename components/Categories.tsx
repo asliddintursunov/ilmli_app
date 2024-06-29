@@ -8,4 +8,5 @@ export const categories: string[] = [
   "machine learning",
   "productivity",
   "politics",
+  "coding"
 ];
