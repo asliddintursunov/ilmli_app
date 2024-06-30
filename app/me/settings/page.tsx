@@ -104,8 +104,6 @@ export default function EditProfile() {
           user_social_links: socialLinks,
         };
         const response = await updateProfile(data);
-        console.log("response:::", response);
-        
         if (response.status === 409) {
           toast.handleToast(true, response.message, "alert-error");
           return;
