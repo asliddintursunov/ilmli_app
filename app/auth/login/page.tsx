@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Button from "../components/Button";
 import Password from "../components/Password";
@@ -8,7 +8,6 @@ import Username from "../components/Username";
 import SocialAuth from "../components/SocialAuth";
 import useAuthValidation from "@/hooks/useAuthValidation";
 import { baseURL } from "@/utils";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import { setAccessToken, setUsernameCookie } from "@/lib/actions";
 import Toast from "@/components/Toast";
@@ -22,25 +21,40 @@ export default function Login() {
   const [password, setPassword] = useState<string>("");
 
   useEffect(() => {
-    const handleLogin = async () => {
+    (async () => {
       const validationResult = new Set(Object.values(regExpResult));
       if (username && password) {
         if (validationResult.has(false)) return;
         try {
-          const res = await axios.post(`${baseURL}/auth/login`, {
-            username,
-            password,
+          const request = await fetch(`${baseURL}/auth/login`, {
+            method: "POST",
+            body: JSON.stringify({
+              username,
+              password,
+            }),
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
           });
+
+          if (!request.ok) {
+            const error = await request.json();
+            toast.handleToast(true, error.message, "alert-error");
+            throw new Error(error.message)
+          }
+
+          const response = await request.json();
           await setUsernameCookie(username);
-          await setAccessToken(res.data.tokens.access_token);
+          setAccessToken(response.tokens.access_token);
+
           router.push("/");
-        } catch (err: any) {
-          toast.handleToast(true, err.response.data, "alert-error");
+        } catch (error: any) {
+          toast.handleToast(true, error.message, "alert-error");
+          throw new Error(error.message);
         }
       }
-    };
-
-    handleLogin();
+    })();
   }, [regExpResult]);
 
   const handleSubmit = function (e: React.FormEvent<HTMLFormElement>) {

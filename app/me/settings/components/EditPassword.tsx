@@ -41,27 +41,27 @@ export default function EditPassword({ setOpenEditPassword }: Props) {
     if (Object.values(newIsInputValuesValid).includes(false)) return;
 
     try {
-      const API = `${baseURL}/update-password`;
       const access_token = await getAccessToken().then((r) => r?.value);
       if (access_token) {
-        const response = await fetch(API, {
+        const request = await fetch(`${baseURL}/update-password`, {
           method: "PATCH",
           headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${access_token}`,
+            Accept: "application/json",
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             new_password: secondInput,
             old_password: firstInput,
-            
           }),
         });
-        if (!response.ok) {
-          toast.handleToast(true, "Parolni yangilashda xatolik", "alert-error");
-          throw new Error("Yangi va eski parollar mos kelmadi.");
+        if (!request.ok) {
+          const error = await request.json();
+          toast.handleToast(true, error.message, "alert-error");
+          throw new Error(error.message);
         }
-        const data = await response.json();
-        toast.handleToast(true, data.message, "alert-success");
+        const response = await request.json();
+        toast.handleToast(true, response.message, "alert-success");
       }
     } catch (error: any) {
       toast.handleToast(true, error.message, "alert-error");

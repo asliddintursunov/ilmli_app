@@ -37,25 +37,9 @@ type HomePageFirstTenUserPosts = {
   post_uuid: string;
 };
 
-type GetUserData = {
-  user_name: string;
-  user_email: string;
-  user_fullname: string | null;
-  user_phone_number: string | null;
-  user_profile_photo: string | null;
-  user_social_links:
-    | {
-        link: string;
-        platform: string;
-      }[]
-    | null;
-  user_interests: string[];
-  user_bio: string | null;
-};
-
-type PostUserData = {
-  user_name: string | undefined;
-  user_email: string | undefined;
+type UserData = {
+  user_name?: string;
+  user_email?: string;
   user_fullname?: string;
   user_phone_number?: string;
   user_profile_photo?: string;

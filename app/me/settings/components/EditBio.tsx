@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
 
 type Props = {
-  bio: string | undefined;
-  setBio: Dispatch<SetStateAction<string | undefined>>;
+  bio: string;
+  setBio: Dispatch<SetStateAction<string>>;
   bioValidation: boolean;
 };
 export default function EditBio({ bio, setBio, bioValidation }: Props) {
@@ -14,7 +14,7 @@ export default function EditBio({ bio, setBio, bioValidation }: Props) {
         id="edit_bio"
         className="ilmli_input min-h-40 max-h-80"
         placeholder="bio"
-        value={bio ? bio : ""}
+        value={bio}
         onChange={(e) => setBio(e.currentTarget.value)}
         style={{
           borderColor: bioValidation === false ? "red" : "",

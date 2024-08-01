@@ -5,7 +5,6 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import { Editor } from "primereact/editor";
 import { baseURL } from "@/utils";
-import axios from "axios";
 import Title from "./Title";
 import Description from "./Description";
 import PostPicture from "./PostPicture";
@@ -28,7 +27,7 @@ export default function PrimeReactEditor() {
     const access_token = await getAccessToken().then((res) => res?.value);
     console.log(access_token);
 
-    const postData = {
+    const new_post = {
       title: postTitle.trim(),
       description: postDescription.trim(),
       categories: postCategories,
@@ -37,14 +36,25 @@ export default function PrimeReactEditor() {
       image: postImage,
     };
     try {
-      const res = await axios.post(`${baseURL}/create-post`, postData, {
+      const request = await fetch(`${baseURL}/create-post`, {
+        method: "POST",
+        body: JSON.stringify(new_post),
         headers: {
           Authorization: `Bearer ${access_token}`,
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
       });
-      toast.handleToast(true, res.data, "alert-success");
-    } catch (err: any) {
-      toast.handleToast(true, err.response.data, "alert-error");
+
+      if(!request.ok){
+        const error = await request.json()
+        toast.handleToast(true, error.message, "alert-error");
+        return
+      }
+      const response = await request.json()
+      toast.handleToast(true, response.message, "alert-success");
+    } catch (error: any) {
+      toast.handleToast(true, error.message, "alert-error");
     }
   };
 

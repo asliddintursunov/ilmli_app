@@ -3,14 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 type Props = {
-  newest: { newest: Article[] };
+  newest: Article[];
 };
 
 function Newest({ newest }: Props) {
   const pathname = usePathname();
   const router = useRouter();
 
-  const articles = newest.newest;
+  const articles = newest;
 
   return (
     <main className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-x-10 sm:gap-x-6 gap-y-4">

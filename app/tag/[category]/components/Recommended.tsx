@@ -4,14 +4,14 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 type Props = {
-  recommended: { recommended: Article[] };
+  recommended: Article[];
 };
 
 function Recommended({ recommended }: Props) {
   const pathname = usePathname();
   const router = useRouter();
 
-  const articles: Article[] = recommended.recommended;
+  const articles: Article[] = recommended;
 
   return (
     <main className="grid place-content-center">

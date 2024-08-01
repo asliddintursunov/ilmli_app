@@ -26,29 +26,44 @@ export default function Register() {
   const [password, setPassword] = useState<string>("");
 
   useEffect(() => {
-    const handleRegister = async () => {
+    (async () => {
       const validationResult = new Set(Object.values(regExpResult));
       if (username && email && password) {
         if (validationResult.has(false)) return;
         try {
-          const res = await axios.post(`${baseURL}/auth/register`, {
-            username,
-            email,
-            password,
+          const request = await fetch(`${baseURL}/auth/register`, {
+            method: "POST",
+            body: JSON.stringify({
+              username,
+              email,
+              password,
+            }),
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
           });
-          toast.handleToast(true, res.data, "alert-success");
-          dispatch(getNewRegisteredUsername(username));
-          if (res.status === 201) {
-            setTimeout(() => {
-              router.push("/auth/register/interests");
-            }, 1000);
+
+          if (!request.ok) {
+            const error = await request.json();
+            toast.handleToast(true, error.message, "alert-error");
+            throw new Error(error.message);
           }
-        } catch (err: any) {
-          toast.handleToast(true, err.response.data, "alert-error");
+
+          const response = await request.json();
+          toast.handleToast(true, response.message, "alert-success");
+          dispatch(getNewRegisteredUsername(username));
+
+          if (request.status === 201) {
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            router.push("/auth/register/interests");
+          }
+        } catch (error: any) {
+          toast.handleToast(true, error.response.message, "alert-error");
+          throw new Error(error.message);
         }
       }
-    };
-    handleRegister();
+    })();
   }, [regExpResult]);
 
   const handleSubmit = function (e: React.FormEvent<HTMLFormElement>) {

@@ -1,8 +1,8 @@
-import fetchNewestArticles from "@/lib/fetchNewestArticles";
-import fetchRecommendedArticles from "@/lib/fetchRecommendedArticles";
 import Recommended from "./components/Recommended";
 import Newest from "./components/Newest";
 import { Metadata } from "next";
+import { getAccessToken } from "@/lib/actions";
+import { baseURL } from "@/utils";
 
 export async function generateMetadata({
   params,
@@ -22,16 +22,51 @@ async function page({ params }: { params: { category: string } }) {
   var heading = category.replace("-", " ");
   heading = heading[0].toUpperCase() + heading.slice(1, heading.length);
 
-  const recommended: { recommended: Article[] } =
-    await fetchRecommendedArticles(category);
-  const newest: { newest: Article[] } = await fetchNewestArticles(category);
+  // Fetches newest or recommended articles based on the param type
+  const fetch_r_n_articles = async (
+    article_cateory: string,
+    type: "recommended" | "newest"
+  ): Promise<Article[]> => {
+    const access_token = await getAccessToken();
+    const params = new URLSearchParams();
+    params.append("category", article_cateory);
+    try {
+      var API = undefined;
+      type === "recommended"
+        ? (API = `${baseURL}/recommended?${params.toString()}`)
+        : (API = `${baseURL}/newest?${params.toString()}`);
+      const request = await fetch(API, {
+        method: "GET",
+        cache: "no-store",
+        headers: {
+          Authorization: `Bearer ${access_token?.value}`,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!request.ok) {
+        const error = await request.json();
+        throw new Error(error.message);
+      }
+      const response = await request.json();
+      return response.articles;
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  };
+
+  const [recommended, newest] = await Promise.all([
+    fetch_r_n_articles(category, "recommended"),
+    fetch_r_n_articles(category, "newest"),
+  ]);
 
   return (
     <div className="mx-2">
       <h1 className="text-4xl md:text-5xl text-center font-semibold capitalize">
         {heading}
       </h1>
-      {recommended.recommended.length > 0 ? (
+      {recommended.length > 0 ? (
         <>
           <br />
           <hr />
@@ -44,7 +79,7 @@ async function page({ params }: { params: { category: string } }) {
           No recommended stories found!
         </h1>
       )}
-      {newest.newest.length > 0 ? (
+      {newest.length > 0 ? (
         <>
           <br />
           <hr />
