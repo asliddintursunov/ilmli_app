@@ -16,7 +16,7 @@ type Article = {
   };
 };
 
-type HomePageFirstTenUserPosts = {
+type SpecificUserArticle = {
   user_name?: string;
   post_author?: string;
   post_id: number;

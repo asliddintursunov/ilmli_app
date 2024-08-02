@@ -3,7 +3,8 @@ import React from "react";
 import LinkBar from "./components/LinkBar";
 import Image from "next/image";
 import Link from "next/link";
-import fetchSpecificUserData from "@/lib/fetchSpecificUserData";
+import { baseURL } from "@/utils";
+import { getAccessToken } from "@/lib/actions";
 
 export const metadata: Metadata = {
   title: "User Fullname",
@@ -34,8 +35,39 @@ export default async function UserProfileLayout({
   params: { username: string };
   children: React.ReactNode;
 }) {
+  const fetchSpecificUserData = async function (username: string) {
+    const access_token = await getAccessToken();
+    try {
+      const request = await fetch(`${baseURL}/user/${username}`, {
+        cache: "no-store",
+        headers: {
+          Authorization: `Bearer ${access_token?.value}`,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!request.ok) {
+        const error = await request.json();
+        console.error(error);
+
+        throw new Error(`
+            ${username} not exists.
+            status code: ${request.status}
+            message: ${error.message}
+          `);
+      }
+
+      const response = await request.json();
+      return response.user_data;
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  };
+
   const username = params.username.replaceAll("%40", "");
-  const res: ResType = await fetchSpecificUserData(username);
+  const user: ResType = await fetchSpecificUserData(username);
+
 
   return (
     <section className="flex flex-col-reverse md:flex-row justify-between items-start max-w-[1240px] mx-auto mt-8 border-t border-gray-200">
@@ -64,15 +96,15 @@ export default async function UserProfileLayout({
         </div>
         <div className="flex flex-col gap-4">
           <h3>Username Fullname</h3>
-          {res.my_profile && (
+          {user.my_profile && (
             <Link href={`/me/settings`} className="link link-primary">
               Edit profile
             </Link>
           )}
         </div>
         <ul>
-          <li>{res.user_email}</li>
-          <li>{res.user_name}</li>
+          <li>{user.user_email}</li>
+          <li>{user.user_name}</li>
         </ul>
       </aside>
     </section>

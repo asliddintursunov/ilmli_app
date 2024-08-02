@@ -1,10 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import Skeleton from "./Skeleton";
-import { fetchServerActionArticles } from "@/lib/actions";
+import { getAccessToken } from "@/lib/actions";
 import Link from "next/link";
+import { baseURL } from "@/utils";
 
 type Props = {
   firstTenArticles: Article[];
@@ -20,19 +20,42 @@ export default function InfiniteScrollPage({ firstTenArticles }: Props) {
   useEffect(() => {
     setArticles(firstTenArticles);
     setOffset(10);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const fetchNextTenArticles = function (offset: number) {
-    fetchServerActionArticles(offset)
-      .then((newArticles) => {
-        setArticles((prev) => [...prev, ...newArticles]);
-        setOffset((prev) => prev + 10);
-        setPending(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching articles:", error);
-        setPending(false);
+  const fetchNextTenArticles = async function (offset: number) {
+    setPending(true);
+    const access_token = await getAccessToken();
+    const API = access_token
+      ? `${baseURL}/get-interested-articles?offset=${offset}`
+      : `${baseURL}/get-articles?offset=${offset}`;
+    try {
+      const request = await fetch(API, {
+        method: "GET",
+        cache: "no-store",
+        headers: {
+          ...(access_token && {
+            Authorization: `Bearer ${access_token.value}`,
+          }),
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
       });
+
+      if (!request.ok) {
+        const error = await request.json();
+        throw new Error(error.message);
+      }
+      const response = await request.json();
+      if (response.articles) {
+        setArticles((prev) => [...prev, ...response.articles]);
+        setOffset((prev) => prev + 10);
+      }
+      setPending(false);
+    } catch (error: any) {
+      setPending(false);
+      throw new Error(error.message);
+    }
   };
 
   // Fetch next 10 articles
