@@ -4,6 +4,7 @@ import Skeleton from "@/components/Skeleton";
 import Toast from "@/components/Toast";
 import useToast from "@/hooks/useToast";
 import { getAccessToken } from "@/lib/actions";
+import { formatTitleForUrl } from "@/lib/formatTitleForUrl";
 import { baseURL } from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -53,12 +54,16 @@ function HomePagePosts({ username, firstTenUserPosts }: Props) {
         throw new Error(error.message);
       }
       const response = await request.json();
+      const user_posts = response.user_posts;
 
-      if (response.length) {
-        setArticles((prev) => [...prev, ...response]);
+      if (user_posts) {
+        setArticles((prev) => [...prev, ...user_posts]);
         setOffset((prev) => prev + 10);
       }
-      if (response.length < 10) setUserStillHasArticle(false);
+      if (user_posts.length < 10) setUserStillHasArticle(false);
+      console.log("user_posts.length =>", user_posts.length);
+      console.log("user_posts =>", user_posts);
+      
     } catch (error: any) {
       toast.handleToast(true, error.message, "alert-error");
       throw new Error(error.message);
@@ -101,9 +106,9 @@ function HomePagePosts({ username, firstTenUserPosts }: Props) {
               <li
                 onClick={() =>
                   router.push(
-                    `/tag/${el.post_primary_category}/${el.post_title}_${el.post_uuid}`
-                      .replaceAll(" ", "-")
-                      .toLowerCase()
+                    `/tag/${el.post_primary_category}/${formatTitleForUrl(
+                      `${el.post_title}_${el.post_uuid}`
+                    )}`
                   )
                 }
                 id={el.post_id.toString()}

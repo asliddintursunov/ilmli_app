@@ -2,6 +2,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { formatTitleForUrl } from "@/lib/formatTitleForUrl";
+
 type Props = {
   newest: Article[];
 };
@@ -30,9 +32,9 @@ function Newest({ newest }: Props) {
                 className="rounded-sm object-cover object-center flex-1"
                 onClick={() =>
                   router.push(
-                    `${pathname}/${el.post_title}_${el.post_uuid}`
-                      .replaceAll(" ", "-")
-                      .toLowerCase()
+                    `${pathname}/${formatTitleForUrl(
+                      `${el.post_title}_${el.post_uuid}`
+                    )}`
                   )
                 }
               />

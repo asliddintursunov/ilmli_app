@@ -5,6 +5,7 @@ import Skeleton from "./Skeleton";
 import { getAccessToken } from "@/lib/actions";
 import Link from "next/link";
 import { baseURL } from "@/utils";
+import { formatTitleForUrl } from "@/lib/formatTitleForUrl";
 
 type Props = {
   firstTenArticles: Article[];
@@ -20,7 +21,7 @@ export default function InfiniteScrollPage({ firstTenArticles }: Props) {
   useEffect(() => {
     setArticles(firstTenArticles);
     setOffset(10);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchNextTenArticles = async function (offset: number) {
@@ -115,9 +116,9 @@ export default function InfiniteScrollPage({ firstTenArticles }: Props) {
               >
                 <Link
                   className="absolute w-full h-full left-0 top-0"
-                  href={`/tag/${el.post_primary_category}/${el.post_title}_${el.post_uuid}`
-                    .replaceAll(" ", "-")
-                    .toLowerCase()}
+                  href={`/tag/${el.post_primary_category}/${formatTitleForUrl(
+                    `${el.post_title}_${el.post_uuid}`
+                  )}`}
                 />
                 <div className="flex-1 flex flex-col items-start justify-start gap-1">
                   <div className="flex gap-2 items-start justify-start">
