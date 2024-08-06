@@ -14,88 +14,143 @@ import { baseURL } from "@/utils";
 import { getAccessToken } from "@/lib/actions";
 import Toast from "@/components/Toast";
 import useToast from "@/hooks/useToast";
+import ProfileSkeleton from "./components/ProfileSkeleton";
 
 export default function EditProfile() {
   const toast = useToast();
   const validation = useAuthValidation();
+  const [isPending, setIsPending] = useState(false);
   const [fishValidation, setFishValidation] = useState<boolean>(true);
   const [bioValidation, setBioValidation] = useState<boolean>(true);
-
   const [openEditPassword, setOpenEditPassword] = useState<boolean>(false);
-  const [initialData, setInitialData] = useState<
-    | {
-        user_name?: string;
-        user_email?: string;
-      }
-    | undefined
-  >(undefined);
-  const [profilePhoto, setProfilePhoto] = useState<string | undefined>(
-    undefined
-  );
+  const [initial_username_and_email, set_initial_username_and_email] =
+    useState<{ user_name: string; email: string } | null>(null);
+
   const [username, setUsername] = useState<string>("");
-  const [fullname, setFullname] = useState<string | undefined>(undefined);
+  const [fullname, setFullname] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [phoneNumber, setPhoneNumber] = useState<string | undefined>(undefined);
-  const [bio, setBio] = useState<string | undefined>(undefined);
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [bio, setBio] = useState<string>("");
   const [socialLinks, setSocialLinks] = useState<
-    { platform: string; link: string }[] | undefined
-  >(undefined);
+    { platform: string; link: string }[]
+  >([]);
   const [interests, setInterests] = useState<string[]>([]);
+  const [profilePhoto, setProfilePhoto] = useState<string>("");
 
+  // update user profile: PATCH main function
+  const updateProfile = async (
+    user_profile_data: UserData
+  ): Promise<UserData | void> => {
+    const access_token = await getAccessToken().then((r) => r?.value);
+    try {
+      const request = await fetch(`${baseURL}/update-profile`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user_profile_data),
+      });
+      if (!request.ok) {
+        const error = await request.json();
+        toast.handleToast(true, error.message, "alert-error");
+        throw new Error(error.message);
+      }
+      const response = await request.json();
+      toast.handleToast(true, response.message, "alert-success");
+    } catch (error: any) {
+      toast.handleToast(true, error.message, "alert-error");
+      throw new Error(error.message);
+    }
+  };
+
+  // fetching user data: GET
   useEffect(() => {
-    // checks if username and email are valid or not
-    const validationResult = validation.regExpResult;
-
-    // checks if fullname is valid or not
-    (fullname?.length ?? 0) >= 40
-      ? setFishValidation(false)
-      : setFishValidation(true);
-
-    // checks if bio is valid or not
-    typeof bio?.length !== "undefined" && bio?.length >= 250
-      ? setBioValidation(false)
-      : setBioValidation(true);
-
-    if (
-      validationResult.username &&
-      validationResult.email &&
-      (fullname?.length ?? 0) <= 40 &&
-      (bio?.length ?? 0) <= 250
-    ) {
-      const updateProfile = async (data: PostUserData) => {
-        const API = `${baseURL}/update-profile`;
-        const access_token = await getAccessToken().then((r) => r?.value);
-        try {
-          const response = await fetch(API, {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${access_token}`,
-            },
-            body: JSON.stringify(data),
-          });
-          if (!response.ok) {
-            toast.handleToast(
-              true,
-              "Ma'lumot yuborishda xatolik",
-              "alert-error"
-            );
-            throw new Error(
-              `API request failed with status ${response.status} at User profile`
-            );
-          }
-          return await response.json();
-        } catch (error: any) {
+    setIsPending(true);
+    (async (): Promise<void> => {
+      const access_token = await getAccessToken().then((r) => r?.value);
+      try {
+        const request = await fetch(`${baseURL}/self-data`, {
+          method: "GET",
+          cache: "no-store",
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
+        if (!request.ok) {
+          const error = await request.json();
           toast.handleToast(true, error.message, "alert-error");
-          console.error("Error sending User profile data:", error.message);
           throw new Error(error.message);
         }
-      };
+        const response = await request.json();
+        const user_data: UserData = response.user_data;
 
-      (async () => {
-        const data: PostUserData = {
-          user_name: initialData?.user_name !== username ? username : undefined,
-          user_email: initialData?.user_email !== email ? email : undefined,
+        setUsername(user_data.user_name ?? "");
+        setEmail(user_data.user_email ?? "");
+        setFullname(user_data.user_fullname ?? "");
+        setPhoneNumber(user_data.user_phone_number ?? "");
+        setBio(user_data.user_bio ?? "");
+        setSocialLinks(user_data.user_social_links ?? []);
+        setInterests(user_data.user_interests ?? []);
+        setProfilePhoto(user_data.user_profile_photo ?? "");
+        set_initial_username_and_email({
+          user_name: user_data.user_name ?? "",
+          email: user_data.user_email ?? "",
+        });
+        setIsPending(false);
+      } catch (error: any) {
+        toast.handleToast(true, error.message, "alert-error");
+        throw new Error(error.message);
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // update user profile: PATCH
+  useEffect(() => {
+    (async () => {
+      // checks if username and email are valid or not
+      const validationResult = validation.regExpResult;
+
+      // checks if fullname is valid or not
+      if (fullname.length >= 40) {
+        setFishValidation(false);
+        return;
+      }
+      setFishValidation(true);
+
+      // checks if bio is valid or not
+      if (!typeof bio?.length || bio?.length >= 250) {
+        setBioValidation(false);
+        return;
+      }
+      setBioValidation(true);
+
+      console.log(
+        validationResult.username,
+        validationResult.email,
+        fishValidation,
+        bioValidation
+      );
+
+      if (
+        validationResult.username &&
+        validationResult.email &&
+        fishValidation &&
+        bioValidation
+      ) {
+        const user_profile_data: UserData = {
+          user_name:
+            username.trim() !== initial_username_and_email?.user_name
+              ? username
+              : undefined,
+          user_email:
+            email.trim() !== initial_username_and_email?.email
+              ? email
+              : undefined,
           user_fullname: fullname,
           user_phone_number: phoneNumber,
           user_bio: bio,
@@ -103,112 +158,85 @@ export default function EditProfile() {
           user_interests: interests,
           user_social_links: socialLinks,
         };
-        const response = await updateProfile(data);
-        console.log("response:::", response);
-        
-        if (response.status === 409) {
-          toast.handleToast(true, response.message, "alert-error");
-          return;
-        }
-        toast.handleToast(true, response.message, "alert-success");
-      })();
-      return;
-    }
-    console.log("Don't sent to backend");
-    return;
+        updateProfile(user_profile_data);
+        return;
+      }
+    })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [validation.regExpResult]);
 
-  useEffect(() => {
-    const fetchOwnData = async () => {
-      const API = `${baseURL}/self-data`;
-      const access_token = await getAccessToken().then((r) => r?.value);
-      try {
-        const response = await fetch(API, {
-          headers: {
-            Authorization: `Bearer ${access_token}`,
-          },
-          method: "GET",
-          cache: "no-store",
-        });
-        if (!response.ok) {
-          toast.handleToast(true, "Ma'lumot olishda xatolik", "alert-error");
-          throw new Error(
-            `API request failed with status ${response.status} at User profile`
-          );
-        }
-        return await response.json();
-      } catch (error: any) {
-        toast.handleToast(true, "Ma'lumot olishda xatolik", "alert-error");
-        console.error("Error fetching User profile data:", error.message);
-        throw new Error(error.message);
-      }
-    };
-
-    (async () => {
-      const data: GetUserData = await fetchOwnData();
-      setInitialData({
-        user_name: data.user_name,
-        user_email: data.user_email,
-      });
-
-      setUsername(data.user_name);
-      setEmail(data.user_email);
-      data.user_fullname && setFullname(data.user_fullname);
-      data.user_phone_number && setPhoneNumber(data.user_phone_number);
-      data.user_profile_photo && setProfilePhoto(data.user_profile_photo);
-      data.user_social_links && setSocialLinks(data.user_social_links);
-      data.user_interests && setInterests(data.user_interests);
-    })();
-  }, []);
-
   return (
     <>
+      {isPending && <ProfileSkeleton />}
       <div className="max-w-[1240px] mx-auto">
-        <main className="flex flex-col md:flex-row justify-between items-stretch">
-          <aside className="flex-[3] flex flex-col gap-y-2 xs:gap-y-6 p-4 border-b border-gray-300">
-            <div className="w-full flex justify-between items-start">
-              <EditProfilePicture
-                profilePhoto={profilePhoto}
-                setProfilePhoto={setProfilePhoto}
+        {!isPending && (
+          <main className="flex flex-col md:flex-row justify-between items-stretch">
+            <aside className="flex-[3] flex flex-col gap-y-2 xs:gap-y-6 p-4 border-b border-gray-300">
+              <div className="w-full flex justify-between items-start">
+                <EditProfilePicture
+                  profilePhoto={profilePhoto}
+                  setProfilePhoto={setProfilePhoto}
+                />
+                <h1 className="hidden sm:block">Joined day</h1>
+              </div>
+              <div className="w-full flex flex-col xs:flex-row gap-2 justify-between">
+                <EditUsername
+                  username={username}
+                  setUsername={setUsername}
+                  validationResult={validation.regExpResult.username}
+                />
+                <EditFullname
+                  fullname={fullname}
+                  setFullname={setFullname}
+                  fishValidation={fishValidation}
+                />
+              </div>
+              <div className="w-full flex flex-col xs:flex-row gap-2 justify-between">
+                <EditEmail
+                  email={email}
+                  setEmail={setEmail}
+                  validationResult={validation.regExpResult.email}
+                />
+                <EditTelephoneNumber
+                  phoneNumber={phoneNumber}
+                  setPhoneNumber={setPhoneNumber}
+                />
+              </div>
+              <div className="w-full flex flex-col gap-2">
+                <EditBio
+                  bio={bio}
+                  setBio={setBio}
+                  bioValidation={bioValidation}
+                />
+                <EditSocialLinks
+                  socialLinks={socialLinks}
+                  setSocialLinks={setSocialLinks}
+                />
+              </div>
+              <div className="hidden md:flex flex-col gap-2 items-start">
+                <button
+                  className="btn btn-active"
+                  onClick={() => setOpenEditPassword(true)}
+                >
+                  Parolni o&#39;zgartirish
+                </button>
+                <button
+                  className="btn btn-neutral"
+                  onClick={() => {
+                    validation.validateInput(username, email, undefined);
+                  }}
+                >
+                  O&#39;zgarishlarni saqlash
+                </button>
+              </div>
+            </aside>
+            <aside className="flex-1 p-4 border-l border-b border-gray-300">
+              <EditInterests
+                interests={interests}
+                setInterests={setInterests}
               />
-              <h1 className="hidden sm:block">Joined day</h1>
-            </div>
-            <div className="w-full flex flex-col xs:flex-row gap-2 justify-between">
-              <EditUsername
-                username={username}
-                setUsername={setUsername}
-                validationResult={validation.regExpResult.username}
-              />
-              <EditFullname
-                fullname={fullname}
-                setFullname={setFullname}
-                fishValidation={fishValidation}
-              />
-            </div>
-            <div className="w-full flex flex-col xs:flex-row gap-2 justify-between">
-              <EditEmail
-                email={email}
-                setEmail={setEmail}
-                validationResult={validation.regExpResult.email}
-              />
-              <EditTelephoneNumber
-                phoneNumber={phoneNumber}
-                setPhoneNumber={setPhoneNumber}
-              />
-            </div>
-            <div className="w-full flex flex-col gap-2">
-              <EditBio
-                bio={bio}
-                setBio={setBio}
-                bioValidation={bioValidation}
-              />
-              <EditSocialLinks
-                socialLinks={socialLinks}
-                setSocialLinks={setSocialLinks}
-              />
-            </div>
-            <div className="hidden md:flex flex-col gap-2 items-start">
+            </aside>
+            <div className="flex md:hidden flex-col gap-2 items-start pl-4 mt-2">
               <button
                 className="btn btn-active"
                 onClick={() => setOpenEditPassword(true)}
@@ -224,27 +252,8 @@ export default function EditProfile() {
                 O&#39;zgarishlarni saqlash
               </button>
             </div>
-          </aside>
-          <aside className="flex-1 p-4 border-l border-b border-gray-300">
-            <EditInterests interests={interests} setInterests={setInterests} />
-          </aside>
-          <div className="flex md:hidden flex-col gap-2 items-start pl-4 mt-2">
-            <button
-              className="btn btn-active"
-              onClick={() => setOpenEditPassword(true)}
-            >
-              Parolni o&#39;zgartirish
-            </button>
-            <button
-              className="btn btn-neutral"
-              onClick={() => {
-                validation.validateInput(username, email, undefined);
-              }}
-            >
-              O&#39;zgarishlarni saqlash
-            </button>
-          </div>
-        </main>
+          </main>
+        )}
         {openEditPassword && (
           <EditPassword setOpenEditPassword={setOpenEditPassword} />
         )}

@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { Dispatch, SetStateAction, useState } from "react";
 type Props = {
-  profilePhoto: string | undefined;
-  setProfilePhoto: Dispatch<SetStateAction<string | undefined>>;
+  profilePhoto: string;
+  setProfilePhoto: Dispatch<SetStateAction<string>>;
 };
 export default function EditProfilePicture({
   profilePhoto,
@@ -16,11 +16,10 @@ export default function EditProfilePicture({
 
     if (file) {
       const fileSizeInMB = file.size / (1024 * 1024);
-      console.log("fileSizeInMB:::", fileSizeInMB);
 
       if (fileSizeInMB > 2) {
         setError(true);
-        setProfilePhoto(undefined);
+        setProfilePhoto("");
         return;
       }
       setError(false);
@@ -40,7 +39,8 @@ export default function EditProfilePicture({
         height={150}
         alt="profile picture"
         src={profilePhoto ? profilePhoto : "/images/avatar.png"}
-        className="rounded-full border border-sky-900 object-cover object-center"
+        className="rounded-full border border-sky-900 object-contain object-center"
+        style={{ maxHeight: "150px", maxWidth: "150px" }}
       />
       <div className="relative">
         <input

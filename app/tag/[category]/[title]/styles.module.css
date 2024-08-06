@@ -4,8 +4,9 @@
   margin: 16px auto;
   padding: 8px 18px;
   width: 80%;
-  font-family: 'Lora', serif;
+  font-family: "Lora", serif;
   font-weight: 400;
+  line-height: 50px;
 }
 .postContainer h1 {
   font-size: 34px;
@@ -32,4 +33,17 @@
 .postContainer p {
   line-height: 40px;
   font-size: 20px;
+}
+.postContainer code {
+  background-color: #e9e9e9;
+  font-family: monospace;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.postContainer pre {
+  background-color: #f3f4f6;
+  padding: 16px;
+  border-radius: 6px;
+  overflow-x: auto;
 }

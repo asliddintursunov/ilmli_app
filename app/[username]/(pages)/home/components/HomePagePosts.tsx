@@ -1,28 +1,52 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import Skeleton from "@/components/Skeleton";
-import { fetchNextTenArticles } from "@/lib/actions";
+import Toast from "@/components/Toast";
+import useToast from "@/hooks/useToast";
+import { fetchNext10Articles } from "@/lib/fetchFunctions";
+import { formatTitleForUrl } from "@/lib/formatTitleForUrl";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type Props = {
   username: string;
-  firstTenUserPosts: HomePageFirstTenUserPosts[];
+  firstTenUserPosts: SpecificUserArticle[];
 };
 function HomePagePosts({ username, firstTenUserPosts }: Props) {
   const router = useRouter();
+  const toast = useToast();
   const [offset, setOffset] = useState<number>(10);
   const elementsContainer = useRef<HTMLUListElement>(null);
-  const [articles, setArticles] = useState<HomePageFirstTenUserPosts[]>([]);
+  const [articles, setArticles] = useState<SpecificUserArticle[]>([]);
   const [userStillHasArticle, setUserStillHasArticle] = useState<boolean>(true);
 
   // Fetching first ten articles
   useEffect(() => {
     setArticles(firstTenUserPosts);
+    if (firstTenUserPosts.length < 10) setUserStillHasArticle(false);
   }, []);
+
+  const fetchArticles = useCallback(
+    async (username: string, offset: number) => {
+      const result = await fetchNext10Articles(
+        username,
+        offset,
+        "userhomepage"
+      );
+      if (result.error) {
+        toast.handleToast(true, result.message, "alert-error");
+        return;
+      }
+      if (result.user_posts) {
+        setArticles((prev) => [...prev, ...result.user_posts]);
+        setOffset((prev) => prev + 10);
+      }
+      if (result.user_posts.length < 10) setUserStillHasArticle(false);
+    },
+    []
+  );
 
   useEffect(() => {
     if (typeof IntersectionObserver !== "undefined") {
@@ -36,11 +60,7 @@ function HomePagePosts({ username, firstTenUserPosts }: Props) {
                   entry.target.id &&
                 userStillHasArticle
               ) {
-                fetchNextTenArticles(username, offset).then((data) => {
-                  setArticles((prev) => [...prev, ...data]);
-                  setOffset((prev) => prev + 10);
-                  if (data.length < 10) setUserStillHasArticle(false);
-                });
+                fetchArticles(username, offset);
               }
             }
           });
@@ -60,13 +80,13 @@ function HomePagePosts({ username, firstTenUserPosts }: Props) {
       {articles.length > 0 ? (
         <div className="pb-10">
           <ul className="mt-4 flex flex-col gap-2" ref={elementsContainer}>
-            {articles.map((el: HomePageFirstTenUserPosts) => (
+            {articles.map((el: SpecificUserArticle) => (
               <li
                 onClick={() =>
                   router.push(
-                    `/tag/${el.post_primary_category}/${el.post_title}_${el.post_uuid}`
-                      .replaceAll(" ", "-")
-                      .toLowerCase()
+                    `/tag/${el.post_primary_category}/${formatTitleForUrl(
+                      `${el.post_title}_${el.post_uuid}`
+                    )}`
                   )
                 }
                 id={el.post_id.toString()}
@@ -126,6 +146,9 @@ function HomePagePosts({ username, firstTenUserPosts }: Props) {
       )}
       {userStillHasArticle &&
         [1, 2].map((i) => <Skeleton key={i} image={true} />)}
+      {toast.showToast && (
+        <Toast toastType={toast.toastType} toastInfo={toast.toastInfo} />
+      )}
     </main>
   );
 }

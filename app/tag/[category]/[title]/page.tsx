@@ -1,29 +1,34 @@
-import { fetchArticleByUUID } from "@/lib/fetchArticleByUUID";
 import { Metadata } from "next";
 import Image from "next/image";
 import styles from "./styles.module.css";
 import Link from "next/link";
+import { fetchArticleByUUID } from "@/lib/fetchFunctions";
+
+const formatTitleAndUUID = (params: {
+  title: string;
+}): { uuid: string; title: string } => {
+  const uuid = params.title.split("_").reverse()[0];
+  let title = params.title.slice(0, params.title.lastIndexOf(uuid) - 1);
+  title = title.replaceAll("-", " ");
+
+  return { uuid, title };
+};
+
 export async function generateMetadata({
   params,
 }: {
   params: { title: string };
 }): Promise<Metadata> {
-  var data = params.title.replaceAll("%", " ");
-  data = data.replaceAll("-", " ");
-  data = data[0].toUpperCase() + data.slice(1, data.length);
+  const { title } = formatTitleAndUUID(params);
 
-  if (data) return { title: data, description: data };
+  if (title) return { title, description: title };
 
-  return { title: "Not found", description: `${data} not found` };
+  return { title: "Not found", description: `${title} not found` };
 }
 
 async function page({ params }: { params: { title: string } }) {
-  const post_uuid = params.title.split("_").reverse()[0];
+  const { title, uuid: post_uuid } = formatTitleAndUUID(params);
 
-  const title = params.title
-    .slice(0, params.title.lastIndexOf(post_uuid) - 1)
-    .replaceAll("-", " ")
-    .replace(/[^a-z-']/g, " ");
   const article: Article = await fetchArticleByUUID(post_uuid);
 
   return (

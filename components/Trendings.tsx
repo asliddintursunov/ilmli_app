@@ -1,13 +1,15 @@
-import getTrendingOnIlmli from "@/lib/fetchTrendingOnIlmli";
 import Image from "next/image";
 import { BsGraphUpArrow } from "react-icons/bs";
 import Skeleton from "./Skeleton";
 import { Suspense } from "react";
 import Link from "next/link";
-export default async function Trendings() {
-  const trendings = await getTrendingOnIlmli();
-  const articles: Article[] = trendings.articles;
+import { formatTitleForUrl } from "@/lib/formatTitleForUrl";
 
+type Params = {
+  trendings: Article[];
+};
+
+export default async function Trendings({ trendings }: Params) {
   return (
     <div className="flex flex-col justify-start gap-1 mx-1">
       <div className="flex gap-3 justify-start items-center">
@@ -20,16 +22,18 @@ export default async function Trendings() {
             return <Skeleton key={i} image={false} />;
           })}
         >
-          {articles.map((trending: Article) => {
+          {trendings.map((trending: Article) => {
             return (
               <div
                 key={trending.post_id}
                 className="relative py-3 px-5 flex flex-col justify-between items-start cursor-pointer hover:bg-gray-100/50 transition-all min-h-[120px] w-full md:w-[255px] lg:w-[320px] xl:w-[425px] border-b border-gray-200"
               >
                 <Link
-                  href={`/tag/${trending.post_primary_category}/${trending.post_title}_${trending.post_uuid}`
-                    .replaceAll(" ", "-")
-                    .toLowerCase()}
+                  href={`/tag/${
+                    trending.post_primary_category
+                  }/${formatTitleForUrl(
+                    `${trending.post_title}_${trending.post_uuid}`
+                  )}`}
                   className="absolute w-full h-full left-0 top-0"
                 />
                 <div className="flex gap-1 items-start justify-start">

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Button from "../components/Button";
 import Password from "../components/Password";
@@ -8,11 +8,11 @@ import Username from "../components/Username";
 import SocialAuth from "../components/SocialAuth";
 import useAuthValidation from "@/hooks/useAuthValidation";
 import { baseURL } from "@/utils";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import { setAccessToken, setUsernameCookie } from "@/lib/actions";
 import Toast from "@/components/Toast";
 import useToast from "@/hooks/useToast";
+import { Auth } from "@/lib/AuthFunction";
 
 export default function Login() {
   const router = useRouter();
@@ -22,25 +22,22 @@ export default function Login() {
   const [password, setPassword] = useState<string>("");
 
   useEffect(() => {
-    const handleLogin = async () => {
+    (async () => {
       const validationResult = new Set(Object.values(regExpResult));
       if (username && password) {
         if (validationResult.has(false)) return;
-        try {
-          const res = await axios.post(`${baseURL}/auth/login`, {
-            username,
-            password,
-          });
-          await setUsernameCookie(username);
-          await setAccessToken(res.data.tokens.access_token);
+        const result = await Auth(username, undefined, password, "login");
+
+        if (result.success) {
+          await setUsernameCookie(result.response.username);
+          setAccessToken(result.response.tokens.access_token);
+
           router.push("/");
-        } catch (err: any) {
-          toast.handleToast(true, err.response.data, "alert-error");
+        } else {
+          toast.handleToast(true, result.error.message, "alert-error");
         }
       }
-    };
-
-    handleLogin();
+    })();
   }, [regExpResult]);
 
   const handleSubmit = function (e: React.FormEvent<HTMLFormElement>) {
