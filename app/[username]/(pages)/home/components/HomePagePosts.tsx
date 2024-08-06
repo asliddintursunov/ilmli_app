@@ -3,13 +3,12 @@
 import Skeleton from "@/components/Skeleton";
 import Toast from "@/components/Toast";
 import useToast from "@/hooks/useToast";
-import { getAccessToken } from "@/lib/actions";
+import { fetchNext10Articles } from "@/lib/fetchFunctions";
 import { formatTitleForUrl } from "@/lib/formatTitleForUrl";
-import { baseURL } from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type Props = {
   username: string;
@@ -29,46 +28,25 @@ function HomePagePosts({ username, firstTenUserPosts }: Props) {
     if (firstTenUserPosts.length < 10) setUserStillHasArticle(false);
   }, []);
 
-  const fetchNextTenArticles = async function (
-    username: string,
-    offset: number
-  ) {
-    const access_token = await getAccessToken();
-    try {
-      const request = await fetch(
-        `${baseURL}/user/${username}/articles?offset=${offset}`,
-        {
-          method: "GET",
-          cache: "no-store",
-          headers: {
-            Authorization: `Bearer ${access_token?.value}`,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+  const fetchArticles = useCallback(
+    async (username: string, offset: number) => {
+      const result = await fetchNext10Articles(
+        username,
+        offset,
+        "userhomepage"
       );
-
-      if (!request.ok) {
-        const error = await request.json();
-        toast.handleToast(true, error.message, "alert-error");
-        throw new Error(error.message);
+      if (result.error) {
+        toast.handleToast(true, result.message, "alert-error");
+        return;
       }
-      const response = await request.json();
-      const user_posts = response.user_posts;
-
-      if (user_posts) {
-        setArticles((prev) => [...prev, ...user_posts]);
+      if (result.user_posts) {
+        setArticles((prev) => [...prev, ...result.user_posts]);
         setOffset((prev) => prev + 10);
       }
-      if (user_posts.length < 10) setUserStillHasArticle(false);
-      console.log("user_posts.length =>", user_posts.length);
-      console.log("user_posts =>", user_posts);
-      
-    } catch (error: any) {
-      toast.handleToast(true, error.message, "alert-error");
-      throw new Error(error.message);
-    }
-  };
+      if (result.user_posts.length < 10) setUserStillHasArticle(false);
+    },
+    []
+  );
 
   useEffect(() => {
     if (typeof IntersectionObserver !== "undefined") {
@@ -82,7 +60,7 @@ function HomePagePosts({ username, firstTenUserPosts }: Props) {
                   entry.target.id &&
                 userStillHasArticle
               ) {
-                fetchNextTenArticles(username, offset);
+                fetchArticles(username, offset);
               }
             }
           });

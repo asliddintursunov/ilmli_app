@@ -3,8 +3,7 @@ import React from "react";
 import LinkBar from "./components/LinkBar";
 import Image from "next/image";
 import Link from "next/link";
-import { baseURL } from "@/utils";
-import { getAccessToken } from "@/lib/actions";
+import { fetchSpecificUserData } from "@/lib/fetchFunctions";
 
 export const metadata: Metadata = {
   title: "User Fullname",
@@ -35,39 +34,8 @@ export default async function UserProfileLayout({
   params: { username: string };
   children: React.ReactNode;
 }) {
-  const fetchSpecificUserData = async function (username: string) {
-    const access_token = await getAccessToken();
-    try {
-      const request = await fetch(`${baseURL}/user/${username}`, {
-        cache: "no-store",
-        headers: {
-          Authorization: `Bearer ${access_token?.value}`,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!request.ok) {
-        const error = await request.json();
-        console.error(error);
-
-        throw new Error(`
-            ${username} not exists.
-            status code: ${request.status}
-            message: ${error.message}
-          `);
-      }
-
-      const response = await request.json();
-      return response.user_data;
-    } catch (error: any) {
-      throw new Error(error.message);
-    }
-  };
-
   const username = params.username.replaceAll("%40", "");
   const user: ResType = await fetchSpecificUserData(username);
-
 
   return (
     <section className="flex flex-col-reverse md:flex-row justify-between items-start max-w-[1240px] mx-auto mt-8 border-t border-gray-200">

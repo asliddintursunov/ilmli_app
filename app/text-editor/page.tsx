@@ -14,6 +14,7 @@ import Image from "@tiptap/extension-image";
 import HorizontalRule from "@tiptap/extension-horizontal-rule";
 import Placeholder from "@tiptap/extension-placeholder";
 import ImageResize from "tiptap-extension-resize-image";
+import CodeBlock from "@tiptap/extension-code-block";
 import { useEditor, EditorContent } from "@tiptap/react";
 import SideBarOptions from "./components/SidebarOptions";
 import MenuBar from "./components/MenuBar";
@@ -34,12 +35,14 @@ export default function TextEditor() {
   const [htmlContent, setHtmlContent] = useState<string | null>(null);
   const [lastPTag, setLastPTag] = useState<string | null>(null);
   const [showSideBarOptions, setShowSideBarOptions] = useState(false);
+  const [codeblockActive, setCodeblockActive] = useState<boolean>(false);
 
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [Categories, setCategories] = useState<string[]>([]);
   const [primaryCategory, setPrimaryCategory] = useState<string>("");
   const [image, setImage] = useState<string>("");
+  const [isPostValid, setIsPostValid] = useState<boolean | null>(null);
 
   const extensions = [
     StarterKit,
@@ -62,6 +65,11 @@ export default function TextEditor() {
       allowBase64: true,
     }),
     ImageResize,
+    CodeBlock.configure({
+      HTMLAttributes: {
+        class: "code-block",
+      },
+    }),
   ];
   const editorProps = {
     attributes: {
@@ -114,16 +122,18 @@ export default function TextEditor() {
     [editor]
   );
 
+  const addCodeBlock = useCallback(() => {
+    if (editor) {
+      editor.chain().focus().setCodeBlock({ language: "typescript" }).run();
+      setCodeblockActive(true);
+    }
+  }, [editor]);
+
   const handleShowSideBarOptions = (content: string | null): void => {
     const matches = content?.match(/<p>.*?<\/p>/g);
     const lastP_Tag = matches ? matches[matches.length - 1] : null;
     setLastPTag(lastP_Tag);
   };
-
-  useEffect(() => {
-    handleSeeContent();
-    handleShowSideBarOptions(htmlContent);
-  });
 
   const handleSend = async function () {
     const access_token = await getAccessToken().then((res) => res?.value);
@@ -136,6 +146,16 @@ export default function TextEditor() {
       image: image,
     };
 
+    const post_values = Object.values(new_post);
+    if (post_values.includes("") || post_values.includes([])) {
+      toast.handleToast(
+        true,
+        "Barcha qiymatlarni to'ldirishingiz kerak",
+        "alert-warning"
+      );
+      return;
+    }
+    setIsPostValid(true);
     try {
       const request = await fetch(`${baseURL}/create-post`, {
         method: "POST",
@@ -158,6 +178,11 @@ export default function TextEditor() {
       toast.handleToast(true, error.message, "alert-error");
     }
   };
+
+  useEffect(() => {
+    handleSeeContent();
+    handleShowSideBarOptions(htmlContent);
+  });
 
   return (
     <>
@@ -192,22 +217,37 @@ export default function TextEditor() {
               <SideBarOptions
                 addImage={addImage}
                 addHorizontalRule={addHorizontalRule}
+                addCodeBlock={addCodeBlock}
               />
             )}
           </div>
         )}
         <EditorContent editor={editor} className={styles.tiptap} />
         <MenuBar editor={editor} />
+        {toast.showToast && (
+          <Toast toastInfo={toast.toastInfo} toastType={toast.toastType} />
+        )}
+        {htmlContent?.slice(-6) === "</pre>" && (
+          <div className="w-full flex justify-end">
+            <pre className="bg-yellow-100 p-2 rounded-md overflow-x-auto text-end w-fit">
+              Chiqish uchun 3 marotaba &#34;Enter&#34; ni bosing
+            </pre>
+          </div>
+        )}
       </div>
+      {isPostValid === false && (
+        <div className="flex w-full justify-center gap-4">
+          <span className="text-lg">
+            Barcha qiymatlarni toldirishin kk ukam
+          </span>
+        </div>
+      )}
       <div className="flex w-full justify-center gap-4">
         <button className="btn btn-primary" onClick={() => handleSend()}>
           Send content
         </button>
       </div>
       <div className="pb-60" />
-      {toast.showToast && (
-        <Toast toastInfo={toast.toastInfo} toastType={toast.toastType} />
-      )}
     </>
   );
 }

@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FaXmark } from "react-icons/fa6";
 import { AiOutlinePlus } from "react-icons/ai";
 
@@ -20,14 +20,14 @@ export default function Category({
   const [categoryVaidation, setCategoryValidation] = useState("");
 
   const handleAddCategory = function (newCategory: string) {
-    if (Categories.length > 4) {
+    if (Categories.length >= 5) {
       setCategoryValidation("Post kategoriyasi 5 tagacha mumkin.");
       return;
     }
 
-    if (Categories.includes(newCategory))
-      setCategoryValidation('"' + newCategory + '" allaqachon kiritilgan.');
-    else {
+    if (Categories.includes(newCategory)) {
+      setCategoryValidation(`"${newCategory}" allaqachon kiritilgan.`);
+    } else {
       setCategories((prev) => [...prev, newCategory]);
       setInputValue("");
       setCategoryValidation("");
@@ -35,15 +35,14 @@ export default function Category({
   };
 
   const handleRemoveCategory = function (category: string) {
-    if (category == primaryCategory) {
+    if (category === primaryCategory) {
       setPrimaryCategory("");
     }
-    setCategories((prev) => prev.filter((e) => e != category));
+    setCategories((prev) => prev.filter((e) => e !== category));
   };
 
   const handleSelectPrimaryCategory = function (category: string) {
-    if (primaryCategory == category) setPrimaryCategory("");
-    else setPrimaryCategory(category);
+    setPrimaryCategory((prev) => (prev === category ? "" : category));
   };
 
   return (
@@ -71,41 +70,43 @@ export default function Category({
           </div>
           <button
             className={clsx(
-              "absolute right-6 top-2 text-2xl p-1 text-white rounded-full",
+              "absolute right-6 top-2 text-2xl p-1 text-white rounded-full transition-all",
               inputValue.trim().length === 0 || inputValue.trim().length > 30
-                ? "bg-gray-300"
-                : "bg-blue-600 hover:pr-8 hover:bg-blue-700 transition-all"
+                ? "bg-gray-300 cursor-not-allowed"
+                : "bg-blue-600 hover:pr-8 hover:bg-blue-700"
             )}
             disabled={
               inputValue.trim().length === 0 || inputValue.trim().length > 30
             }
             onClick={() => handleAddCategory(inputValue.trim())}
+            aria-label="Add category"
           >
             <AiOutlinePlus />
           </button>
         </div>
-        {Categories && (
+        {Categories && Categories.length > 0 && (
           <ul className="flex flex-wrap gap-2 max-h-56 md:max-h-[432px] pt-2 overflow-y-auto">
-            {Categories.map((e, i) => {
-              return (
-                <li
-                  onClick={() => handleSelectPrimaryCategory(e)}
-                  key={i}
-                  className={clsx(
-                    "pl-5 pr-10 py-2 border rounded-full cursor-pointer transition-all relative",
-                    e == primaryCategory
-                      ? "bg-sky-500 text-white hover:bg-sky-600"
-                      : "bg-gray-200 hover:bg-gray-300"
-                  )}
-                >
-                  {e}
-                  <FaXmark
-                    className="absolute top-2 right-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors text-2xl"
-                    onClick={() => handleRemoveCategory(e)}
-                  />
-                </li>
-              );
-            })}
+            {Categories.map((category, index) => (
+              <li
+                onClick={() => handleSelectPrimaryCategory(category)}
+                key={index}
+                className={clsx(
+                  "pl-5 pr-10 py-2 border rounded-full cursor-pointer transition-all relative",
+                  category === primaryCategory
+                    ? "bg-sky-500 text-white hover:bg-sky-600"
+                    : "bg-gray-200 hover:bg-gray-300"
+                )}
+              >
+                {category}
+                <FaXmark
+                  className="absolute top-2 right-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors text-2xl"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleRemoveCategory(category);
+                  }}
+                />
+              </li>
+            ))}
           </ul>
         )}
         {!primaryCategory && Categories.length > 0 && (

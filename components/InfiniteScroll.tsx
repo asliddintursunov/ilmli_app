@@ -1,17 +1,21 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Skeleton from "./Skeleton";
 import { getAccessToken } from "@/lib/actions";
 import Link from "next/link";
 import { baseURL } from "@/utils";
 import { formatTitleForUrl } from "@/lib/formatTitleForUrl";
+import useToast from "@/hooks/useToast";
+import Toast from "./Toast";
+import { fetchNext10Articles } from "@/lib/fetchFunctions";
 
 type Props = {
   firstTenArticles: Article[];
 };
 
 export default function InfiniteScrollPage({ firstTenArticles }: Props) {
+  const toast = useToast();
   const [offset, setOffset] = useState<number>(0);
   const [pending, setPending] = useState<boolean>(false);
   const elementsContainer = useRef<HTMLUListElement>(null);
@@ -21,45 +25,27 @@ export default function InfiniteScrollPage({ firstTenArticles }: Props) {
   useEffect(() => {
     setArticles(firstTenArticles);
     setOffset(10);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const fetchNextTenArticles = async function (offset: number) {
-    setPending(true);
-    const access_token = await getAccessToken();
-    const API = access_token
-      ? `${baseURL}/get-interested-articles?offset=${offset}`
-      : `${baseURL}/get-articles?offset=${offset}`;
-    try {
-      const request = await fetch(API, {
-        method: "GET",
-        cache: "no-store",
-        headers: {
-          ...(access_token && {
-            Authorization: `Bearer ${access_token.value}`,
-          }),
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!request.ok) {
-        const error = await request.json();
-        throw new Error(error.message);
-      }
-      const response = await request.json();
-      if (response.articles) {
-        setArticles((prev) => [...prev, ...response.articles]);
-        setOffset((prev) => prev + 10);
-      }
-      setPending(false);
-    } catch (error: any) {
-      setPending(false);
-      throw new Error(error.message);
-    }
-  };
-
   // Fetch next 10 articles
+  const fetchArticles = useCallback(async (offset: number) => {
+    const result = await fetchNext10Articles(undefined, offset, "mainhomepage");
+    console.log(result);
+
+    if (result.error) {
+      toast.handleToast(true, result.message, "alert-error");
+      return;
+    }
+    if (result.articles) {
+      setArticles((prev) => [...prev, ...result.articles]);
+      setOffset((prev) => prev + 10);
+    }
+    if (result.articles.length < 10) {
+      setOffset(60);
+      setPending(false);
+    }
+  }, []);
+
   useEffect(() => {
     if (typeof IntersectionObserver !== "undefined") {
       const observer = new IntersectionObserver(
@@ -81,7 +67,7 @@ export default function InfiniteScrollPage({ firstTenArticles }: Props) {
                 );
 
                 // Next 10 articles is fetched here
-                fetchNextTenArticles(offset);
+                fetchArticles(offset);
                 // Next 10 articles is fetched here
               }
             }
@@ -175,6 +161,10 @@ export default function InfiniteScrollPage({ firstTenArticles }: Props) {
         <div className="grid place-content-center w-full">
           <span className="loading loading-dots loading-lg"></span>
         </div>
+      )}
+
+      {toast.showToast && (
+        <Toast toastType={toast.toastType} toastInfo={toast.toastInfo} />
       )}
     </div>
   );

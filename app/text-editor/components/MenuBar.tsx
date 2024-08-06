@@ -13,6 +13,7 @@ import {
   FaArrowUp,
   FaArrowDown,
   FaQuoteLeft,
+  FaCode
 } from "react-icons/fa";
 
 export default function MenuBar({ editor }: { editor: any }) {
@@ -139,6 +140,23 @@ export default function MenuBar({ editor }: { editor: any }) {
                 onClick={() => editor.chain().focus().toggleBlockquote().run()}
               >
                 <FaQuoteLeft />
+              </button>
+            </Tippy>
+            <Tippy content="Codeblock">
+              <button
+                className={clsx(
+                  "flex items-center justify-center px-2 text-xl py-1",
+                  editor.isActive("codeBlock") ? "text-sky-500" : ""
+                )}
+                onClick={() =>
+                  editor
+                    .chain()
+                    .focus()
+                    .toggleCodeBlock({ language: "typescript" })
+                    .run()
+                }
+              >
+                <FaCode />
               </button>
             </Tippy>
           </div>

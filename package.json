@@ -12,6 +12,7 @@
     "@reduxjs/toolkit": "^2.1.0",
     "@tippyjs/react": "^4.2.6",
     "@tiptap/extension-blockquote": "^2.5.8",
+    "@tiptap/extension-code-block": "^2.5.8",
     "@tiptap/extension-document": "^2.5.8",
     "@tiptap/extension-heading": "^2.5.8",
     "@tiptap/extension-horizontal-rule": "^2.5.8",

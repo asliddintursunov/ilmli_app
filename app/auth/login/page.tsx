@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { setAccessToken, setUsernameCookie } from "@/lib/actions";
 import Toast from "@/components/Toast";
 import useToast from "@/hooks/useToast";
+import { Auth } from "@/lib/AuthFunction";
 
 export default function Login() {
   const router = useRouter();
@@ -25,33 +26,15 @@ export default function Login() {
       const validationResult = new Set(Object.values(regExpResult));
       if (username && password) {
         if (validationResult.has(false)) return;
-        try {
-          const request = await fetch(`${baseURL}/auth/login`, {
-            method: "POST",
-            body: JSON.stringify({
-              username,
-              password,
-            }),
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          });
+        const result = await Auth(username, undefined, password, "login");
 
-          if (!request.ok) {
-            const error = await request.json();
-            toast.handleToast(true, error.message, "alert-error");
-            throw new Error(error.message)
-          }
-
-          const response = await request.json();
-          await setUsernameCookie(username);
-          setAccessToken(response.tokens.access_token);
+        if (result.success) {
+          await setUsernameCookie(result.response.username);
+          setAccessToken(result.response.tokens.access_token);
 
           router.push("/");
-        } catch (error: any) {
-          toast.handleToast(true, error.message, "alert-error");
-          throw new Error(error.message);
+        } else {
+          toast.handleToast(true, result.error.message, "alert-error");
         }
       }
     })();

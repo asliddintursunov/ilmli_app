@@ -2,8 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import styles from "./styles.module.css";
 import Link from "next/link";
-import { baseURL } from "@/utils";
-import { getAccessToken } from "@/lib/actions";
+import { fetchArticleByUUID } from "@/lib/fetchFunctions";
 
 const formatTitleAndUUID = (params: {
   title: string;
@@ -30,34 +29,6 @@ export async function generateMetadata({
 async function page({ params }: { params: { title: string } }) {
   const { title, uuid: post_uuid } = formatTitleAndUUID(params);
 
-  const fetchArticleByUUID = async (uuid: string): Promise<Article> => {
-    const access_token = await getAccessToken();
-    const params = new URLSearchParams();
-    params.append("post_uuid", uuid);
-
-    try {
-      const request = await fetch(
-        `${baseURL}/get-article-uuid?${params.toString()}`,
-        {
-          method: "GET",
-          cache: "no-store",
-          headers: {
-            Authorization: `Bearer ${access_token?.value}`,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (!request.ok) {
-        const error = await request.json();
-        throw new Error(error.message);
-      }
-      const response = await request.json();
-      return response;
-    } catch (error: any) {
-      throw new Error(error.message);
-    }
-  };
   const article: Article = await fetchArticleByUUID(post_uuid);
 
   return (

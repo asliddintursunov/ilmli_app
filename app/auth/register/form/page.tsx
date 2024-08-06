@@ -15,6 +15,7 @@ import { AppDispatch } from "@/redux/store";
 import { useDispatch } from "react-redux";
 import Toast from "@/components/Toast";
 import useToast from "@/hooks/useToast";
+import { Auth } from "@/lib/AuthFunction";
 
 export default function Register() {
   const router = useRouter();
@@ -30,37 +31,15 @@ export default function Register() {
       const validationResult = new Set(Object.values(regExpResult));
       if (username && email && password) {
         if (validationResult.has(false)) return;
-        try {
-          const request = await fetch(`${baseURL}/auth/register`, {
-            method: "POST",
-            body: JSON.stringify({
-              username,
-              email,
-              password,
-            }),
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          });
+        const result = await Auth(username, email, password, "register");
 
-          if (!request.ok) {
-            const error = await request.json();
-            toast.handleToast(true, error.message, "alert-error");
-            throw new Error(error.message);
-          }
-
-          const response = await request.json();
-          toast.handleToast(true, response.message, "alert-success");
+        if (result.success) {
+          toast.handleToast(true, result.response.message, "alert-success");
           dispatch(getNewRegisteredUsername(username));
-
-          if (request.status === 201) {
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            router.push("/auth/register/interests");
-          }
-        } catch (error: any) {
-          toast.handleToast(true, error.response.message, "alert-error");
-          throw new Error(error.message);
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          router.push("/auth/register/interests");
+        } else {
+          toast.handleToast(true, result.error.message, "alert-error");
         }
       }
     })();
