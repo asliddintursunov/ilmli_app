@@ -4,9 +4,9 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { GrAdd } from "react-icons/gr";
 
 type Props = {
-  socialLinks: { platform: string; link: string }[] | undefined;
+  socialLinks: { platform: string; link: string }[];
   setSocialLinks: Dispatch<
-    SetStateAction<{ platform: string; link: string }[] | undefined>
+    SetStateAction<{ platform: string; link: string }[]>
   >;
 };
 
@@ -25,7 +25,7 @@ export default function EditSocialLinks({
         <span>Ijtimoiy tarmoqlar</span>
         <div className="w-full flex items-center justify-between border p-4 ilmli_input">
           <div className="w-full flex items-center justify-start gap-4 flex-wrap">
-            {socialLinks?.length ? (
+            {socialLinks.length ? (
               socialLinks.map((e, i) => {
                 return (
                   <div key={i}>

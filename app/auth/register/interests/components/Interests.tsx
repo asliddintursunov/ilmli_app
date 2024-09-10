@@ -34,16 +34,32 @@ function Interests({}: Props) {
 
   const handleSubmit = async function () {
     try {
-      const res = await axios.post(`${baseURL}/auth/set_interests`, {
-        username: newUserUsername,
-        interests: selectedInterests,
+      const request = await fetch(`${baseURL}/auth/set_interests`, {
+        method: "POST",
+        body: JSON.stringify({
+          username: newUserUsername,
+          interests: selectedInterests,
+        }),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
       });
-      toast.handleToast(true, res.data, "alert-success");
-      setTimeout(() => {
-        router.push("/");
-      }, 1000);
-    } catch (err: any) {
-      toast.handleToast(true, err.response.data, "alert-error");
+
+      if (!request.ok) {
+        const error = await request.json();
+        toast.handleToast(true, error.message, "alert-error");
+        throw new Error(error.message);
+      }
+
+      const response = await request.json();
+      toast.handleToast(true, response.message, "alert-success");
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      router.push("/");
+    } catch (error: any) {
+      toast.handleToast(true, error.message, "alert-error");
+      throw new Error(error.message);
     }
   };
   return (

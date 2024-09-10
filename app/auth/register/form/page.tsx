@@ -15,6 +15,7 @@ import { AppDispatch } from "@/redux/store";
 import { useDispatch } from "react-redux";
 import Toast from "@/components/Toast";
 import useToast from "@/hooks/useToast";
+import { Auth } from "@/lib/AuthFunction";
 
 export default function Register() {
   const router = useRouter();
@@ -26,29 +27,22 @@ export default function Register() {
   const [password, setPassword] = useState<string>("");
 
   useEffect(() => {
-    const handleRegister = async () => {
+    (async () => {
       const validationResult = new Set(Object.values(regExpResult));
       if (username && email && password) {
         if (validationResult.has(false)) return;
-        try {
-          const res = await axios.post(`${baseURL}/auth/register`, {
-            username,
-            email,
-            password,
-          });
-          toast.handleToast(true, res.data, "alert-success");
+        const result = await Auth(username, email, password, "register");
+
+        if (result.success) {
+          toast.handleToast(true, result.response.message, "alert-success");
           dispatch(getNewRegisteredUsername(username));
-          if (res.status === 201) {
-            setTimeout(() => {
-              router.push("/auth/register/interests");
-            }, 1000);
-          }
-        } catch (err: any) {
-          toast.handleToast(true, err.response.data, "alert-error");
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          router.push("/auth/register/interests");
+        } else {
+          toast.handleToast(true, result.error.message, "alert-error");
         }
       }
-    };
-    handleRegister();
+    })();
   }, [regExpResult]);
 
   const handleSubmit = function (e: React.FormEvent<HTMLFormElement>) {

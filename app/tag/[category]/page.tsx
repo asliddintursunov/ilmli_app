@@ -1,8 +1,7 @@
-import fetchNewestArticles from "@/lib/fetchNewestArticles";
-import fetchRecommendedArticles from "@/lib/fetchRecommendedArticles";
 import Recommended from "./components/Recommended";
 import Newest from "./components/Newest";
 import { Metadata } from "next";
+import { fetchNRarticles } from "@/lib/fetchFunctions";
 
 export async function generateMetadata({
   params,
@@ -22,16 +21,17 @@ async function page({ params }: { params: { category: string } }) {
   var heading = category.replace("-", " ");
   heading = heading[0].toUpperCase() + heading.slice(1, heading.length);
 
-  const recommended: { recommended: Article[] } =
-    await fetchRecommendedArticles(category);
-  const newest: { newest: Article[] } = await fetchNewestArticles(category);
+  const [recommended, newest] = await Promise.all([
+    fetchNRarticles(category, "recommended"),
+    fetchNRarticles(category, "newest"),
+  ]);
 
   return (
     <div className="mx-2">
       <h1 className="text-4xl md:text-5xl text-center font-semibold capitalize">
         {heading}
       </h1>
-      {recommended.recommended.length > 0 ? (
+      {recommended.length > 0 ? (
         <>
           <br />
           <hr />
@@ -44,7 +44,7 @@ async function page({ params }: { params: { category: string } }) {
           No recommended stories found!
         </h1>
       )}
-      {newest.newest.length > 0 ? (
+      {newest.length > 0 ? (
         <>
           <br />
           <hr />

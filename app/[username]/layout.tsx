@@ -3,7 +3,7 @@ import React from "react";
 import LinkBar from "./components/LinkBar";
 import Image from "next/image";
 import Link from "next/link";
-import fetchSpecificUserData from "@/lib/fetchSpecificUserData";
+import { fetchSpecificUserData } from "@/lib/fetchFunctions";
 
 export const metadata: Metadata = {
   title: "User Fullname",
@@ -35,7 +35,7 @@ export default async function UserProfileLayout({
   children: React.ReactNode;
 }) {
   const username = params.username.replaceAll("%40", "");
-  const res: ResType = await fetchSpecificUserData(username);
+  const user: ResType = await fetchSpecificUserData(username);
 
   return (
     <section className="flex flex-col-reverse md:flex-row justify-between items-start max-w-[1240px] mx-auto mt-8 border-t border-gray-200">
@@ -64,15 +64,15 @@ export default async function UserProfileLayout({
         </div>
         <div className="flex flex-col gap-4">
           <h3>Username Fullname</h3>
-          {res.my_profile && (
+          {user.my_profile && (
             <Link href={`/me/settings`} className="link link-primary">
               Edit profile
             </Link>
           )}
         </div>
         <ul>
-          <li>{res.user_email}</li>
-          <li>{res.user_name}</li>
+          <li>{user.user_email}</li>
+          <li>{user.user_name}</li>
         </ul>
       </aside>
     </section>

@@ -57,3 +57,25 @@
     @apply bg-green-600;
   }
 }
+
+p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #adb5bd;
+  pointer-events: none;
+  height: 0;
+}
+
+.tiptap .code-block {
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: "Courier New", Courier, monospace;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.tiptap .code-block pre {
+  margin: 0;
+  padding: 0;
+}

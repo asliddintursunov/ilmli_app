@@ -25,11 +25,8 @@ export default function useToast() {
 
   return {
     showToast,
-    // setShowToast,
     toastInfo,
-    // setToastInfo,
     toastType,
-    // setToastType,
     handleToast,
   };
 }

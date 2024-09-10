@@ -2,15 +2,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { formatTitleForUrl } from "@/lib/formatTitleForUrl";
+
 type Props = {
-  newest: { newest: Article[] };
+  newest: Article[];
 };
 
 function Newest({ newest }: Props) {
   const pathname = usePathname();
   const router = useRouter();
 
-  const articles = newest.newest;
+  const articles = newest;
 
   return (
     <main className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 md:gap-x-10 sm:gap-x-6 gap-y-4">
@@ -30,9 +32,9 @@ function Newest({ newest }: Props) {
                 className="rounded-sm object-cover object-center flex-1"
                 onClick={() =>
                   router.push(
-                    `${pathname}/${el.post_title}_${el.post_uuid}`
-                      .replaceAll(" ", "-")
-                      .toLowerCase()
+                    `${pathname}/${formatTitleForUrl(
+                      `${el.post_title}_${el.post_uuid}`
+                    )}`
                   )
                 }
               />

@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
 
 type Props = {
-  fullname: string | undefined;
-  setFullname: Dispatch<SetStateAction<string | undefined>>;
+  fullname: string;
+  setFullname: Dispatch<SetStateAction<string>>;
   fishValidation: undefined | boolean;
 };
 export default function EditFullname({
@@ -19,7 +19,7 @@ export default function EditFullname({
         id="edit_fullname"
         className="ilmli_input"
         placeholder="F.I.SH"
-        value={fullname ? fullname : ""}
+        value={fullname}
         onChange={(e) => setFullname(e.currentTarget.value)}
         style={{
           borderColor: fishValidation === false ? "red" : "",
