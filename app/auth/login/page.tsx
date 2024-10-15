@@ -30,9 +30,9 @@ export default function Login() {
 
         if (result.success) {
           await setUsernameCookie(result.response.username);
-          setAccessToken(result.response.tokens.access_token);
+          await setAccessToken(result.response.tokens.access_token);
 
-          router.push("/");
+          router.push("/")
         } else {
           toast.handleToast(true, result.error.message, "alert-error");
         }

@@ -4,7 +4,7 @@ import LinkBar from "./components/LinkBar";
 import Image from "next/image";
 import Link from "next/link";
 import { fetchSpecificUserData } from "@/lib/fetchFunctions";
-
+import UsernameNotFound from "./not-found";
 export const metadata: Metadata = {
   title: "User Fullname",
   description: "Description for User Fullname",
@@ -36,13 +36,22 @@ export default async function UserProfileLayout({
 }) {
   const username = params.username.replaceAll("%40", "");
   const user: ResType = await fetchSpecificUserData(username);
+  if (!user) {
+    return <UsernameNotFound username={username} />;
+  }
+  console.log("user.my_profile =>", user.my_profile);
+  console.log("user.user_email =>", user.user_email);
+  console.log("user.user_fullname =>", user.user_fullname);
+  console.log("user.user_name =>", user.user_name);
 
   return (
     <section className="flex flex-col-reverse md:flex-row justify-between items-start max-w-[1240px] mx-auto mt-8 border-t border-gray-200">
       <aside id="left_content" className="w-full px-8 pt-8">
         <main className="w-full h-fit">
           <div className="w-full">
-            <h1 className="text-4xl font-semibold font-serif">User Fullname</h1>
+            <h1 className="text-4xl font-semibold font-serif">
+              {user.user_fullname}
+            </h1>
           </div>
           <h1>{username}</h1>
           <LinkBar username={username} />
@@ -55,15 +64,15 @@ export default async function UserProfileLayout({
       >
         <div className="w-full">
           <Image
-            src={"/images/avatar.png"}
+            src={user.user_profile_photo ?? "/images/avatar.png"}
             width={88}
             height={88}
             alt="User image"
-            className="rounded-full border-2 border-blue-900"
+            className="rounded-full border border-gray-300 object-cover"
           />
         </div>
         <div className="flex flex-col gap-4">
-          <h3>Username Fullname</h3>
+          <h3>{user.user_fullname ?? user.user_name}</h3>
           {user.my_profile && (
             <Link href={`/me/settings`} className="link link-primary">
               Edit profile

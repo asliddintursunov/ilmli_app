@@ -12,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <div className="max-w-[1440px] mx-auto px-2 ">
-      <StepBar />
+      {/* <StepBar /> */}
       {children}
     </div>
   );

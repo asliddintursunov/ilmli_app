@@ -146,7 +146,7 @@ export async function fetchSpecificUserData(username: string) {
 
     if (!request.ok) {
       const error = await request.json();
-      console.error(error);
+      console.error("error =>", error);
 
       throw new Error(`
           ${username} not exists.

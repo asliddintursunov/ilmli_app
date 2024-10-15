@@ -3,6 +3,7 @@ import Link from "next/link";
 import ScrollToTop from "@/components/ScrollToTop";
 import Image from "next/image";
 import useRouteHandler from "@/hooks/useRouteHandler";
+import { FaRegPenToSquare } from "react-icons/fa6";
 
 export default function Navbar() {
   const { isLoggedIn, isAuthed } = useRouteHandler();
@@ -29,10 +30,12 @@ export default function Navbar() {
                 <summary>More</summary>
                 <ul className="bg-base-100 rounded-t-none">
                   <li className="mr-2">
-                    <Link href={"/auth/login"}>Login</Link>
+                    <Link href={"/auth/login"}>Hisobga kirish</Link>
                   </li>
                   <li className="mr-2">
-                    <Link href={"/auth/register/form"}>Register</Link>
+                    <Link href={"/auth/register/form"}>
+                      Ro&#39;yxatdan o&#39;tish
+                    </Link>
                   </li>
                 </ul>
               </details>
@@ -44,10 +47,12 @@ export default function Navbar() {
         {isLoggedIn === false && (
           <ul className="menu menu-horizontal px-1 sm:flex hidden">
             <li className="mr-2">
-              <Link href={"/auth/login"}>Login</Link>
+              <Link href={"/auth/login"}>Hisobga kirish</Link>
             </li>
             <li className="mr-2">
-              <Link href={"/auth/register/form"}>Register</Link>
+              <Link href={"/auth/register/form"}>
+                Ro&#39;yxatdan o&#39;tish
+              </Link>
             </li>
           </ul>
         )}
@@ -60,15 +65,16 @@ export default function Navbar() {
                 <summary>More</summary>
                 <ul className="bg-base-100 rounded-t-none">
                   <li>
-                    <Link href={"/articles"}>Articles</Link>
+                    <Link href={"/articles"}>Hikoyalar</Link>
                   </li>
                   <li>
-                    <Link href={"/text-editor"}>Editor</Link>
-                  </li>
-                  <li>
-                    <Link href={`/@${isAuthed.logged_in_as}/home`}>
-                      Profile
+                    <Link href={"/text-editor"}>
+                      {/* {<FaRegPenToSquare className="text-xl text-gray-600" />}{" "} */}
+                      Yangi hikoya yozish
                     </Link>
+                  </li>
+                  <li>
+                    <Link href={`/@${isAuthed.logged_in_as}/home`}>Porfil</Link>
                   </li>
                   <li>
                     <Link href={"/smth"}>Smth</Link>
@@ -83,13 +89,16 @@ export default function Navbar() {
         {isLoggedIn === true && (
           <ul className="menu menu-horizontal px-1 hidden sm:flex">
             <li>
-              <Link href={"/articles"}>Articles</Link>
+              <Link href={"/articles"}>Hikoyalar</Link>
             </li>
             <li>
-              <Link href={"/text-editor"}>Editor</Link>
+              <Link href={"/text-editor"}>
+                {/* {<FaRegPenToSquare className="text-xl text-gray-600" />} Yangi */}
+                Yangi hikoya yozish
+              </Link>
             </li>
             <li>
-              <Link href={`/@${isAuthed.logged_in_as}/home`}>Profile</Link>
+              <Link href={`/@${isAuthed.logged_in_as}/home`}>Porfil</Link>
             </li>
             <li>
               <Link href={"/smth"}>Smth</Link>

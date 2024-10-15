@@ -1,11 +1,11 @@
 import InterestsContainer from "./components/Interests";
 export default function Interests() {
   return (
-    <main className="flex flex-col items-start justify-center gap-2">
-      <h1 className="text-3xl text-start">
-        Choose your <br /> interests
-      </h1>
-      <sub className="text-2xl">Get better article, posts reccomendations</sub>
+    <main className="flex flex-col items-start justify-center gap-4 font-serif mt-10">
+      <h1 className="text-3xl text-center w-full">Nimalarga qiziqasiz?</h1>
+      <sub className="text-xl text-center w-full">
+        3 ta yokida undanda ko&#39;proq qiziqishlaringizni qo&#39;shing
+      </sub>
       <InterestsContainer />
     </main>
   );

@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import Toast from "@/components/Toast";
 import useToast from "@/hooks/useToast";
+import clsx from "clsx";
 
 function Interests({}: Props) {
   const router = useRouter();
@@ -64,32 +65,39 @@ function Interests({}: Props) {
   };
   return (
     <>
-      <div className="flex flex-row w-full flex-wrap gap-2 mt-2">
+      <div className="flex flex-row w-full flex-wrap gap-2 mt-2 justify-center items-center max-w-96 md:max-w-screen-xmd mx-auto mt-8">
         {interests.map((interest, index) => {
           return (
             <div
               key={index}
-              className="flex flex-row items-center justify-center gap-2 py-1 px-2 bg-base-100 rounded-full border-2 border-gray-500/40"
+              className="flex flex-row items-center justify-center gap-2 py-2 px-3 bg-base-200 rounded-full cursor-pointer"
             >
+              <label htmlFor={interest} className="cursor-pointer select-none">
+                {interest}
+              </label>
               <input
                 type="checkbox"
                 id={interest}
-                className="checkbox checkbox-accent"
+                className="checkbox checkbox-sm rounded-full"
                 value={interest}
                 onChange={(e) => handleInterests(e.currentTarget.value)}
               />
-              <label htmlFor={interest}>{interest}</label>
             </div>
           );
         })}
       </div>
-      <CustomInterestsModal setInterests={setInterests} />
-      <Link href={"/"} className="btn btn-accent rounded-full">
-        Skip
-      </Link>
-      <button className="btn btn-success" onClick={() => handleSubmit()}>
-        Submit
-      </button>
+      {/* <CustomInterestsModal setInterests={setInterests} /> */}
+      {/* <Link href={"/"} className="btn rounded-full">
+        O&#39;tkazib yuborish
+      </Link> */}
+      <div className="fixed bottom-0 left-0 w-full flex justify-center items-center py-8">
+        <button
+          className={clsx("btn rounded-full w-72 md:w-96", selectedInterests.length < 3 ? "btn-disabled" : "bg-black text-white hover:bg-gray-900")}
+          onClick={() => handleSubmit()}
+        >
+          Davom etish
+        </button>
+      </div>
       {toast.showToast && (
         <Toast toastType={toast.toastType} toastInfo={toast.toastInfo} />
       )}
