@@ -168,16 +168,21 @@ export default function EditProfile() {
   return (
     <>
       {isPending && <ProfileSkeleton />}
-      <div className="max-w-[1240px] mx-auto">
+      <div className="max-w-[1240px] mx-auto border border-gray-300 pb-4">
         {!isPending && (
           <main className="flex flex-col md:flex-row justify-between items-stretch">
-            <aside className="flex-[3] flex flex-col gap-y-2 xs:gap-y-6 p-4 border-b border-gray-300">
+            <aside className="md:w-[1024px] mx-auto flex flex-col gap-y-2 xs:gap-y-6 p-4 ">
+              <h1 className="md:hidden block text-nowrap text-end">
+                11 July, 2024
+              </h1>
               <div className="w-full flex justify-between items-start">
                 <EditProfilePicture
                   profilePhoto={profilePhoto}
                   setProfilePhoto={setProfilePhoto}
                 />
-                <h1 className="hidden sm:block">Joined day</h1>
+                <h1 className="hidden md:block text-nowrap text-end">
+                  11 July, 2024
+                </h1>
               </div>
               <div className="w-full flex flex-col xs:flex-row gap-2 justify-between">
                 <EditUsername
@@ -213,7 +218,7 @@ export default function EditProfile() {
                   setSocialLinks={setSocialLinks}
                 />
               </div>
-              <div className="hidden md:flex flex-col gap-2 items-start">
+              <div className="w-full flex flex-row justify-between items-center mt-2 gap-2">
                 <button
                   className="btn btn-active"
                   onClick={() => setOpenEditPassword(true)}
@@ -230,13 +235,13 @@ export default function EditProfile() {
                 </button>
               </div>
             </aside>
-            <aside className="flex-1 p-4 border-l border-b border-gray-300">
+            {/* <aside className="flex-1 p-4 border-l border-b border-gray-300">
               <EditInterests
                 interests={interests}
                 setInterests={setInterests}
               />
-            </aside>
-            <div className="flex md:hidden flex-col gap-2 items-start pl-4 mt-2">
+            </aside> */}
+            {/* <div className="flex flex-row justify-between items-center pl-4 mt-2">
               <button
                 className="btn btn-active"
                 onClick={() => setOpenEditPassword(true)}
@@ -251,7 +256,7 @@ export default function EditProfile() {
               >
                 O&#39;zgarishlarni saqlash
               </button>
-            </div>
+            </div> */}
           </main>
         )}
         {openEditPassword && (

@@ -1,5 +1,5 @@
-import InterestsContainer from "./components/Interests";
-export default function Interests() {
+import InterestsContainer from "./Components/Interests";
+export default function Topics() {
   return (
     <main className="flex flex-col items-start justify-center gap-4 font-serif mt-10">
       <h1 className="text-3xl text-center w-full">Nimalarga qiziqasiz?</h1>

@@ -2,6 +2,7 @@
 import clsx from "clsx";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useState, useRef, useEffect } from "react";
+import RelatedArticlesButton from "./RelatedArticlesButton";
 const HeaderSlider: React.FC<{ topics: string[] }> = ({ topics }) => {
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
@@ -72,21 +73,7 @@ const HeaderSlider: React.FC<{ topics: string[] }> = ({ topics }) => {
           className="flex overflow-hidden scrollbar-hide space-x-4 py-2"
         >
           {topics.map((topic, index) => (
-            <button
-              key={index}
-              className={clsx(
-                "grid place-content-center text-sm sm:text-md cursor-pointer py-2 px-3 rounded-full bg-slate-400/10 hover:bg-slate-700/20 transition-all capitalize",
-                {
-                  "bg-slate-700/20 border border-slate-500 pointer-events-none":
-                    pathname.includes(topic.replaceAll(" ", "-")),
-                }
-              )}
-              onClick={() => {
-                router.push(`/tag/${topic.replaceAll(" ", "-")}`.toLowerCase());
-              }}
-            >
-              {topic}
-            </button>
+            <RelatedArticlesButton category={topic} key={index} />
           ))}
         </div>
         <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l z-10 pointer-events-none"></div>
