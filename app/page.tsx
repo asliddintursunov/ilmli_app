@@ -5,53 +5,29 @@ import HeaderContent from "@/components/HeaderContent";
 import {
   fetchFirstTenArticles,
   fetchTrendingArticles,
+  getUserInterests,
 } from "@/lib/fetchFunctions";
-import { getAccessToken } from "@/lib/actions";
-import { baseURL } from "@/utils";
 import HeaderSlider from "@/components/HeaderSlider";
-import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
+import Navbar from "@/components/Navbar";
 
 export const runtime = "edge";
 
 export default async function Home() {
-  const getUserInterests = async (): Promise<string[]> => {
-    const access_token: RequestCookie | undefined = await getAccessToken();
-    if (!access_token) return [];
-    try {
-      const request = await fetch(`${baseURL}/user-interests`, {
-        cache: "no-store",
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${access_token.value}`,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!request.ok) {
-        const error = await request.json();
-        throw new Error(`
-          Foydalanuvchi qiziqishlarini olishda xatolik.
-          status code: ${request.status}
-          message: ${error.message}
-        `);
-      }
-      const response = await request.json();
-      return response.interests;
-    } catch (error) {
-      throw new Error("Foydalanuvchi qiziqishlarini olishda xatolik.");
-    }
-  };
-
-  const userInterests: string[] = await getUserInterests();
-
-  const [trendings, articles]: [
+  const [trendings, articles, userInterests]: [
     Article[] | undefined | null,
-    Article[] | undefined | null
-  ] = await Promise.all([fetchTrendingArticles(), fetchFirstTenArticles(0)]);
+    Article[] | undefined | null,
+    string[]
+  ] = await Promise.all([
+    fetchTrendingArticles(),
+    fetchFirstTenArticles(0),
+    getUserInterests(),
+  ]);
 
   return (
     <>
+      <nav className="border-b-2 border-gray-600 bg-gray-300">
+        <Navbar />
+      </nav>
       <main className="flex min-h-screen flex-col">
         <HeaderContent />
         {userInterests.length && <HeaderSlider topics={userInterests} />}

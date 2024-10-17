@@ -2,6 +2,7 @@
 
 import { baseURL } from "@/utils";
 import { getAccessToken } from "./actions";
+import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 
 export async function fetchFirstTenArticles(
   offset: number
@@ -232,3 +233,71 @@ export async function fetchNext10Articles(
     return error;
   }
 }
+
+export const getUserInterests = async (): Promise<string[]> => {
+  const access_token: RequestCookie | undefined = await getAccessToken();
+  if (!access_token) return [];
+  try {
+    const request = await fetch(`${baseURL}/user-interests`, {
+      cache: "no-store",
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${access_token.value}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!request.ok) {
+      const error = await request.json();
+      throw new Error(`
+        Foydalanuvchi qiziqishlarini olishda xatolik.
+        status code: ${request.status}
+        message: ${error.message}
+      `);
+    }
+    const response = await request.json();
+    return response.interests;
+  } catch (error) {
+    throw new Error("Foydalanuvchi qiziqishlarini olishda xatolik.");
+  }
+};
+
+export const getArticlesByCategory = async (
+  category: string,
+  offset: number
+) => {
+  if (!category) return;
+  const params = new URLSearchParams();
+  params.append("search", category);
+  params.append("offset", String(offset));
+
+  const access_token = await getAccessToken().then((r) => r?.value);
+  try {
+    const request = await fetch(
+      `${baseURL}/articles-by-category?${params.toString()}`,
+      {
+        cache: "no-store",
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!request.ok) {
+      const error = await request.json();
+      throw new Error(`
+          article with category ${category} not found.
+          status code: ${request.status}
+          message: ${error.message}
+        `);
+    }
+
+    const response = await request.json();
+    return response.articles;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};

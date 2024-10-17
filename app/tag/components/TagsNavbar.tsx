@@ -1,14 +1,16 @@
 import { categories } from "@/components/Categories";
+import HeaderContent from "@/components/HeaderContent";
+import HeaderSlider from "@/components/HeaderSlider";
 import RelatedArticlesButton from "@/components/RelatedArticlesButton";
+import { getUserInterests } from "@/lib/fetchFunctions";
 
 type Props = {};
-function TagsNavbar({}: Props) {
+async function TagsNavbar({}: Props) {
+  const userInterests: string[] = await getUserInterests();
   return (
     <nav>
       <ul className="flex flex-wrap gap-2 my-2 items-center justify-center">
-        {categories.map((category) => (
-          <RelatedArticlesButton key={category} category={category} />
-        ))}
+        <HeaderSlider topics={userInterests} />
       </ul>
     </nav>
   );

@@ -22,9 +22,9 @@ export default function RootLayout({
     <html lang="en" data-theme="light">
       <body className={inter.className}>
         <div className="mx-auto">
-          <nav className="border-b-2 border-gray-600 bg-gray-300">
+          {/* <nav className="border-b-2 border-gray-600 bg-gray-300">
             <Navbar />
-          </nav>
+          </nav> */}
           {children}
         </div>
       </body>

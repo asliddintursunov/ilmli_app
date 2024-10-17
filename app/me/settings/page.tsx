@@ -15,6 +15,7 @@ import { getAccessToken } from "@/lib/actions";
 import Toast from "@/components/Toast";
 import useToast from "@/hooks/useToast";
 import ProfileSkeleton from "./components/ProfileSkeleton";
+import Navbar from "@/components/Navbar";
 
 export default function EditProfile() {
   const toast = useToast();
@@ -168,6 +169,9 @@ export default function EditProfile() {
   return (
     <>
       {isPending && <ProfileSkeleton />}
+      <nav className="border-b-2 border-gray-600 bg-gray-300">
+        <Navbar />
+      </nav>
       <div className="max-w-[1240px] mx-auto border border-gray-300 pb-4">
         {!isPending && (
           <main className="flex flex-col md:flex-row justify-between items-stretch">
@@ -235,28 +239,6 @@ export default function EditProfile() {
                 </button>
               </div>
             </aside>
-            {/* <aside className="flex-1 p-4 border-l border-b border-gray-300">
-              <EditInterests
-                interests={interests}
-                setInterests={setInterests}
-              />
-            </aside> */}
-            {/* <div className="flex flex-row justify-between items-center pl-4 mt-2">
-              <button
-                className="btn btn-active"
-                onClick={() => setOpenEditPassword(true)}
-              >
-                Parolni o&#39;zgartirish
-              </button>
-              <button
-                className="btn btn-neutral"
-                onClick={() => {
-                  validation.validateInput(username, email, undefined);
-                }}
-              >
-                O&#39;zgarishlarni saqlash
-              </button>
-            </div> */}
           </main>
         )}
         {openEditPassword && (

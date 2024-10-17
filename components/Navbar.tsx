@@ -3,7 +3,6 @@ import Link from "next/link";
 import ScrollToTop from "@/components/ScrollToTop";
 import Image from "next/image";
 import useRouteHandler from "@/hooks/useRouteHandler";
-import { FaRegPenToSquare } from "react-icons/fa6";
 
 export default function Navbar() {
   const { isLoggedIn, isAuthed } = useRouteHandler();
@@ -74,9 +73,9 @@ export default function Navbar() {
                   <li>
                     <Link href={`/@${isAuthed.logged_in_as}/home`}>Porfil</Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link href={"/smth"}>Smth</Link>
-                  </li>
+                  </li> */}
                 </ul>
               </details>
             </li>
@@ -98,9 +97,9 @@ export default function Navbar() {
             <li>
               <Link href={`/@${isAuthed.logged_in_as}/home`}>Porfil</Link>
             </li>
-            <li>
+            {/* <li>
               <Link href={"/smth"}>Smth</Link>
-            </li>
+            </li> */}
           </ul>
         )}
       </div>

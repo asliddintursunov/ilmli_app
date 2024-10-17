@@ -1,14 +1,12 @@
 "use client";
-import clsx from "clsx";
-import { usePathname, useRouter } from "next/navigation";
 import React, { useState, useRef, useEffect } from "react";
 import RelatedArticlesButton from "./RelatedArticlesButton";
+import { MdOutlineExplore } from "react-icons/md";
+import Link from "next/link";
 const HeaderSlider: React.FC<{ topics: string[] }> = ({ topics }) => {
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
   const sliderRef = useRef<HTMLDivElement>(null);
-  const pathname = usePathname();
-  const router = useRouter();
 
   const scroll = (direction: "left" | "right") => {
     if (sliderRef.current) {
@@ -44,8 +42,8 @@ const HeaderSlider: React.FC<{ topics: string[] }> = ({ topics }) => {
   }, []);
 
   return (
-    <div className="w-screen flex justify-center">
-      <div className="relative max-w-[1440px] mx-auto">
+    <div className="w-full flex justify-center">
+      <div className="relative max-w-[340px] md:max-w-screen-md sm:max-w-screen-sm xs:max-w-screen-xs mx-auto">
         <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r z-10 pointer-events-none"></div>
         {showLeftArrow && (
           <button
@@ -70,8 +68,14 @@ const HeaderSlider: React.FC<{ topics: string[] }> = ({ topics }) => {
         )}
         <div
           ref={sliderRef}
-          className="flex overflow-hidden scrollbar-hide space-x-4 py-2 flex-wrap gap-1 items-center justify-center"
+          className="flex max-w-full overflow-hidden scrollbar-hide space-x-2 py-2 gap-1 items-center justify-start"
         >
+          <Link
+            href={"/get-started/topics"}
+            className="flex items-center py-2 px-3 gap-2 rounded-full text-sm sm:text-md cursor-pointer bg-gray-200 hover:bg-gray-300 transition-all capitalize"
+          >
+            <MdOutlineExplore className="text-2xl" /> Ko&#39;proq
+          </Link>
           {topics.map((topic, index) => (
             <RelatedArticlesButton category={topic} key={index} />
           ))}

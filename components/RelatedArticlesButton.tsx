@@ -1,6 +1,7 @@
 "use client";
 import clsx from "clsx";
 import { usePathname, useRouter } from "next/navigation";
+
 type Props = {
   category: string;
 };
