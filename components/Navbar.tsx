@@ -33,7 +33,7 @@ export default function Navbar() {
                     <Link href={"/auth/login"}>Hisobga kirish</Link>
                   </li>
                   <li className="mr-2">
-                    <Link href={"/auth/register/form"}>
+                    <Link href={"/auth/register"}>
                       Ro&#39;yxatdan o&#39;tish
                     </Link>
                   </li>
@@ -50,9 +50,7 @@ export default function Navbar() {
               <Link href={"/auth/login"}>Hisobga kirish</Link>
             </li>
             <li className="mr-2">
-              <Link href={"/auth/register/form"}>
-                Ro&#39;yxatdan o&#39;tish
-              </Link>
+              <Link href={"/auth/register"}>Ro&#39;yxatdan o&#39;tish</Link>
             </li>
           </ul>
         )}

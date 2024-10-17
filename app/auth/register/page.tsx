@@ -32,7 +32,7 @@ export default function Register() {
         if (result.success) {
           toast.handleToast(true, result.response.message, "alert-success");
           await setUsernameCookie(username);
-          await new Promise((resolve) => setTimeout(resolve, 1000));
+          await new Promise((resolve) => setTimeout(resolve, 2000));
           router.push("/get-started/topics");
         } else {
           toast.handleToast(true, result.error.message, "alert-error");
@@ -46,7 +46,12 @@ export default function Register() {
     validateInput(username, email, password);
   };
   return (
-    <main className="max-w-[1440px] mx-auto px-2 grid place-content-center">
+    <main
+      className="max-w-[1440px] mx-auto px-2 grid place-content-center"
+      style={{
+        height: "calc(100vh - 4rem)",
+      }}
+    >
       <form action="POST" className="auth_form" onSubmit={handleSubmit}>
         <h1 className="text-3xl text-center">No account yet?</h1>
         <div className="flex flex-col gap-2 mt-4">

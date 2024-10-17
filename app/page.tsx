@@ -50,8 +50,6 @@ export default async function Home() {
     Article[] | undefined | null
   ] = await Promise.all([fetchTrendingArticles(), fetchFirstTenArticles(0)]);
 
-  console.log("userInterests =>", userInterests);
-
   return (
     <>
       <main className="flex min-h-screen flex-col">

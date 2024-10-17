@@ -45,7 +45,7 @@ const HeaderSlider: React.FC<{ topics: string[] }> = ({ topics }) => {
 
   return (
     <div className="w-screen flex justify-center">
-      <div className="relative max-w-[1440px] mx-auto ">
+      <div className="relative max-w-[1440px] mx-auto">
         <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r z-10 pointer-events-none"></div>
         {showLeftArrow && (
           <button
@@ -70,7 +70,7 @@ const HeaderSlider: React.FC<{ topics: string[] }> = ({ topics }) => {
         )}
         <div
           ref={sliderRef}
-          className="flex overflow-hidden scrollbar-hide space-x-4 py-2"
+          className="flex overflow-hidden scrollbar-hide space-x-4 py-2 flex-wrap gap-1 items-center justify-center"
         >
           {topics.map((topic, index) => (
             <RelatedArticlesButton category={topic} key={index} />

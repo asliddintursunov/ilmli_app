@@ -8,7 +8,11 @@ import Toast from "@/components/Toast";
 import useToast from "@/hooks/useToast";
 import clsx from "clsx";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
-import { getAccessToken, getUsernameCookie } from "@/lib/actions";
+import {
+  getAccessToken,
+  getUsernameCookie,
+  removeUsernameCookie,
+} from "@/lib/actions";
 import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { topics, moreTopics } from "@/components/Categories";
 import InterestCard from "./InterestCard";
@@ -106,6 +110,10 @@ function GetStartedTopics({}: Props) {
       toast.handleToast(true, response.message, "alert-success");
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      const access_token = await getAccessToken().then((r) => r?.value);
+      if (!access_token) await removeUsernameCookie();
+
       router.push("/");
     } catch (error: any) {
       toast.handleToast(true, error.message, "alert-error");
