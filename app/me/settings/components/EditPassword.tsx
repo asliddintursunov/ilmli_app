@@ -13,7 +13,7 @@ export default function EditPassword({ setOpenEditPassword }: Props) {
   const toast = useToast();
 
   const PasswordRegEx =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,20})/;
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,20})/;
   const [showCurrentPassword, setShowCurrentPassword] =
     useState<boolean>(false);
   const [showNewPassword, setShowNewPassword] = useState<boolean>(false);
@@ -81,7 +81,7 @@ export default function EditPassword({ setOpenEditPassword }: Props) {
                 : "opacity-0"
             )}
           >
-            Password kamida bitta katta va kichik harf, raqam va belgi hamda
+            Password kamida bitta katta va kichik harf, raqam hamda
             8-20 ta belgidan iborat bo&#39;lishi kerak
           </span>
           <div>

@@ -1,4 +1,8 @@
-import { getAccessToken, removeAccessToken } from "@/lib/actions";
+import {
+  getAccessToken,
+  getUsernameCookie,
+  removeAccessToken,
+} from "@/lib/actions";
 import fetchProtected from "@/lib/fetchProtected";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -20,58 +24,51 @@ function useRouteHandler() {
   useEffect(() => {
     const checkAuthorization = async () => {
       const access_token = await getAccessToken().then((res) => res?.value);
+      const username = await getUsernameCookie().then((res) => res?.value);
 
-      if (!access_token) {
-        setIsLoggedIn(false);
-        setPrevPath(pathname);
+      if (access_token && username) {
+        try {
+          const isAuthorized: checkProtectedType = await fetchProtected(
+            access_token
+          );
+          setIsAuthed(isAuthorized);
 
-        if (
-          prevPath === "/auth/register/form" &&
-          pathname === "/auth/register/interests"
-        ) {
-          return;
-        } else if (
-          pathname === "/auth/login" ||
-          pathname === "/auth/register/form" ||
-          pathname === "/"
-        ) {
-          return;
-        } else {
+          if (isAuthorized.isOk === true) {
+            setIsLoggedIn(true);
+            if (pathname === "/auth/login" || pathname === "/auth/register") {
+              router.push("/");
+            }
+            return;
+          }
+          removeAccessToken();
+          setIsLoggedIn(false);
+          router.push("/auth/login");
+        } catch (error) {
+          alert("Error checking authorization:" + error);
+          removeAccessToken();
+          setIsLoggedIn(false);
           router.push("/auth/login");
         }
+      }
+      if (!access_token && !username) {
+        setIsLoggedIn(false);
+        if (["/auth/login", "/auth/register", "/"].includes(pathname)) return;
+      }
+      if (access_token && !username) {
+        removeAccessToken();
+        setIsLoggedIn(false);
+        router.push("/auth/login");
         return;
       }
-
-      try {
-        const isAuthorized: checkProtectedType = await fetchProtected(
-          access_token
-        );
-        setIsAuthed(isAuthorized);
-
-        if (isAuthorized.isOk === true) {
-          setIsLoggedIn(true);
-          if (
-            pathname === "/auth/login" ||
-            pathname === "/auth/register/form" ||
-            pathname === "/auth/register/interests"
-          ) {
-            router.push("/");
-          }
+      if (!access_token && username) {
+        setIsLoggedIn(false);
+        setPrevPath(pathname);
+        if (prevPath === "/auth/register" && pathname === "/get-started/topics")
           return;
-        }
-        removeAccessToken();
-        setIsLoggedIn(false);
-        router.push("/auth/login");
-      } catch (error) {
-        alert("Error checking authorization:" + error);
-        removeAccessToken();
-        setIsLoggedIn(false);
-        router.push("/auth/login");
       }
     };
 
     checkAuthorization();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   return {

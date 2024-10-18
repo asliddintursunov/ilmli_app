@@ -15,7 +15,7 @@ function Recommended({ recommended }: Props) {
   const articles: Article[] = recommended;
 
   return (
-    <main className="grid place-content-center">
+    <main className="grid place-content-center mb-4 border-b border-gray-300">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-10">
         {articles.length > 0 ? (
           articles.map((el: Article) => {

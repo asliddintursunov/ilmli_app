@@ -4,7 +4,7 @@ import StartReading from "./StartReading";
 export default function HeaderContent() {
   const isRegistered = true;
   return (
-    <div className="border-b-[1px] border-gray-600 bg-gray-300">
+    <div className="bg-gray-300">
       <div className="w-full flex items-stretch justify-between p-4 max-w-[1440px] mx-auto">
         <div className="flex flex-col justify-center items-start gap-6">
           <h2 className="md:text-3xl sm:text-2xl text-xl font-normal">

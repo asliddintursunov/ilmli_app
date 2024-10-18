@@ -1,21 +1,24 @@
 import Link from "next/link";
-import { CiFaceFrown } from "react-icons/ci";
-import { FaRegHandPointRight } from "react-icons/fa";
+import { MdOutlineFindInPage } from "react-icons/md";
 function NotFound() {
   return (
-    <div className="w-screen h-screen grid place-content-center">
-      <div className="flex justify-center items-center text-yellow-500 font-bold gap-4">
-        <h1 className="text-4xl">Page not found</h1>
-        <span className="text-5xl">
-          <CiFaceFrown />
-        </span>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-6">
+        <div className="flex items-center mb-4">
+          <MdOutlineFindInPage className="text-red-600 text-2xl mr-2" />
+          <h2 className="text-lg font-semibold">Sahifa topilmadi</h2>
+        </div>
+        <p className="text-gray-600 mb-4">
+          Siz izlayotkan sahifa mavjud emas, iltimos qaytadan urunib
+          ko&#39;ring.
+        </p>
       </div>
-      <div className="flex items-center justify-start gap-4">
-        <span className="text-3xl link-primary">
-          <FaRegHandPointRight />
-        </span>
-        <Link href={"/"} className="underline link link-primary text-2xl">
-          Go to home page
+      <div className="mt-6">
+        <Link
+          href="/"
+          className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow transition duration-300"
+        >
+          Bosh sahifaga qaytish
         </Link>
       </div>
     </div>

@@ -1,25 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { useEffect, useState } from "react";
-import Button from "../../components/Button";
-import Password from "../../components/Password";
-import Username from "../../components/Username";
-import Email from "../../components/Email";
-import SocialAuth from "../../components/SocialAuth";
+import Button from "../components/Button";
+import Password from "../components/Password";
+import Username from "../components/Username";
+import Email from "../components/Email";
+import SocialAuth from "../components/SocialAuth";
 import useAuthValidation from "@/hooks/useAuthValidation";
 import { useRouter } from "next/navigation";
-import axios from "axios";
 import { baseURL } from "@/utils";
-import { getNewRegisteredUsername } from "@/redux/slices/getNewRegisteredUserUsernameSlice";
-import { AppDispatch } from "@/redux/store";
-import { useDispatch } from "react-redux";
 import Toast from "@/components/Toast";
 import useToast from "@/hooks/useToast";
 import { Auth } from "@/lib/AuthFunction";
+import { setUsernameCookie } from "@/lib/actions";
 
 export default function Register() {
   const router = useRouter();
-  const dispatch = useDispatch<AppDispatch>();
   const toast = useToast();
   const { regExpResult, validateInput } = useAuthValidation();
   const [username, setUsername] = useState<string>("");
@@ -35,9 +31,9 @@ export default function Register() {
 
         if (result.success) {
           toast.handleToast(true, result.response.message, "alert-success");
-          dispatch(getNewRegisteredUsername(username));
-          await new Promise((resolve) => setTimeout(resolve, 1000));
-          router.push("/auth/register/interests");
+          await setUsernameCookie(username);
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+          router.push("/get-started/topics");
         } else {
           toast.handleToast(true, result.error.message, "alert-error");
         }
@@ -50,7 +46,12 @@ export default function Register() {
     validateInput(username, email, password);
   };
   return (
-    <main className="grid place-content-center">
+    <main
+      className="max-w-[1440px] mx-auto px-2 grid place-content-center"
+      style={{
+        height: "calc(100vh - 4rem)",
+      }}
+    >
       <form action="POST" className="auth_form" onSubmit={handleSubmit}>
         <h1 className="text-3xl text-center">No account yet?</h1>
         <div className="flex flex-col gap-2 mt-4">

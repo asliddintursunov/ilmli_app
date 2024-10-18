@@ -29,3 +29,7 @@ export async function getUsernameCookie() {
   const username = cookies().get("username");
   return username;
 }
+
+export async function removeUsernameCookie() {
+  cookies().delete("username");
+}

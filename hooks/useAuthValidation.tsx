@@ -17,7 +17,7 @@ const useRegExpValidation = () => {
     username: /^[a-zA-Z0-9]+([_]?[a-zA-Z0-9])*$/,
     email:
       /^[a-zA-Z0-9]+([_]?[a-zA-Z0-9])*@[a-zA-Z0-9]+([_]?[a-zA-Z0-9])*(\.[a-zA-Z0-9]+([_]?[a-zA-Z0-9])*)+$/,
-    password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,20})/,
+    password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,20})/,
   };
 
   const validateInput = (

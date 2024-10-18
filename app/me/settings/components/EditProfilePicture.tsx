@@ -33,7 +33,7 @@ export default function EditProfilePicture({
   };
 
   return (
-    <div className="w-full flex flex-col sm:flex-row items-center sm:items-end gap-2 sm:gap-0 space-x-4">
+    <div className="w-full flex flex-col md:flex-row items-center md:items-end gap-2 md:gap-0 space-x-4">
       <Image
         width={150}
         height={150}

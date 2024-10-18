@@ -2,9 +2,7 @@
 import Image from "next/image";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Skeleton from "./Skeleton";
-import { getAccessToken } from "@/lib/actions";
 import Link from "next/link";
-import { baseURL } from "@/utils";
 import { formatTitleForUrl } from "@/lib/formatTitleForUrl";
 import useToast from "@/hooks/useToast";
 import Toast from "./Toast";
