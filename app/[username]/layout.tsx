@@ -23,6 +23,7 @@ import {
 } from "react-icons/fa";
 import { MdEmail, MdOutlineMail } from "react-icons/md";
 import Navbar from "@/components/Navbar";
+import NavBarWhite from "@/components/NavBarWhite";
 
 type ResType = {
   user_email: string;

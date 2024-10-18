@@ -4,7 +4,7 @@ import { FaUserFriends } from "react-icons/fa";
 import { MdOutlineFindInPage } from "react-icons/md";
 const RelatedArticleNotFound = ({ topic }: { topic: string }) => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center justify-center h-[80vh]">
       <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-6">
         <div className="flex items-center mb-4">
           <svg

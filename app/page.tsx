@@ -30,7 +30,9 @@ export default async function Home() {
       </nav>
       <main className="flex min-h-screen flex-col">
         <HeaderContent />
-        {userInterests.length && <HeaderSlider topics={userInterests} />}
+        {userInterests.length && (
+          <HeaderSlider topics={userInterests} path={undefined} />
+        )}
         <div className="flex flex-col gap-4 md:gap-6 max-w-[1440px] mx-auto">
           <br />
           <br />

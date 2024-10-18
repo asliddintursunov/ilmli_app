@@ -301,3 +301,31 @@ export const getArticlesByCategory = async (
     throw new Error(error.message);
   }
 };
+
+export const getForYouArticles = async () => {
+  const access_token = await getAccessToken().then((r) => r?.value)
+  try {
+    const request = await fetch(`${baseURL}/for-you`, {
+      cache: "no-store",
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!request.ok) {
+      const error = await request.json();
+      throw new Error(`
+        For-You article larni olishda xatolik.
+        status code: ${request.status}
+        message: ${error.message}
+      `);
+    }
+    const response = await request.json();
+    return response.articles;
+  } catch (error) {
+    throw new Error("For-You article larni olishda xatolik.");
+  }
+}

@@ -3,10 +3,17 @@ import React, { useState, useRef, useEffect } from "react";
 import RelatedArticlesButton from "./RelatedArticlesButton";
 import { MdOutlineExplore } from "react-icons/md";
 import Link from "next/link";
-const HeaderSlider: React.FC<{ topics: string[] }> = ({ topics }) => {
+import { useRouter } from "next/navigation";
+import clsx from "clsx";
+
+const HeaderSlider: React.FC<{
+  topics: string[];
+  path: string | undefined;
+}> = ({ topics, path }) => {
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
   const sliderRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   const scroll = (direction: "left" | "right") => {
     if (sliderRef.current) {
@@ -76,8 +83,28 @@ const HeaderSlider: React.FC<{ topics: string[] }> = ({ topics }) => {
           >
             <MdOutlineExplore className="text-2xl" /> Ko&#39;proq
           </Link>
+          {path?.startsWith("/articles") && (
+            <button
+              className={clsx(
+                "grid place-content-center text-sm sm:text-md cursor-pointer py-2 px-3 rounded-full bg-slate-400/10 hover:bg-slate-700/20 transition-all capitalize text-nowrap",
+                {
+                  "bg-slate-700/20 border border-slate-500 pointer-events-none":
+                    path === "/articles?search=",
+                }
+              )}
+              onClick={() => {
+                router.push("/articles");
+              }}
+            >
+              Siz uchun
+            </button>
+          )}
           {topics.map((topic, index) => (
-            <RelatedArticlesButton category={topic} key={index} />
+            <RelatedArticlesButton
+              category={topic}
+              key={index}
+              path={path ?? undefined}
+            />
           ))}
         </div>
         <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l z-10 pointer-events-none"></div>

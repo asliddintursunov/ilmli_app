@@ -10,7 +10,7 @@ async function TagsNavbar({}: Props) {
   return (
     <nav>
       <ul className="flex flex-wrap gap-2 my-2 items-center justify-center">
-        <HeaderSlider topics={userInterests} />
+        <HeaderSlider topics={userInterests} path={undefined} />
       </ul>
     </nav>
   );

@@ -1,7 +1,14 @@
 import HeaderSlider from "@/components/HeaderSlider";
-import { getArticlesByCategory, getUserInterests } from "@/lib/fetchFunctions";
+import {
+  getArticlesByCategory,
+  getForYouArticles,
+  getUserInterests,
+} from "@/lib/fetchFunctions";
 import ArticlesNavBar from "./components/ArticlesNavBar";
 import ArticlesContent from "./components/ArticlesContent";
+import NotFound from "./not-found";
+import Link from "next/link";
+import clsx from "clsx";
 
 export default async function Articles({
   searchParams,
@@ -11,17 +18,32 @@ export default async function Articles({
   const userInterests: string[] = await getUserInterests();
 
   const search =
-    typeof searchParams?.search === "string" ? searchParams?.search : "";
+    typeof searchParams?.search === "string"
+      ? searchParams?.search.toLowerCase()
+      : "";
 
-  const articles: Article[] = await getArticlesByCategory(search, 0);
+  const articles: Article[] = search
+    ? await getArticlesByCategory(search, 0)
+    : await getForYouArticles();
 
   return (
     <>
       <ArticlesNavBar />
       <main className="flex flex-col items-center">
-        {userInterests.length && <HeaderSlider topics={userInterests} />}
+        {userInterests.length && (
+          <>
+            <HeaderSlider
+              path={`/articles?search=${search}`}
+              topics={userInterests}
+            />
+          </>
+        )}
       </main>
-      {articles && (
+      {(!articles || articles.length === 0) && search === "" && (
+        <h1>No articles found and no search term provided.</h1>
+      )}
+
+      {Array.isArray(articles) && articles.length > 0 ? (
         <div className="pb-10 max-w-[1240px] mx-auto">
           <ul className="mt-4 flex flex-col gap-2">
             {articles.map((item) => (
@@ -29,6 +51,8 @@ export default async function Articles({
             ))}
           </ul>
         </div>
+      ) : (
+        search && <NotFound topic={`${search}`} />
       )}
     </>
   );
