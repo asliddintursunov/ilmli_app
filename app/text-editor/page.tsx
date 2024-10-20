@@ -22,11 +22,10 @@ import { AiOutlinePlus } from "react-icons/ai";
 import styles from "./css/style.module.css";
 import Toast from "@/components/Toast";
 import useToast from "@/hooks/useToast";
-
+import Popup from "./components/Popup";
+import EditorNavbar from "./components/EditorNavbar";
 import Title from "./components/Title";
 import Description from "./components/Description";
-import Category from "./components/Category";
-import MainImage from "./components/MainImage";
 import { baseURL } from "@/utils";
 import { getAccessToken } from "@/lib/actions";
 
@@ -42,7 +41,49 @@ export default function TextEditor() {
   const [Categories, setCategories] = useState<string[]>([]);
   const [primaryCategory, setPrimaryCategory] = useState<string>("");
   const [image, setImage] = useState<string>("");
-  const [isPostValid, setIsPostValid] = useState<boolean | null>(null);
+  const [openPopup, setOpenPopup] = useState<boolean>(false);
+  const [userData, setUserData] = useState<{
+    image: string | undefined;
+    username: string;
+    fullname: string | undefined;
+  }>({
+    image: undefined,
+    username: "",
+    fullname: undefined,
+  });
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const access_token = await getAccessToken().then((r) => r?.value);
+        const request = await fetch(`${baseURL}/self-data`, {
+          method: "GET",
+          cache: "no-store",
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!request.ok) {
+          const error = await request.json();
+          toast.handleToast(true, error.message, "alert-error");
+          throw new Error(error.message);
+        }
+        const response = await request.json();
+        setUserData({
+          username: response.user_data.user_name,
+          fullname: response.user_data.user_fullname,
+          image: response.user_data.user_profile_photo,
+        });
+        return;
+      } catch (error: any) {
+        toast.handleToast(true, error.message, "alert-error");
+        throw new Error(error.message);
+      }
+    })();
+  }, []);
 
   const extensions = [
     StarterKit,
@@ -135,50 +176,6 @@ export default function TextEditor() {
     setLastPTag(lastP_Tag);
   };
 
-  const handleSend = async function () {
-    const access_token = await getAccessToken().then((res) => res?.value);
-    const new_post = {
-      title: title.trim(),
-      description: description.trim(),
-      categories: Categories,
-      primary_category: primaryCategory.trim(),
-      body: htmlContent,
-      image: image,
-    };
-
-    const post_values = Object.values(new_post);
-    if (post_values.includes("") || post_values.includes([])) {
-      toast.handleToast(
-        true,
-        "Barcha qiymatlarni to'ldirishingiz kerak",
-        "alert-warning"
-      );
-      return;
-    }
-    setIsPostValid(true);
-    try {
-      const request = await fetch(`${baseURL}/create-post`, {
-        method: "POST",
-        body: JSON.stringify(new_post),
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (!request.ok) {
-        const error = await request.json();
-        toast.handleToast(true, error.message, "alert-error");
-        return;
-      }
-      const response = await request.json();
-      toast.handleToast(true, response.message, "alert-success");
-    } catch (error: any) {
-      toast.handleToast(true, error.message, "alert-error");
-    }
-  };
-
   useEffect(() => {
     handleSeeContent();
     handleShowSideBarOptions(htmlContent);
@@ -186,21 +183,37 @@ export default function TextEditor() {
 
   return (
     <>
-      <div className="p-4 mt-10 max-w-5xl mx-auto relative flex flex-col justify-center gap-4">
+      <EditorNavbar
+        setOpenPopup={setOpenPopup}
+        title={title}
+        description={description}
+        user_image={userData.image}
+        username={userData.username}
+      />
+      <div className="p-4 mt-10 max-w-5xl mx-auto relative flex flex-col justify-center gap-4 font-serif">
+        {openPopup && (
+          <Popup
+            setOpenPopup={setOpenPopup}
+            title={title}
+            setTitle={setTitle}
+            description={description}
+            setDescription={setDescription}
+            Categories={Categories}
+            primaryCategory={primaryCategory}
+            setCategories={setCategories}
+            setPrimaryCategory={setPrimaryCategory}
+            image={image}
+            setImage={setImage}
+            htmlContent={htmlContent}
+            user_fullname={userData.fullname ?? userData.username}
+          />
+        )}
         <Title title={title} setTitle={setTitle} />
         <Description
           description={description}
           setDescription={setDescription}
         />
-        <div className="w-full flex flex-col md:flex-row gap-4 md:items-start">
-          <Category
-            Categories={Categories}
-            primaryCategory={primaryCategory}
-            setCategories={setCategories}
-            setPrimaryCategory={setPrimaryCategory}
-          />
-          <MainImage image={image} setImage={setImage} />
-        </div>
+
         {lastPTag == "<p></p>" && (
           <div className="flex justify-start items-center gap-8 absolute left-5 xmd:left-[-40px] bottom-3 z-10">
             <button
@@ -235,18 +248,7 @@ export default function TextEditor() {
           </div>
         )}
       </div>
-      {isPostValid === false && (
-        <div className="flex w-full justify-center gap-4">
-          <span className="text-lg">
-            Barcha qiymatlarni toldirishin kk ukam
-          </span>
-        </div>
-      )}
-      <div className="flex w-full justify-center gap-4">
-        <button className="btn btn-primary" onClick={() => handleSend()}>
-          Send content
-        </button>
-      </div>
+      <div className="flex w-full justify-center gap-4"></div>
       <div className="pb-60" />
     </>
   );

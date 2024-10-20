@@ -8,8 +8,8 @@ import { formatTitleForUrl } from "@/lib/formatTitleForUrl";
 type Params = {
   trendings: Article[];
 };
-
 export default async function Trendings({ trendings }: Params) {
+  console.log(trendings[0].user_profile_photo?.length);
   return (
     <div className="flex flex-col justify-start gap-1 mx-1">
       <div className="flex gap-3 justify-start items-center">
@@ -37,14 +37,18 @@ export default async function Trendings({ trendings }: Params) {
                   className="absolute w-full h-full left-0 top-0"
                 />
                 <div className="flex gap-1 items-start justify-start">
-                  <Image
-                    src={"/images/avatar.png"}
-                    alt="avatar"
-                    width={24}
-                    height={24}
-                    loading="lazy"
-                    className="rounded-full border border-gray-600"
-                  />
+                  <Link
+                    href={`/@${trending.user_name}/home`}
+                    className="h-7 w-7 rounded-full overflow-hidden border border-gray-300"
+                  >
+                    <Image
+                      height={28}
+                      width={28}
+                      src={trending.user_profile_photo ?? "/images/avatar.png"}
+                      alt="profile photo"
+                      className="object-cover h-full w-full"
+                    />
+                  </Link>
                   <Link
                     href={`/@${trending.user_name}/home`}
                     className="font-medium text-sm hover:underline z-10"

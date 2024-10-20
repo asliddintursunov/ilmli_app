@@ -8,12 +8,12 @@ type Props = {
 export default function EditBio({ bio, setBio, bioValidation }: Props) {
   return (
     <div className="w-full">
-      <label htmlFor="edit_bio">Bio</label>
+      <label htmlFor="edit_bio">O&#39;zingiz haqingizda</label>
       <textarea
         name="edit_bio"
         id="edit_bio"
         className="ilmli_input min-h-40 max-h-80"
-        placeholder="bio"
+        placeholder="O'qish va o'rganishga qiziquvchan inson..."
         value={bio}
         onChange={(e) => setBio(e.currentTarget.value)}
         style={{

@@ -14,6 +14,7 @@ type Article = {
   post_data: {
     post_categories: [];
   };
+  user_profile_photo: string | null;
 };
 
 type SpecificUserArticle = {
@@ -25,16 +26,10 @@ type SpecificUserArticle = {
   post_description: string;
   post_body: string;
   post_image: string;
-  post_primary_category: string;
   post_categories: string[];
-  post_created_time: string;
-  post_categories: string[];
-  post_created_time: string;
-  post_description: string;
-  post_id: number;
   post_primary_category: string;
-  post_title: string;
-  post_uuid: string;
+  post_created_time: string;
+  user_profile_photo: string | null;
 };
 
 type UserData = {

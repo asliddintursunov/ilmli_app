@@ -7,7 +7,7 @@ type Props = {
   setImage: Dispatch<SetStateAction<string>>;
 };
 
-export default function MainImage({ image, setImage }: Props) {
+export default function PopupImage({ image, setImage }: Props) {
   const toast = useToast();
   const handleImageConvertToBase64 = function (event: any) {
     const file = event.target.files[0];
@@ -29,20 +29,18 @@ export default function MainImage({ image, setImage }: Props) {
   };
 
   return (
-    <div className="relative min-w-full md:min-w-72 min-h-40">
+    <div className="relative w-full h-80 bg-gray-100 flex justify-center items-center p-2 text-balance z-20">
       {image ? (
         <Image
           src={image}
           alt="Post Image"
-          width={0}
-          height={0}
-          sizes="100vw"
-          className="md:w-72 w-full max-h-40 object-cover object-center border rounded-md"
+          width={250}
+          height={600}
+          // sizes=""
+          className="w-full h-full custom-980:w-[440px] custom-980:h-[170px] object-contain"
         />
       ) : (
-        <div className="md:w-72 w-full min-h-40 grid place-content-center input input-bordered bg-gray-100">
-          Update image
-        </div>
+        <div className="bg-gray-100">Rasm uchun joy</div>
       )}
       <input
         onChange={(file) => handleImageConvertToBase64(file)}

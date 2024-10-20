@@ -12,10 +12,15 @@ export default async function UsernameHomePage({
     username,
     0
   );
+  const userHasAtLeastOneArticle: boolean = userPosts.length > 0 ? true : false;
 
   return (
     <div className="flex flex-col gap-4 justify-start items-start">
-      <HomePagePosts username={username} firstTenUserPosts={userPosts} />
+      <HomePagePosts
+        username={username}
+        firstTenUserPosts={userPosts}
+        userHasAtLeastOneArticle={userHasAtLeastOneArticle}
+      />
     </div>
   );
 }

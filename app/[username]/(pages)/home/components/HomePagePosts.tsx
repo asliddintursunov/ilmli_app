@@ -13,8 +13,24 @@ import { useCallback, useEffect, useRef, useState } from "react";
 type Props = {
   username: string;
   firstTenUserPosts: SpecificUserArticle[];
+  userHasAtLeastOneArticle: boolean;
 };
-function HomePagePosts({ username, firstTenUserPosts }: Props) {
+
+const UserHasNoArticlesYet = ({ username }: { username: string }) => {
+  return (
+    <div className="pb-10 text-center">
+      <p className="text-xl text-gray-600">
+        {username} hali hech qanday hikoyda yozmagan
+      </p>
+    </div>
+  );
+};
+
+function HomePagePosts({
+  username,
+  firstTenUserPosts,
+  userHasAtLeastOneArticle,
+}: Props) {
   const router = useRouter();
   const toast = useToast();
   const [offset, setOffset] = useState<number>(10);
@@ -77,7 +93,10 @@ function HomePagePosts({ username, firstTenUserPosts }: Props) {
 
   return (
     <main className="w-full">
-      {articles.length > 0 ? (
+      {!userHasAtLeastOneArticle && (
+        <UserHasNoArticlesYet username={username} />
+      )}
+      {userHasAtLeastOneArticle && (
         <div className="pb-10">
           <ul className="mt-4 flex flex-col gap-2" ref={elementsContainer}>
             {articles.map((el: SpecificUserArticle) => (
@@ -96,14 +115,18 @@ function HomePagePosts({ username, firstTenUserPosts }: Props) {
               >
                 <div className="flex-1 flex flex-col items-start justify-start gap-1">
                   <div className="flex gap-2 items-start justify-start">
-                    <Image
-                      src={"/images/avatar.png"}
-                      alt="avatar"
-                      width={24}
-                      height={24}
-                      loading="lazy"
-                      className="rounded-full border border-gray-600"
-                    />
+                    <Link
+                      href={`/@${el.user_name}/home`}
+                      className="h-7 w-7 rounded-full overflow-hidden border border-gray-300"
+                    >
+                      <Image
+                        height={28}
+                        width={28}
+                        src={el.user_profile_photo ?? "/images/avatar.png"}
+                        alt="profile photo"
+                        className="object-cover h-full w-full"
+                      />
+                    </Link>
                     <Link
                       href={`/@${username}/home`}
                       className="font-bold text-sm hover:underline"
@@ -139,11 +162,12 @@ function HomePagePosts({ username, firstTenUserPosts }: Props) {
             ))}
           </ul>
         </div>
-      ) : (
+      )}
+      {userHasAtLeastOneArticle &&
+        articles.length === 0 &&
         [1, 2, 3, 4, 5, 6].map((i) => {
           return <Skeleton key={i} image={true} />;
-        })
-      )}
+        })}
       {userStillHasArticle &&
         [1, 2].map((i) => <Skeleton key={i} image={true} />)}
       {toast.showToast && (

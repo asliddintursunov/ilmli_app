@@ -22,6 +22,7 @@ const config: Config = {
       lg: "1024px",
       xl: "1440px",
       "4k": "1920px",
+      "custom-980": "980px"
     },
   },
   plugins: [require("daisyui")],

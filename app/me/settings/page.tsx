@@ -15,6 +15,7 @@ import { getAccessToken } from "@/lib/actions";
 import Toast from "@/components/Toast";
 import useToast from "@/hooks/useToast";
 import ProfileSkeleton from "./components/ProfileSkeleton";
+import Navbar from "@/components/Navbar";
 
 export default function EditProfile() {
   const toast = useToast();
@@ -87,6 +88,7 @@ export default function EditProfile() {
         }
         const response = await request.json();
         const user_data: UserData = response.user_data;
+        console.log(user_data);
 
         setUsername(user_data.user_name ?? "");
         setEmail(user_data.user_email ?? "");
@@ -158,6 +160,8 @@ export default function EditProfile() {
           user_interests: interests,
           user_social_links: socialLinks,
         };
+        console.log("bio =>", bio);
+
         updateProfile(user_profile_data);
         return;
       }
@@ -168,16 +172,24 @@ export default function EditProfile() {
   return (
     <>
       {isPending && <ProfileSkeleton />}
-      <div className="max-w-[1240px] mx-auto">
+      <nav className="border-b-2 border-gray-600 bg-gray-300">
+        <Navbar />
+      </nav>
+      <div className="max-w-[1240px] mx-auto border border-gray-300 pb-4">
         {!isPending && (
           <main className="flex flex-col md:flex-row justify-between items-stretch">
-            <aside className="flex-[3] flex flex-col gap-y-2 xs:gap-y-6 p-4 border-b border-gray-300">
+            <aside className="md:w-[1024px] mx-auto flex flex-col gap-y-2 xs:gap-y-6 p-4 ">
+              <h1 className="md:hidden block text-nowrap text-end">
+                11 July, 2024
+              </h1>
               <div className="w-full flex justify-between items-start">
                 <EditProfilePicture
                   profilePhoto={profilePhoto}
                   setProfilePhoto={setProfilePhoto}
                 />
-                <h1 className="hidden sm:block">Joined day</h1>
+                <h1 className="hidden md:block text-nowrap text-end">
+                  11 July, 2024
+                </h1>
               </div>
               <div className="w-full flex flex-col xs:flex-row gap-2 justify-between">
                 <EditUsername
@@ -213,7 +225,7 @@ export default function EditProfile() {
                   setSocialLinks={setSocialLinks}
                 />
               </div>
-              <div className="hidden md:flex flex-col gap-2 items-start">
+              <div className="w-full flex flex-row justify-between items-center mt-2 gap-2">
                 <button
                   className="btn btn-active"
                   onClick={() => setOpenEditPassword(true)}
@@ -230,28 +242,6 @@ export default function EditProfile() {
                 </button>
               </div>
             </aside>
-            <aside className="flex-1 p-4 border-l border-b border-gray-300">
-              <EditInterests
-                interests={interests}
-                setInterests={setInterests}
-              />
-            </aside>
-            <div className="flex md:hidden flex-col gap-2 items-start pl-4 mt-2">
-              <button
-                className="btn btn-active"
-                onClick={() => setOpenEditPassword(true)}
-              >
-                Parolni o&#39;zgartirish
-              </button>
-              <button
-                className="btn btn-neutral"
-                onClick={() => {
-                  validation.validateInput(username, email, undefined);
-                }}
-              >
-                O&#39;zgarishlarni saqlash
-              </button>
-            </div>
           </main>
         )}
         {openEditPassword && (

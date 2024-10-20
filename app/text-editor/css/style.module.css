@@ -109,6 +109,64 @@
   animation: sidebar_options_slide_top 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)
     both;
 }
+.scale_up_bottom {
+  -webkit-animation: scale-up-bottom 0.05s ease-out both;
+  animation: scale-up-bottom 0.05s ease-out both;
+}
+.slide_top {
+	-webkit-animation: slide-top 0.1s both;
+	        animation: slide-top 0.1s both;
+}
+
+ @-webkit-keyframes scale-up-bottom {
+  0% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+  }
+}
+@keyframes scale-up-bottom {
+  0% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+  }
+}
+
+@-webkit-keyframes slide-top {
+  0% {
+    -webkit-transform: translateY(20px);
+            transform: translateY(20px);
+  }
+  100% {
+    -webkit-transform: translateY(5px);
+            transform: translateY(5px);
+  }
+}
+@keyframes slide-top {
+  0% {
+    -webkit-transform: translateY(20px);
+            transform: translateY(20px);
+  }
+  100% {
+    -webkit-transform: translateY(5px);
+            transform: translateY(5px);
+  }
+}
 
 @keyframes sidebar_options_slide_top {
   0% {

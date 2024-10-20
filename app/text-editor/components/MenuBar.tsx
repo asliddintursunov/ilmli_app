@@ -2,6 +2,7 @@ import { BubbleMenu } from "@tiptap/react";
 import clsx from "clsx";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css"; // optional for styling
+import styles from "../css/style.module.css"
 
 import { useCallback } from "react";
 import {
@@ -51,7 +52,7 @@ export default function MenuBar({ editor }: { editor: any }) {
     <BubbleMenu
       editor={editor}
       tippyOptions={{ duration: 50 }}
-      className={isImageSelected}
+      className={`${isImageSelected} ${styles.slide_top}`}
     >
       <div className="flex items-center justify-start divide-x-2">
         {!isImageSelected && (

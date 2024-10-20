@@ -40,7 +40,7 @@ function Password({ setPassword, isPasswordValid, password }: Props) {
       </div>
       {isPasswordValid === false && (
         <span className="text-xs text-red-500">
-          Password kamida bitta katta va kichik harf, raqam va belgi hamda 8-20
+          Parol kamida bitta katta va kichik harf, raqam hamda 8-20
           ta belgidan iborat bo&#39;lishi kerak
         </span>
       )}

@@ -30,7 +30,7 @@ export default function Login() {
 
         if (result.success) {
           await setUsernameCookie(result.response.username);
-          setAccessToken(result.response.tokens.access_token);
+          await setAccessToken(result.response.tokens.access_token);
 
           router.push("/");
         } else {
@@ -52,7 +52,7 @@ export default function Login() {
         height: "calc(100vh - 4rem)",
       }}
     >
-      <form action="" className="auth_form" onSubmit={handleSubmit}>
+      <form action="POST" className="auth_form" onSubmit={handleSubmit}>
         <h1 className="text-3xl text-center">Have an account?</h1>
         <div className="flex flex-col gap-2 mt-4">
           <Username

@@ -2,6 +2,7 @@ import Recommended from "./components/Recommended";
 import Newest from "./components/Newest";
 import { Metadata } from "next";
 import { fetchNRarticles } from "@/lib/fetchFunctions";
+import RelatedArticleNotFound from "./not-found";
 
 export async function generateMetadata({
   params,
@@ -28,34 +29,19 @@ async function page({ params }: { params: { category: string } }) {
 
   return (
     <div className="mx-2">
-      <h1 className="text-4xl md:text-5xl text-center font-semibold capitalize">
-        {heading}
-      </h1>
-      {recommended.length > 0 ? (
+      {!recommended.length && !newest.length && (
+        <RelatedArticleNotFound topic={heading} />
+      )}
+      {(recommended.length > 0 || newest.length > 0) && (
         <>
-          <br />
-          <hr />
-          <br />
+          <h1 className="text-4xl md:text-5xl text-center font-semibold capitalize">
+            {heading}
+          </h1>
           <h1 className="mb-3 text-2xl font-semibold">Recommended stories</h1>
           <Recommended recommended={recommended} />
-        </>
-      ) : (
-        <h1 className="mb-3 text-2xl font-semibold">
-          No recommended stories found!
-        </h1>
-      )}
-      {newest.length > 0 ? (
-        <>
-          <br />
-          <hr />
-          <br />
-          <h3 className="mb-3 text-2xl font-semibold">Newest</h3>
+          <h3 className="mb-3 text-2xl font-semibold mt-4">Newest</h3>
           <Newest newest={newest} />
         </>
-      ) : (
-        <h1 className="mb-3 text-2xl font-semibold">
-          No newest stories found!
-        </h1>
       )}
     </div>
   );

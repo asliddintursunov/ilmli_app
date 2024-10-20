@@ -5,7 +5,7 @@ type Params = {
 
 function Toast({ toastInfo, toastType }: Params) {
   return (
-    <div className="toast toast-top toast-end mt-20">
+    <div className="toast toast-top toast-end mt-20 z-50">
       <div className={`alert ${toastType}`}>
         <span className="text-white">{toastInfo}</span>
       </div>
