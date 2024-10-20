@@ -49,8 +49,8 @@ export default function PopupCategory({
           <div
             key={e}
             className={clsx(
-              "h-10 flex justify-end items-center gap-1 px-2 bg-white border border-gray-200 hover:border-gray-400 rounded-sm cursor-pointer transition-all",
-              e === primaryCategory && "text-white bg-green-600"
+              "h-10 flex justify-end items-center gap-1 px-2 border border-gray-200 hover:border-gray-400 rounded-sm cursor-pointer transition-all",
+              e === primaryCategory ? "text-white bg-green-600" : "bg-white"
             )}
             onClick={() => setPrimaryCategory((prev) => (prev === e ? "" : e))}
           >
@@ -84,7 +84,9 @@ export default function PopupCategory({
         </label>
       </div>
       {Categories.length > 0 && primaryCategory === "" && (
-        <span className="text-red-500">Kamida kategoriyani asosiy sifatida tanlang</span>
+        <span className="text-red-500">
+          Kamida kategoriyani asosiy sifatida tanlang
+        </span>
       )}
     </div>
   );

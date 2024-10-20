@@ -26,6 +26,8 @@ import Popup from "./components/Popup";
 import EditorNavbar from "./components/EditorNavbar";
 import Title from "./components/Title";
 import Description from "./components/Description";
+import { baseURL } from "@/utils";
+import { getAccessToken } from "@/lib/actions";
 
 export default function TextEditor() {
   const toast = useToast();
@@ -40,6 +42,48 @@ export default function TextEditor() {
   const [primaryCategory, setPrimaryCategory] = useState<string>("");
   const [image, setImage] = useState<string>("");
   const [openPopup, setOpenPopup] = useState<boolean>(false);
+  const [userData, setUserData] = useState<{
+    image: string | undefined;
+    username: string;
+    fullname: string | undefined;
+  }>({
+    image: undefined,
+    username: "",
+    fullname: undefined,
+  });
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const access_token = await getAccessToken().then((r) => r?.value);
+        const request = await fetch(`${baseURL}/self-data`, {
+          method: "GET",
+          cache: "no-store",
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!request.ok) {
+          const error = await request.json();
+          toast.handleToast(true, error.message, "alert-error");
+          throw new Error(error.message);
+        }
+        const response = await request.json();
+        setUserData({
+          username: response.user_data.user_name,
+          fullname: response.user_data.user_fullname,
+          image: response.user_data.user_profile_photo,
+        });
+        return;
+      } catch (error: any) {
+        toast.handleToast(true, error.message, "alert-error");
+        throw new Error(error.message);
+      }
+    })();
+  }, []);
 
   const extensions = [
     StarterKit,
@@ -143,6 +187,8 @@ export default function TextEditor() {
         setOpenPopup={setOpenPopup}
         title={title}
         description={description}
+        user_image={userData.image}
+        username={userData.username}
       />
       <div className="p-4 mt-10 max-w-5xl mx-auto relative flex flex-col justify-center gap-4 font-serif">
         {openPopup && (
@@ -159,6 +205,7 @@ export default function TextEditor() {
             image={image}
             setImage={setImage}
             htmlContent={htmlContent}
+            user_fullname={userData.fullname ?? userData.username}
           />
         )}
         <Title title={title} setTitle={setTitle} />

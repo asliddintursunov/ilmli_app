@@ -3,9 +3,17 @@ import Image from "next/image";
 import Link from "next/link";
 import SearchBar from "./SearchBar";
 import { FaRegPenToSquare } from "react-icons/fa6";
+import { fetchSpecificUserData } from "@/lib/fetchFunctions";
 
 export default async function ArticlesNavBar() {
   const username = await getUsernameCookie().then((r) => r?.value);
+  var user_image: string = "";
+
+  if (username) {
+    user_image = await fetchSpecificUserData(username).then(
+      (r) => r.user_profile_photo
+    );
+  }
 
   return (
     <div className="h-16 w-full shadow-md">
@@ -23,18 +31,21 @@ export default async function ArticlesNavBar() {
         <div className="flex items-center gap-10">
           <Link
             href={"/text-editor"}
-            className="flex items-center gap-2 text-lg text-gray-600 hover:text-black"
+            className="flex items-center gap-2 text-base text-gray-600 hover:text-black"
           >
-            <FaRegPenToSquare className="text-xl" />
+            <FaRegPenToSquare className="text-base" />
             Hikoya yozish
           </Link>
-          <Link href={`@${username}/home`}>
+          <Link
+            href={`/@${username}/home`}
+            className="h-10 w-10 rounded-full overflow-hidden border border-gray-300"
+          >
             <Image
               height={40}
               width={40}
-              src={"/images/avatar.png"}
+              src={user_image ?? "/images/avatar.png"}
               alt="profile photo"
-              className="rounded-full border border-gray-300"
+              className="object-cover h-full w-full"
             />
           </Link>
         </div>

@@ -12,7 +12,7 @@ export default function EditUsername({
 }: Props) {
   return (
     <div className="w-full">
-      <label htmlFor="edit_username">Username</label>
+      <label htmlFor="edit_username">Foydalanuvchi nomi</label>
       <input
         type="text"
         name="edit_username"

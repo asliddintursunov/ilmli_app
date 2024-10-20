@@ -20,9 +20,9 @@ export default async function NavBarWhite() {
         <div className="flex items-center gap-10">
           <Link
             href={"/text-editor"}
-            className="flex items-center gap-2 text-lg text-gray-600 hover:text-black hover:underline"
+            className="flex items-center gap-2 text-base text-gray-600 hover:text-black hover:underline"
           >
-            <FaRegPenToSquare className="text-lg" />
+            <FaRegPenToSquare className="text-base" />
             Hikoya yozish
           </Link>
           <Link href={`/@${username}/home`}>

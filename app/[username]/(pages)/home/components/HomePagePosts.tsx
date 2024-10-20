@@ -115,14 +115,18 @@ function HomePagePosts({
               >
                 <div className="flex-1 flex flex-col items-start justify-start gap-1">
                   <div className="flex gap-2 items-start justify-start">
-                    <Image
-                      src={"/images/avatar.png"}
-                      alt="avatar"
-                      width={24}
-                      height={24}
-                      loading="lazy"
-                      className="rounded-full border border-gray-600"
-                    />
+                    <Link
+                      href={`/@${el.user_name}/home`}
+                      className="h-7 w-7 rounded-full overflow-hidden border border-gray-300"
+                    >
+                      <Image
+                        height={28}
+                        width={28}
+                        src={el.user_profile_photo ?? "/images/avatar.png"}
+                        alt="profile photo"
+                        className="object-cover h-full w-full"
+                      />
+                    </Link>
                     <Link
                       href={`/@${username}/home`}
                       className="font-bold text-sm hover:underline"

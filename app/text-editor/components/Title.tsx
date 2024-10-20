@@ -10,7 +10,7 @@ export default function Title({
   return (
     <textarea
       className="w-full min-h-16  h-fit text-4xl px-4 outline-none overflow-hidden"
-      placeholder="Title"
+      placeholder="Hikoya sarlavhasi"
       onInput={(e) => {
         setTitle(e.currentTarget.value);
         e.currentTarget.style.height = "auto";

@@ -21,9 +21,8 @@ import {
   FaGlobe,
   FaRegUser,
 } from "react-icons/fa";
-import { MdEmail, MdOutlineMail } from "react-icons/md";
+import { MdOutlineMail } from "react-icons/md";
 import Navbar from "@/components/Navbar";
-import NavBarWhite from "@/components/NavBarWhite";
 
 type ResType = {
   user_email: string;
@@ -39,6 +38,7 @@ type ResType = {
         link: string;
       }[]
     | null;
+  user_bio: string | null;
   my_profile: Boolean;
 };
 
@@ -62,14 +62,16 @@ export default async function UserProfileLayout({
 
   const username = params.username.replaceAll("%40", "");
   const user: ResType = await fetchSpecificUserData(username);
+
   if (!user) {
     return <UsernameNotFound username={username} />;
   }
-  console.log("user.my_profile =>", user.my_profile);
-  console.log("user.user_email =>", user.user_email);
-  console.log("user.user_fullname =>", user.user_fullname);
-  console.log("user.user_name =>", user.user_name);
-  console.log("user.social_links", user.user_social_links);
+  // console.log("user.my_profile =>", user.my_profile);
+  // console.log("user.user_email =>", user.user_email);
+  // console.log("user.user_fullname =>", user.user_fullname);
+  // console.log("user.user_name =>", user.user_name);
+  // console.log("user.social_links", user.user_social_links);
+  // console.log("user.user_bio", user.user_bio);
 
   return (
     <>

@@ -22,6 +22,7 @@ type Props = {
   image: string;
   setImage: Dispatch<SetStateAction<string>>;
   htmlContent: any;
+  user_fullname: string | undefined;
 };
 
 export default function Popup({
@@ -37,6 +38,7 @@ export default function Popup({
   image,
   setImage,
   htmlContent,
+  user_fullname,
 }: Props) {
   const toast = useToast();
   const [isPostValid, setIsPostValid] = useState<boolean | null>(null);
@@ -118,7 +120,9 @@ export default function Popup({
             </p>
           </div>
           <div className="flex-1 w-full h-96 p-6 flex flex-col justify-start items-start gap-5">
-            <span>Chop etuvchi: User fullname</span>
+            <span>
+              Chop etuvchi: <strong>{user_fullname}</strong>
+            </span>
             <PopupCategory
               Categories={Categories}
               primaryCategory={primaryCategory}

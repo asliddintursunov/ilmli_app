@@ -7,8 +7,6 @@ import {
 import ArticlesNavBar from "./components/ArticlesNavBar";
 import ArticlesContent from "./components/ArticlesContent";
 import NotFound from "./not-found";
-import Link from "next/link";
-import clsx from "clsx";
 
 export default async function Articles({
   searchParams,

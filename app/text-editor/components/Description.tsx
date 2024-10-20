@@ -10,7 +10,7 @@ export default function Description({
   return (
     <textarea
       className="w-full min-h-12 h-fit text-2xl px-4 outline-none overflow-hidden"
-      placeholder="Description"
+      placeholder="Hikoya haqida qisqacha ma'lumot"
       onInput={(e) => {
         setDescription(e.currentTarget.value);
         e.currentTarget.style.height = "auto";

@@ -88,6 +88,7 @@ export default function EditProfile() {
         }
         const response = await request.json();
         const user_data: UserData = response.user_data;
+        console.log(user_data);
 
         setUsername(user_data.user_name ?? "");
         setEmail(user_data.user_email ?? "");
@@ -159,6 +160,8 @@ export default function EditProfile() {
           user_interests: interests,
           user_social_links: socialLinks,
         };
+        console.log("bio =>", bio);
+
         updateProfile(user_profile_data);
         return;
       }

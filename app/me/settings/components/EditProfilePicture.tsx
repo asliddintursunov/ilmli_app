@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { Dispatch, SetStateAction, useState } from "react";
+import { AiOutlineUpload } from "react-icons/ai";
+
 type Props = {
   profilePhoto: string;
   setProfilePhoto: Dispatch<SetStateAction<string>>;
@@ -49,8 +51,8 @@ export default function EditProfilePicture({
           onChange={handleImageConvertToBase64}
           className="absolute inset-0 w-full h-full opacity-0"
         />
-        <button className="btn btn-sm btn-outline btn-primary sm:w-28 w-40">
-          Upload Image
+        <button className="btn btn-sm btn-outline btn-primary sm:w-32 w-44">
+          Rasm yuklash
         </button>
       </div>
       {error && (

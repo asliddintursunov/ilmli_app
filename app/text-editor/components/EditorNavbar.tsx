@@ -2,20 +2,22 @@ import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
 import { Dispatch, SetStateAction } from "react";
-import { FaRegPenToSquare } from "react-icons/fa6";
 
 type Props = {
   setOpenPopup: Dispatch<SetStateAction<boolean>>;
   title: string;
   description: string;
+  user_image: string | undefined;
+  username: string;
 };
 
 export default function EditorNavbar({
   setOpenPopup,
   title,
   description,
+  user_image,
+  username,
 }: Props) {
-  const username = "asliddinA1";
   return (
     <div className="h-16 w-full shadow-md">
       <div className="max-w-[1240px] h-full m-auto flex justify-between items-center text-2xl">
@@ -38,13 +40,16 @@ export default function EditorNavbar({
           >
             Chop etish
           </button>
-          <Link href={`/@${username}/home`}>
+          <Link
+            href={`/@${username}/home`}
+            className="h-10 w-10 rounded-full overflow-hidden border border-gray-300"
+          >
             <Image
               height={40}
               width={40}
-              src={"/images/avatar.png"}
+              src={user_image ?? "/images/avatar.png"}
               alt="profile photo"
-              className="rounded-full border border-gray-300"
+              className="object-cover h-full w-full"
             />
           </Link>
         </div>
